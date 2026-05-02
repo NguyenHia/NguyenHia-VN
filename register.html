@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Đăng Ký — NguyenHia VN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --p:#FF6B35;--pd:#E55525;
+  --bg:#F2F3F7;--surf:#FFFFFF;--surf2:#F7F8FC;
+  --txt:#111827;--txt2:#6B7280;--txt3:#9CA3AF;
+  --border:#E5E7EB;--r:16px;
+  --trans:all .25s cubic-bezier(.4,0,.2,1);
+}
+[data-theme=dark]{
+  --bg:#0D0D14;--surf:#161622;--surf2:#1E1E2E;
+  --txt:#F9FAFB;--txt2:#9CA3AF;--txt3:#6B7280;--border:#2A2A3E;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;display:flex;flex-direction:column;transition:background .35s,color .35s}
+.page-wrap{flex:1;display:flex;flex-direction:column;align-items:center;padding:70px 20px 40px}
+.back-btn{
+  position:fixed;top:16px;left:16px;
+  width:40px;height:40px;border-radius:50%;
+  background:var(--surf);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--txt2);font-size:16px;cursor:pointer;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);transition:var(--trans);
+  text-decoration:none;
+}
+.back-btn:hover{background:var(--p);color:#fff;border-color:var(--p)}
+.logo-area{text-align:center;margin-bottom:24px}
+.logo-circle{
+  width:64px;height:64px;border-radius:18px;
+  background:linear-gradient(135deg,#FF6B35,#FF9558);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:24px;color:#fff;margin:0 auto 12px;
+  box-shadow:0 8px 24px rgba(255,107,53,.35);
+}
+.logo-title{font-size:22px;font-weight:900}
+.logo-sub{font-size:13px;color:var(--txt2);margin-top:3px}
+.free-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(34,197,94,.12);border:1.5px solid rgba(34,197,94,.35);
+  color:#16A34A;padding:5px 14px;border-radius:20px;
+  font-size:12px;font-weight:800;margin-top:10px;
+}
+.card{background:var(--surf);border-radius:var(--r);border:1px solid var(--border);padding:24px;width:100%;max-width:420px;box-shadow:0 4px 24px rgba(0,0,0,.06)}
+.form-title{font-size:22px;font-weight:900;margin-bottom:5px}
+.form-sub{font-size:13.5px;color:var(--txt2);margin-bottom:22px}
+.fg{margin-bottom:16px}
+.fl{display:block;font-size:13px;font-weight:700;color:var(--txt);margin-bottom:6px}
+.iw{position:relative}
+.fi{
+  width:100%;padding:13px 44px;
+  background:var(--surf2);border:2px solid var(--border);
+  border-radius:12px;font-size:15px;color:var(--txt);
+  outline:none;transition:var(--trans);font-family:inherit;
+}
+.fi:focus{border-color:var(--p);background:var(--surf);box-shadow:0 0 0 3px rgba(255,107,53,.1)}
+.fi.err{border-color:#EF4444}
+.fi.ok{border-color:#22C55E}
+.fi::placeholder{color:var(--txt3)}
+.il{position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:14px;pointer-events:none}
+.fi:focus~.il{color:var(--p)}
+.ir{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:14px;cursor:pointer;transition:var(--trans)}
+.ir:hover{color:var(--p)}
+.em{font-size:12px;color:#EF4444;margin-top:5px;display:none}
+.em.show{display:block}
+.sm{font-size:12px;color:#22C55E;margin-top:5px;display:none;align-items:center;gap:4px}
+.sm.show{display:flex}
+.pw-strength{height:4px;border-radius:2px;background:var(--border);margin-top:6px;overflow:hidden}
+.pw-bar{height:100%;border-radius:2px;transition:var(--trans);width:0}
+.pw-weak{background:#EF4444;width:33%}
+.pw-med{background:#F59E0B;width:66%}
+.pw-strong{background:#22C55E;width:100%}
+.btn-main{
+  width:100%;padding:14px;border-radius:13px;
+  background:var(--p);color:#fff;
+  font-size:16px;font-weight:800;
+  cursor:pointer;border:none;font-family:inherit;
+  transition:var(--trans);margin-top:4px;
+}
+.btn-main:hover{background:var(--pd);transform:translateY(-1px)}
+.btn-main:active{transform:scale(.97)}
+.divider{display:flex;align-items:center;gap:12px;margin:16px 0}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.divider span{font-size:12px;color:var(--txt3);font-weight:600}
+.btn-out{
+  width:100%;padding:12px;border-radius:12px;
+  border:1.5px solid var(--border);background:var(--surf2);
+  color:var(--txt2);font-size:14px;font-weight:700;
+  cursor:pointer;font-family:inherit;transition:var(--trans);
+}
+.btn-out:hover{border-color:var(--p);color:var(--p);background:rgba(255,107,53,.06)}
+.form-footer{text-align:center;margin-top:16px;font-size:14px;color:var(--txt2)}
+.form-footer a{color:var(--p);font-weight:700;text-decoration:none}
+.success-screen{
+  text-align:center;padding:20px 0;
+  display:none;animation:fadeIn .4s ease;
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.success-icon{font-size:60px;margin-bottom:16px}
+.success-title{font-size:24px;font-weight:900;color:var(--txt);margin-bottom:8px}
+.success-sub{font-size:14px;color:var(--txt2);line-height:1.5;margin-bottom:20px}
+.verified-card{
+  background:linear-gradient(135deg,rgba(34,197,94,.1),rgba(22,163,74,.05));
+  border:2px solid rgba(34,197,94,.3);
+  border-radius:14px;padding:16px;margin-bottom:20px;
+}
+.verified-card-title{font-size:16px;font-weight:800;color:#16A34A;margin-bottom:4px}
+.verified-card-sub{font-size:13px;color:var(--txt2)}
+.toast{
+  position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-30px);
+  background:var(--surf);color:var(--txt);padding:12px 20px;border-radius:14px;
+  box-shadow:0 8px 32px rgba(0,0,0,.15);z-index:900;
+  font-size:13.5px;font-weight:600;max-width:90vw;text-align:center;
+  opacity:0;transition:all .4s cubic-bezier(.34,1.56,.64,1);
+  border-left:4px solid var(--p);pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.success{border-left-color:#22C55E}
+.toast.error{border-left-color:#EF4444}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<a href="index.html" class="back-btn"><i class="fa fa-arrow-left"></i></a>
+
+<div class="page-wrap">
+  <div class="logo-area">
+    <div class="logo-circle">NH</div>
+    <div class="logo-title">NguyenHia VN</div>
+    <div class="logo-sub">Tạo tài khoản mới</div>
+    <div class="free-badge"><i class="fa fa-check-circle"></i> Đăng ký = FREE VERIFIED ngay!</div>
+  </div>
+
+  <div class="card">
+    <!-- FORM VIEW -->
+    <div id="formView">
+      <div class="form-title">Đăng Ký</div>
+      <div class="form-sub">Điền thông tin bên dưới để tạo tài khoản.</div>
+
+      <!-- Name -->
+      <div class="fg">
+        <label class="fl" for="rName">Họ và Tên</label>
+        <div class="iw">
+          <input type="text" class="fi" id="rName" placeholder="Nguyễn Văn A" autocomplete="name"
+            oninput="validateName(this)">
+          <i class="fa fa-user il"></i>
+        </div>
+        <div class="em" id="eName"></div>
+        <div class="sm" id="sName"><i class="fa fa-check-circle"></i>Tên hợp lệ</div>
+      </div>
+
+      <!-- Email -->
+      <div class="fg">
+        <label class="fl" for="rEmail">Email</label>
+        <div class="iw">
+          <input type="email" class="fi" id="rEmail" placeholder="example@gmail.com" autocomplete="email"
+            oninput="validateEmail(this)">
+          <i class="fa fa-envelope il"></i>
+        </div>
+        <div class="em" id="eEmail"></div>
+        <div class="sm" id="sEmail"><i class="fa fa-check-circle"></i>Email hợp lệ</div>
+      </div>
+
+      <!-- Password -->
+      <div class="fg">
+        <label class="fl" for="rPass">Mật Khẩu</label>
+        <div class="iw">
+          <input type="password" class="fi" id="rPass" placeholder="••••••••" autocomplete="new-password"
+            oninput="validatePass(this)">
+          <i class="fa fa-lock il"></i>
+          <i class="fa fa-eye ir" id="eyeP" onclick="toggleEye('rPass','eyeP')"></i>
+        </div>
+        <div class="pw-strength"><div class="pw-bar" id="pwBar"></div></div>
+        <div class="em" id="ePass"></div>
+        <div class="sm" id="sPass"><i class="fa fa-check-circle"></i>Mật khẩu đủ mạnh</div>
+      </div>
+
+      <!-- Confirm -->
+      <div class="fg">
+        <label class="fl" for="rConfirm">Xác Nhận Mật Khẩu</label>
+        <div class="iw">
+          <input type="password" class="fi" id="rConfirm" placeholder="••••••••" autocomplete="new-password"
+            oninput="validateConfirm(this)">
+          <i class="fa fa-lock il"></i>
+          <i class="fa fa-eye ir" id="eyeC" onclick="toggleEye('rConfirm','eyeC')"></i>
+        </div>
+        <div class="em" id="eConfirm"></div>
+        <div class="sm" id="sConfirm"><i class="fa fa-check-circle"></i>Mật khẩu khớp</div>
+      </div>
+
+      <button class="btn-main" onclick="handleRegister()">
+        <i class="fa fa-rocket"></i> Đăng Ký & Xác Minh Miễn Phí
+      </button>
+
+      <div class="divider"><span>hoặc</span></div>
+      <button class="btn-out" onclick="window.location.href='login.html'">
+        <i class="fa fa-sign-in-alt"></i> Đã có tài khoản? Đăng Nhập
+      </button>
+    </div>
+
+    <!-- SUCCESS VIEW -->
+    <div class="success-screen" id="successView">
+      <div class="success-icon">🎉</div>
+      <div class="success-title" id="successName">Chào mừng!</div>
+      <div class="success-sub">Tài khoản của bạn đã được tạo thành công.</div>
+      <div class="verified-card">
+        <div class="verified-card-title">✅ FREE VERIFIED!</div>
+        <div class="verified-card-sub">Bạn đã được xác minh miễn phí ngay lập tức.<br>Không cần xác nhận email!</div>
+      </div>
+      <button class="btn-main" onclick="goHome()">
+        <i class="fa fa-home"></i> Về Trang Chủ
+      </button>
+    </div>
+
+    <div class="form-footer" id="formFooter">
+      <a href="index.html">← Về Trang Chủ</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const theme=localStorage.getItem('nhvn_theme')||'system';
+if(theme==='dark')document.body.setAttribute('data-theme','dark');
+else if(theme==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches)document.body.setAttribute('data-theme','dark');
+
+function toggleEye(i,e){
+  const inp=document.getElementById(i),ico=document.getElementById(e);
+  inp.type=inp.type==='password'?'text':'password';
+  ico.className=inp.type==='text'?'fa fa-eye-slash ir':'fa fa-eye ir';
+}
+
+function setErr(fId,eId,sId,msg){
+  const f=document.getElementById(fId);
+  f.classList.add('err');f.classList.remove('ok');
+  const e=document.getElementById(eId);e.textContent=msg;e.classList.add('show');
+  document.getElementById(sId).classList.remove('show');
+}
+function setOk(fId,eId,sId){
+  const f=document.getElementById(fId);
+  f.classList.remove('err');f.classList.add('ok');
+  document.getElementById(eId).classList.remove('show');
+  document.getElementById(sId).classList.add('show');
+}
+function clearState(fId,eId,sId){
+  const f=document.getElementById(fId);f.classList.remove('err','ok');
+  document.getElementById(eId).classList.remove('show');
+  document.getElementById(sId).classList.remove('show');
+}
+
+function validateName(el){
+  const v=el.value.trim();
+  if(!v){clearState('rName','eName','sName');return false}
+  if(v.length<2){setErr('rName','eName','sName','Tên phải có ít nhất 2 ký tự');return false}
+  setOk('rName','eName','sName');return true;
+}
+function validateEmail(el){
+  const v=el.value.trim();
+  if(!v){clearState('rEmail','eEmail','sEmail');return false}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){setErr('rEmail','eEmail','sEmail','Email không hợp lệ');return false}
+  // Check duplicate
+  const users=JSON.parse(localStorage.getItem('nhvn_users')||'[]');
+  if(users.find(u=>u.email.toLowerCase()===v.toLowerCase())){
+    setErr('rEmail','eEmail','sEmail','Email này đã được đăng ký. Vui lòng đăng nhập!');return false;
+  }
+  setOk('rEmail','eEmail','sEmail');return true;
+}
+function validatePass(el){
+  const v=el.value;
+  const bar=document.getElementById('pwBar');
+  if(!v){bar.className='pw-bar';bar.style.width='0';clearState('rPass','ePass','sPass');return false}
+  if(v.length<8){
+    bar.className='pw-bar pw-weak';
+    setErr('rPass','ePass','sPass','Mật khẩu phải có ít nhất 8 ký tự');return false;
+  }
+  const strong=/(?=.*[A-Z])(?=.*[0-9])/.test(v);
+  if(strong){bar.className='pw-bar pw-strong';}
+  else{bar.className='pw-bar pw-med';}
+  setOk('rPass','ePass','sPass');
+  if(document.getElementById('rConfirm').value)validateConfirm(document.getElementById('rConfirm'));
+  return true;
+}
+function validateConfirm(el){
+  const v=el.value;const p=document.getElementById('rPass').value;
+  if(!v){clearState('rConfirm','eConfirm','sConfirm');return false}
+  if(v!==p){setErr('rConfirm','eConfirm','sConfirm','Mật khẩu xác nhận không khớp');return false}
+  setOk('rConfirm','eConfirm','sConfirm');return true;
+}
+
+let toastT=null;
+function showToast(msg,type='info',dur=3000){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.className=`toast ${type} show`;
+  clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),dur);
+}
+
+function handleRegister(){
+  // Trigger all validations
+  const n=validateName(document.getElementById('rName'));
+  const e=validateEmail(document.getElementById('rEmail'));
+  const p=validatePass(document.getElementById('rPass'));
+  const c=validateConfirm(document.getElementById('rConfirm'));
+  if(!n||!e||!p||!c)return;
+
+  const name=document.getElementById('rName').value.trim();
+  const email=document.getElementById('rEmail').value.trim();
+  const pass=document.getElementById('rPass').value;
+
+  // Save user
+  const users=JSON.parse(localStorage.getItem('nhvn_users')||'[]');
+  users.push({name,email,password:pass,verified:true,createdAt:new Date().toISOString()});
+  localStorage.setItem('nhvn_users',JSON.stringify(users));
+
+  // Auto login
+  const session={name,email,verified:true};
+  localStorage.setItem('nhvn_session',JSON.stringify(session));
+
+  // Show success
+  document.getElementById('successName').textContent='Chào mừng, '+name+'! 👋';
+  document.getElementById('formView').style.display='none';
+  document.getElementById('formFooter').style.display='none';
+  document.getElementById('successView').style.display='block';
+}
+
+function goHome(){window.location.href='index.html'}
+</script>
+</body>
+</html>
