@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>404 — NguyenHia VN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --p:#FF6B35;--bg:#F2F3F7;--surf:#FFFFFF;
+  --txt:#111827;--txt2:#6B7280;--border:#E5E7EB;
+}
+[data-theme=dark]{--bg:#0D0D14;--surf:#161622;--txt:#F9FAFB;--txt2:#9CA3AF;--border:#2A2A3E;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);color:var(--txt);
+  min-height:100vh;display:flex;align-items:center;
+  justify-content:center;padding:24px;
+  transition:background .35s,color .35s;
+}
+.wrap{text-align:center;max-width:400px;width:100%}
+.cat-img{
+  width:200px;height:200px;border-radius:24px;
+  margin:0 auto 24px;overflow:hidden;
+  box-shadow:0 12px 40px rgba(0,0,0,.15);
+  position:relative;
+}
+.cat-img img{width:100%;height:100%;object-fit:cover}
+.cat-emoji-fallback{
+  width:100%;height:100%;
+  background:linear-gradient(145deg,#FF6B35,#FF9558);
+  display:flex;align-items:center;justify-content:center;
+  font-size:80px;
+}
+.err-code{
+  font-size:80px;font-weight:900;
+  background:linear-gradient(135deg,#FF6B35,#FF9558);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  line-height:1;margin-bottom:8px;
+}
+.err-title{font-size:24px;font-weight:900;margin-bottom:8px}
+.err-sub{font-size:14px;color:var(--txt2);line-height:1.6;margin-bottom:20px}
+.url-bar{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--surf);border:1.5px solid var(--border);
+  border-radius:10px;padding:9px 16px;
+  font-size:13px;color:var(--txt2);font-family:'Courier New',monospace;
+  margin-bottom:24px;word-break:break-all;max-width:100%;
+  box-shadow:0 2px 8px rgba(0,0,0,.06);
+}
+.url-bar i{color:#EF4444;font-size:13px;flex-shrink:0}
+.btn-home{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--p);color:#fff;
+  padding:13px 28px;border-radius:14px;
+  font-size:15px;font-weight:800;text-decoration:none;
+  transition:all .25s;font-family:inherit;border:none;cursor:pointer;
+  box-shadow:0 4px 16px rgba(255,107,53,.35);margin-right:10px;
+}
+.btn-home:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,107,53,.4)}
+.btn-back{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--surf);color:var(--txt2);
+  padding:13px 24px;border-radius:14px;
+  font-size:15px;font-weight:700;text-decoration:none;
+  border:1.5px solid var(--border);transition:all .25s;
+}
+.btn-back:hover{border-color:var(--p);color:var(--p)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:8px}
+.cat-label{
+  position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
+  background:rgba(0,0,0,.65);color:#fff;
+  padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;
+  white-space:nowrap;
+}
+.logo-sm{
+  display:flex;align-items:center;gap:8px;justify-content:center;margin-bottom:28px;
+}
+.logo-sm-box{
+  width:32px;height:32px;border-radius:9px;
+  background:linear-gradient(135deg,#FF6B35,#FF9558);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:12px;color:#fff;
+}
+.logo-sm-text{font-size:16px;font-weight:800}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="logo-sm">
+    <div class="logo-sm-box">NH</div>
+    <span class="logo-sm-text">NguyenHia VN</span>
+  </div>
+
+  <div class="cat-img">
+    <img
+      src="https://http.cat/images/404.jpg"
+      alt="404 Angry Cat"
+      onerror="this.parentNode.innerHTML='<div class=cat-emoji-fallback>😾</div><div class=cat-label>404 Cat</div>'">
+    <div class="cat-label">😾 404 Not Found</div>
+  </div>
+
+  <div class="err-code">404</div>
+  <div class="err-title">Trang Không Tồn Tại</div>
+  <div class="err-sub">Xin lỗi! Trang bạn đang tìm kiếm không tồn tại hoặc đã bị xóa.</div>
+
+  <div class="url-bar">
+    <i class="fa fa-times-circle"></i>
+    <span id="urlDisplay">NguyenHia.Dev/Home/test82837</span>
+  </div>
+
+  <div class="actions">
+    <a href="index.html" class="btn-home">
+      <i class="fa fa-home"></i> Về Trang Chủ
+    </a>
+    <a href="javascript:history.back()" class="btn-back">
+      <i class="fa fa-arrow-left"></i> Quay Lại
+    </a>
+  </div>
+</div>
+
+<script>
+const t=localStorage.getItem('nhvn_theme')||'system';
+if(t==='dark')document.body.setAttribute('data-theme','dark');
+else if(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches)document.body.setAttribute('data-theme','dark');
+// Show actual URL
+const url=window.location.pathname||'/Home/test82837';
+document.getElementById('urlDisplay').textContent='NguyenHia.Dev'+url;
+</script>
+</body>
+</html>
