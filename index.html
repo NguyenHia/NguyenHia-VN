@@ -1,1072 +1,1285 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NguyenHia VN — UI Library</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    /* ===== CSS VARIABLES ===== */
-    :root {
-      --primary: #FF6B35;
-      --primary-dark: #E55525;
-      --secondary: #4A90D9;
-      --bg: #F4F4F8;
-      --surface: #FFFFFF;
-      --surface2: #F0F0F5;
-      --text: #1A1A2E;
-      --text2: #666680;
-      --border: #E2E2EE;
-      --shadow: 0 4px 16px rgba(0,0,0,0.08);
-      --radius: 14px;
-      --nav-h: 66px;
-    }
-    [data-theme="dark"] {
-      --bg: #0F0F1A;
-      --surface: #1A1A2E;
-      --surface2: #252540;
-      --text: #F0F0FF;
-      --text2: #9999BB;
-      --border: #2E2E50;
-      --shadow: 0 4px 16px rgba(0,0,0,0.4);
-    }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      transition: background .3s, color .3s;
-      padding-bottom: var(--nav-h);
-      min-height: 100vh;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<title>NguyenHia VN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root{
+  --p:#FF6B35;--pd:#E55525;--p2:#FF9558;
+  --bg:#F2F3F7;--surf:#FFFFFF;--surf2:#F7F8FC;--surf3:#EDEEF4;
+  --txt:#111827;--txt2:#6B7280;--txt3:#9CA3AF;
+  --border:#E5E7EB;--shadow:0 2px 12px rgba(0,0,0,.06);
+  --shadow2:0 8px 32px rgba(0,0,0,.10);
+  --r:16px;--r2:12px;--r3:8px;
+  --nav:64px;--top:58px;
+  --trans:all .25s cubic-bezier(.4,0,.2,1);
+}
+[data-theme=dark]{
+  --bg:#0D0D14;--surf:#161622;--surf2:#1E1E2E;--surf3:#252536;
+  --txt:#F9FAFB;--txt2:#9CA3AF;--txt3:#6B7280;
+  --border:#2A2A3E;--shadow:0 2px 12px rgba(0,0,0,.3);
+  --shadow2:0 8px 32px rgba(0,0,0,.5);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:var(--bg);color:var(--txt);
+  transition:background .35s,color .35s;
+  padding-bottom:calc(var(--nav) + env(safe-area-inset-bottom));
+  min-height:100vh;overscroll-behavior:none;
+}
+img{display:block;user-select:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
 
-    /* ===== TOPBAR ===== */
-    .topbar {
-      position: sticky; top: 0; z-index: 300;
-      background: var(--primary);
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 12px 18px;
-      box-shadow: 0 2px 10px rgba(255,107,53,.4);
-    }
-    .topbar-logo { display:flex; align-items:center; gap:10px; }
-    .logo-box {
-      width:38px; height:38px; border-radius:10px;
-      background: rgba(255,255,255,.25); border: 2px solid rgba(255,255,255,.4);
-      display:flex; align-items:center; justify-content:center;
-      font-weight:900; font-size:13px; color:white; letter-spacing:-.5px;
-    }
-    .topbar-logo h1 { color:white; font-size:17px; font-weight:800; }
-    .topbar-logo span { color:rgba(255,255,255,.7); font-size:11px; }
-    .topbar-right { display:flex; align-items:center; gap:8px; }
-    .lang-pill {
-      background:rgba(255,255,255,.2); border:1.5px solid rgba(255,255,255,.4);
-      color:white; padding:4px 11px; border-radius:20px;
-      font-size:12px; font-weight:700; cursor:pointer;
-      transition: background .2s;
-    }
-    .lang-pill:hover { background:rgba(255,255,255,.35); }
-    .icon-btn {
-      width:36px; height:36px; border-radius:50%;
-      background:rgba(255,255,255,.15); border:none; color:white;
-      display:flex; align-items:center; justify-content:center;
-      cursor:pointer; font-size:15px; transition:.2s; position:relative;
-    }
-    .icon-btn:hover { background:rgba(255,255,255,.3); }
-    .notif-dot::after {
-      content:''; position:absolute; top:4px; right:4px;
-      width:8px; height:8px; background:#FF4444;
-      border-radius:50%; border:2px solid var(--primary);
-    }
+/* ── TOPBAR ── */
+.topbar{
+  position:sticky;top:0;z-index:400;
+  height:var(--top);
+  background:var(--surf);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;
+  padding:0 16px;gap:10px;
+  backdrop-filter:blur(20px);
+  transition:var(--trans);
+}
+.topbar-logo{display:flex;align-items:center;gap:9px;flex:1}
+.logo-mark{
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,var(--p),var(--p2));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:13px;color:#fff;flex-shrink:0;
+}
+.logo-text{font-size:17px;font-weight:800;color:var(--txt);letter-spacing:-.3px}
+.logo-ver{font-size:10px;color:var(--txt2);font-weight:500}
+.topbar-actions{display:flex;align-items:center;gap:6px}
+.tb-btn{
+  width:36px;height:36px;border-radius:50%;
+  background:var(--surf2);color:var(--txt2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;transition:var(--trans);position:relative;
+}
+.tb-btn:hover,.tb-btn:active{background:var(--surf3);color:var(--p)}
+.notif-badge{
+  position:absolute;top:3px;right:3px;
+  width:9px;height:9px;background:#EF4444;
+  border-radius:50%;border:2px solid var(--surf);
+}
+.lang-btn{
+  padding:0 12px;border-radius:20px;height:32px;
+  background:var(--surf2);color:var(--txt2);
+  font-size:12px;font-weight:700;
+  display:flex;align-items:center;gap:5px;
+  transition:var(--trans);
+}
+.lang-btn:hover{background:var(--p);color:#fff}
 
-    /* ===== PAGES ===== */
-    .page { display:none; animation: fadeIn .3s ease; }
-    .page.active { display:block; }
-    @keyframes fadeIn { from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:translateY(0)} }
+/* ── PAGES ── */
+.page{display:none;min-height:calc(100vh - var(--top) - var(--nav))}
+.page.active{display:block;animation:fadeSlide .3s ease}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 
-    /* ===== BANNER ===== */
-    .banner {
-      background: linear-gradient(145deg, #FF6B35 0%, #FF9558 60%, #FFB380 100%);
-      padding: 28px 20px 32px; color:white; position:relative; overflow:hidden;
-    }
-    .banner::before {
-      content:''; position:absolute; top:-60px; right:-60px;
-      width:220px; height:220px; border-radius:50%;
-      background:rgba(255,255,255,.08);
-    }
-    .banner::after {
-      content:''; position:absolute; bottom:-40px; right:30px;
-      width:140px; height:140px; border-radius:50%;
-      background:rgba(255,255,255,.06);
-    }
-    .banner-badge {
-      display:inline-block;
-      background:rgba(255,255,255,.2); border:1.5px solid rgba(255,255,255,.4);
-      border-radius:20px; padding:4px 13px; font-size:12px; font-weight:600;
-      margin-bottom:14px;
-    }
-    .banner h2 { font-size:27px; font-weight:900; line-height:1.2; margin-bottom:8px; }
-    .banner p { font-size:13.5px; opacity:.88; line-height:1.5; margin-bottom:22px; max-width:280px; }
-    .banner-btns { display:flex; gap:10px; flex-wrap:wrap; }
-    .btn-white {
-      background:white; color:var(--primary); border:none;
-      padding:11px 22px; border-radius:25px; font-weight:800;
-      font-size:14px; cursor:pointer; display:flex; align-items:center; gap:7px;
-      transition:.2s; box-shadow: 0 4px 14px rgba(0,0,0,.15);
-    }
-    .btn-white:hover { transform:translateY(-2px); box-shadow:0 6px 18px rgba(0,0,0,.2); }
-    .btn-ghost {
-      background:rgba(255,255,255,.15); color:white;
-      border:2px solid rgba(255,255,255,.5);
-      padding:11px 22px; border-radius:25px; font-weight:700;
-      font-size:14px; cursor:pointer; display:flex; align-items:center; gap:7px;
-      transition:.2s;
-    }
-    .btn-ghost:hover { background:rgba(255,255,255,.28); }
+/* ── BOTTOM NAV ── */
+.bnav{
+  position:fixed;bottom:0;left:0;right:0;
+  height:var(--nav);
+  background:var(--surf);
+  border-top:1px solid var(--border);
+  display:flex;z-index:400;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.bnav-btn{
+  flex:1;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:3px;
+  background:none;border:none;color:var(--txt3);
+  font-size:10px;font-weight:600;transition:var(--trans);
+  padding:6px 0;
+}
+.bnav-btn i{font-size:20px;transition:var(--trans)}
+.bnav-btn.active{color:var(--p)}
+.bnav-btn.active i{transform:translateY(-2px)}
 
-    /* ===== SEARCH ===== */
-    .search-wrap { padding:14px 18px 0; }
-    .search-inner { position:relative; }
-    .search-inner input {
-      width:100%; padding:13px 18px 13px 46px;
-      background:var(--surface); border:1.5px solid var(--border);
-      border-radius:13px; font-size:15px; color:var(--text);
-      outline:none; transition:.2s;
-    }
-    .search-inner input:focus { border-color:var(--primary); box-shadow:0 0 0 3px rgba(255,107,53,.12); }
-    .search-inner .si { position:absolute; left:15px; top:50%; transform:translateY(-50%); color:var(--text2); font-size:15px; }
+/* ── FEATURED BANNER ── */
+.banner-wrap{position:relative;overflow:hidden;background:var(--surf)}
+.banner-slides{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
+.banner-slide{
+  min-width:100%;padding:28px 20px 24px;
+  position:relative;overflow:hidden;
+}
+.bs-1{background:linear-gradient(145deg,#FF6B35 0%,#FF9558 50%,#FFB380 100%)}
+.bs-2{background:linear-gradient(145deg,#4A90D9 0%,#7B5EA7 100%)}
+.bs-3{background:linear-gradient(145deg,#11998e 0%,#38ef7d 100%)}
+.banner-slide::before{
+  content:'';position:absolute;top:-80px;right:-80px;
+  width:260px;height:260px;border-radius:50%;
+  background:rgba(255,255,255,.08);
+}
+.banner-slide::after{
+  content:'';position:absolute;bottom:-60px;right:20px;
+  width:180px;height:180px;border-radius:50%;
+  background:rgba(255,255,255,.05);
+}
+.bs-tag{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);
+  color:#fff;padding:4px 11px;border-radius:20px;
+  font-size:11px;font-weight:700;margin-bottom:12px;
+}
+.bs-title{font-size:24px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:8px}
+.bs-sub{font-size:13px;color:rgba(255,255,255,.85);line-height:1.5;margin-bottom:18px;max-width:270px}
+.bs-actions{display:flex;gap:9px;flex-wrap:wrap}
+.bs-btn-white{
+  background:#fff;border:none;
+  padding:10px 20px;border-radius:24px;
+  font-size:13px;font-weight:800;
+  display:flex;align-items:center;gap:6px;
+  color:var(--p);transition:var(--trans);
+  box-shadow:0 4px 14px rgba(0,0,0,.15);
+}
+.bs-btn-ghost{
+  background:rgba(255,255,255,.18);
+  border:1.5px solid rgba(255,255,255,.5);
+  color:#fff;padding:10px 18px;border-radius:24px;
+  font-size:13px;font-weight:700;
+  display:flex;align-items:center;gap:6px;
+  transition:var(--trans);
+}
+.bs-btn-white:active,.bs-btn-ghost:active{transform:scale(.96)}
+.banner-dots{
+  position:absolute;bottom:12px;left:50%;
+  transform:translateX(-50%);
+  display:flex;gap:6px;
+}
+.bdot{
+  width:6px;height:6px;border-radius:3px;
+  background:rgba(255,255,255,.4);transition:var(--trans);
+}
+.bdot.active{width:18px;background:rgba(255,255,255,.9)}
 
-    /* ===== STATS ===== */
-    .stats-row { display:flex; gap:12px; padding:14px 18px; }
-    .stat-card {
-      flex:1; background:var(--surface); border-radius:var(--radius);
-      padding:14px 10px; text-align:center; box-shadow:var(--shadow);
-      border:1px solid var(--border);
-    }
-    .stat-num { font-size:22px; font-weight:900; color:var(--primary); }
-    .stat-label { font-size:11px; color:var(--text2); margin-top:3px; }
+/* ── SEARCH ── */
+.search-bar{
+  margin:14px 16px 0;position:relative;
+}
+.search-bar input{
+  width:100%;padding:12px 16px 12px 44px;
+  background:var(--surf);border:1.5px solid var(--border);
+  border-radius:14px;font-size:15px;color:var(--txt);
+  outline:none;transition:var(--trans);font-family:inherit;
+}
+.search-bar input:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(255,107,53,.12)}
+.search-bar input::placeholder{color:var(--txt3)}
+.search-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:14px}
+.search-bar input:focus ~ .search-icon{color:var(--p)}
 
-    /* ===== SECTION ===== */
-    .section { padding:6px 18px 18px; }
-    .sec-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; margin-top:12px; }
-    .sec-title { font-size:17px; font-weight:800; color:var(--text); }
-    .sec-link { color:var(--primary); font-size:13px; font-weight:600; cursor:pointer; }
+/* ── SECTION ── */
+.sec{padding:18px 16px 4px}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.sec-title{font-size:17px;font-weight:800;color:var(--txt)}
+.sec-more{font-size:13px;font-weight:600;color:var(--p);cursor:pointer}
 
-    /* ===== FEATURE SCROLL ===== */
-    .feat-scroll { display:flex; gap:12px; overflow-x:auto; padding-bottom:6px; scrollbar-width:none; }
-    .feat-scroll::-webkit-scrollbar { display:none; }
-    .feat-card {
-      min-width:130px; background:var(--surface); border-radius:var(--radius);
-      padding:16px 12px; box-shadow:var(--shadow); border:1px solid var(--border);
-      text-align:center; cursor:pointer; transition:.2s;
-    }
-    .feat-card:hover { transform:translateY(-3px); box-shadow:0 8px 24px rgba(0,0,0,.12); }
-    .feat-ico { width:48px; height:48px; border-radius:13px; margin:0 auto 10px; display:flex; align-items:center; justify-content:center; font-size:22px; }
-    .feat-card h4 { font-size:13px; font-weight:700; color:var(--text); }
-    .feat-card p { font-size:11px; color:var(--text2); margin-top:3px; }
+/* ── CATEGORIES ── */
+.cats-scroll{display:flex;gap:8px;overflow-x:auto;padding:0 16px 4px;scrollbar-width:none}
+.cats-scroll::-webkit-scrollbar{display:none}
+.cat-chip{
+  display:flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:20px;
+  background:var(--surf);border:1.5px solid var(--border);
+  font-size:13px;font-weight:600;color:var(--txt2);
+  white-space:nowrap;transition:var(--trans);flex-shrink:0;
+}
+.cat-chip.active,.cat-chip:hover{background:var(--p);color:#fff;border-color:var(--p)}
 
-    /* ===== APPS GRID ===== */
-    .apps-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
-    .app-item {
-      display:flex; flex-direction:column; align-items:center; gap:7px;
-      padding:10px 6px; border-radius:12px; cursor:pointer; transition:.2s;
-    }
-    .app-item:hover { background:var(--surface2); transform:scale(1.04); }
-    .app-ico {
-      width:54px; height:54px; border-radius:14px;
-      display:flex; align-items:center; justify-content:center;
-      font-size:26px; box-shadow:0 3px 10px rgba(0,0,0,.13);
-    }
-    .app-name { font-size:11px; text-align:center; color:var(--text); font-weight:600; }
+/* ── APP CARD (Store Style) ── */
+.apps-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border-radius:var(--r);overflow:hidden;border:1px solid var(--border)}
+.app-card{
+  display:flex;align-items:center;gap:13px;
+  padding:13px 14px;background:var(--surf);
+  transition:var(--trans);cursor:pointer;
+}
+.app-card:active{background:var(--surf2)}
+.app-card-icon{
+  width:56px;height:56px;border-radius:14px;
+  overflow:hidden;flex-shrink:0;
+  background:var(--surf2);
+  box-shadow:0 2px 8px rgba(0,0,0,.12);
+}
+.app-card-icon img{width:100%;height:100%;object-fit:cover}
+.app-card-info{flex:1;min-width:0}
+.app-card-name{font-size:15px;font-weight:700;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.app-card-cat{font-size:12px;color:var(--txt2);margin-top:1px}
+.app-card-stars{display:flex;align-items:center;gap:3px;margin-top:5px}
+.stars{color:#FBBF24;font-size:11px}
+.star-num{font-size:11px;color:var(--txt2);font-weight:600}
+.btn-get{
+  padding:7px 16px;border-radius:20px;
+  background:var(--surf2);color:var(--p);
+  font-size:13px;font-weight:800;flex-shrink:0;
+  border:1.5px solid var(--border);transition:var(--trans);
+}
+.btn-get:active{background:var(--p);color:#fff;border-color:var(--p);transform:scale(.95)}
 
-    /* ===== DOWNLOAD BANNER ===== */
-    .dl-banner {
-      margin:0 18px 4px;
-      background:linear-gradient(135deg, #4A90D9, #7B5EA7);
-      border-radius:var(--radius); padding:18px;
-      display:flex; align-items:center; justify-content:space-between;
-      color:white; gap:12px;
-    }
-    .dl-banner h3 { font-size:15px; font-weight:800; margin-bottom:4px; }
-    .dl-banner p { font-size:12px; opacity:.85; }
-    .btn-dl {
-      background:white; color:#4A90D9; border:none;
-      padding:10px 16px; border-radius:22px; font-weight:800;
-      font-size:13px; cursor:pointer; white-space:nowrap;
-      display:flex; align-items:center; gap:6px; transition:.2s;
-    }
-    .btn-dl:hover { transform:scale(1.06); }
+/* ── APPS GRID (home) ── */
+.apps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.app-grid-item{
+  display:flex;flex-direction:column;align-items:center;
+  gap:6px;padding:10px 4px;border-radius:12px;
+  cursor:pointer;transition:var(--trans);
+}
+.app-grid-item:active{background:var(--surf3);transform:scale(.93)}
+.app-grid-icon{
+  width:52px;height:52px;border-radius:14px;
+  overflow:hidden;background:var(--surf2);
+  box-shadow:0 2px 8px rgba(0,0,0,.10);flex-shrink:0;
+}
+.app-grid-icon img{width:100%;height:100%;object-fit:cover}
+.app-grid-name{font-size:11px;font-weight:600;color:var(--txt);text-align:center;line-height:1.2}
 
-    /* ===== BOTTOM NAV ===== */
-    .bottom-nav {
-      position:fixed; bottom:0; left:0; right:0;
-      height:var(--nav-h); background:var(--surface);
-      border-top:1px solid var(--border); display:flex; z-index:200;
-      box-shadow:0 -3px 12px rgba(0,0,0,.08);
-    }
-    .nav-btn {
-      flex:1; display:flex; flex-direction:column; align-items:center;
-      justify-content:center; gap:4px; cursor:pointer; border:none;
-      background:transparent; color:var(--text2); padding:6px 0; transition:.2s;
-    }
-    .nav-btn i { font-size:19px; transition:.2s; }
-    .nav-btn span { font-size:10px; font-weight:600; }
-    .nav-btn.active { color:var(--primary); }
-    .nav-btn.active i { transform:translateY(-3px); }
+/* ── FEATURED FEATURES ── */
+.features-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
+.features-scroll::-webkit-scrollbar{display:none}
+.feature-card{
+  min-width:140px;background:var(--surf);border-radius:var(--r);
+  border:1px solid var(--border);padding:16px 13px;
+  box-shadow:var(--shadow);flex-shrink:0;transition:var(--trans);
+}
+.feature-card:active{transform:scale(.97)}
+.feat-icon-box{
+  width:46px;height:46px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:20px;margin-bottom:10px;
+}
+.feat-title{font-size:13px;font-weight:800;color:var(--txt);margin-bottom:3px}
+.feat-desc{font-size:11px;color:var(--txt2);line-height:1.4}
+.feat-view-btn{
+  margin-top:9px;padding:5px 11px;border-radius:8px;
+  background:var(--surf2);border:1px solid var(--border);
+  font-size:11px;font-weight:700;color:var(--p);
+  transition:var(--trans);
+}
+.feat-view-btn:active{background:var(--p);color:#fff}
 
-    /* ===== MODAL ===== */
-    .overlay {
-      position:fixed; inset:0; background:rgba(0,0,0,.55);
-      z-index:500; display:none; align-items:flex-end; justify-content:center;
-    }
-    .overlay.show { display:flex; }
-    .modal {
-      background:var(--surface); border-radius:22px 22px 0 0;
-      width:100%; max-width:480px; max-height:92vh; overflow-y:auto;
-      padding:22px 22px 34px; animation:slideUp .35s ease;
-    }
-    @keyframes slideUp { from{transform:translateY(100%)} to{transform:translateY(0)} }
-    .modal-handle { width:42px; height:4px; background:var(--border); border-radius:2px; margin:0 auto 22px; }
-    .modal-title { font-size:23px; font-weight:900; margin-bottom:5px; }
-    .modal-sub { font-size:14px; color:var(--text2); margin-bottom:22px; }
+/* ── APP DETAIL MODAL ── */
+.overlay{
+  position:fixed;inset:0;z-index:600;
+  background:rgba(0,0,0,0);
+  display:flex;align-items:flex-end;justify-content:center;
+  pointer-events:none;transition:background .3s;
+}
+.overlay.open{background:rgba(0,0,0,.55);pointer-events:all}
+.modal{
+  background:var(--surf);width:100%;max-width:520px;
+  border-radius:24px 24px 0 0;
+  max-height:92vh;overflow-y:auto;
+  transform:translateY(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+  padding:0 0 24px;
+}
+.overlay.open .modal{transform:translateY(0)}
+.modal-drag{width:40px;height:4px;background:var(--surf3);border-radius:2px;margin:14px auto 0}
 
-    /* ===== FORM ===== */
-    .form-group { margin-bottom:15px; }
-    .form-label { display:block; font-size:13px; font-weight:700; color:var(--text); margin-bottom:6px; }
-    .input-wrap { position:relative; }
-    .form-input {
-      width:100%; padding:13px 16px 13px 42px;
-      background:var(--surface2); border:2px solid var(--border);
-      border-radius:11px; font-size:15px; color:var(--text);
-      outline:none; transition:.2s;
-    }
-    .form-input:focus { border-color:var(--primary); background:var(--surface); }
-    .form-input.err { border-color:#F44336; }
-    .in-icon-left { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text2); font-size:14px; }
-    .in-icon-right { position:absolute; right:14px; top:50%; transform:translateY(-50%); color:var(--text2); font-size:14px; cursor:pointer; }
-    .err-msg { font-size:12px; color:#F44336; margin-top:5px; display:none; }
-    .err-msg.show { display:block; }
-    .btn-register {
-      width:100%; padding:14px; background:var(--primary); color:white;
-      border:none; border-radius:13px; font-size:16px; font-weight:800;
-      cursor:pointer; margin-top:6px; transition:.2s;
-    }
-    .btn-register:hover { background:var(--primary-dark); transform:translateY(-1px); }
-    .form-footer { text-align:center; margin-top:14px; font-size:14px; color:var(--text2); }
-    .form-footer a { color:var(--primary); font-weight:700; cursor:pointer; }
-    .btn-secondary {
-      width:100%; margin-top:10px; padding:12px;
-      background:transparent; border:1.5px solid var(--border);
-      border-radius:11px; color:var(--text2); cursor:pointer; font-size:14px;
-      transition:.2s;
-    }
-    .btn-secondary:hover { background:var(--surface2); }
+/* App Detail */
+.appd-hero{padding:20px 20px 0}
+.appd-top{display:flex;gap:14px;margin-bottom:16px}
+.appd-icon{width:76px;height:76px;border-radius:18px;overflow:hidden;background:var(--surf2);box-shadow:var(--shadow2);flex-shrink:0}
+.appd-icon img{width:100%;height:100%;object-fit:cover}
+.appd-info{flex:1}
+.appd-name{font-size:20px;font-weight:900;color:var(--txt);margin-bottom:3px}
+.appd-dev{font-size:13px;color:var(--txt2);margin-bottom:8px}
+.appd-badges{display:flex;gap:6px;flex-wrap:wrap}
+.badge{padding:3px 9px;border-radius:6px;font-size:11px;font-weight:700}
+.badge-free{background:#DCFCE7;color:#16A34A}
+.badge-cat{background:var(--surf2);color:var(--txt2);border:1px solid var(--border)}
+[data-theme=dark] .badge-free{background:rgba(22,163,74,.2);color:#4ADE80}
+.appd-stats{display:flex;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px}
+.appd-stat{flex:1;text-align:center;padding:10px 8px;border-right:1px solid var(--border)}
+.appd-stat:last-child{border-right:none}
+.appd-stat-val{font-size:15px;font-weight:800;color:var(--txt)}
+.appd-stat-label{font-size:10px;color:var(--txt2);margin-top:2px}
+.appd-actions{display:flex;gap:10px;margin-bottom:18px}
+.btn-install{
+  flex:1;padding:13px;border-radius:14px;
+  background:var(--p);color:#fff;
+  font-size:15px;font-weight:800;
+  transition:var(--trans);
+}
+.btn-install:active{background:var(--pd);transform:scale(.97)}
+.btn-share{
+  width:46px;height:46px;border-radius:14px;
+  background:var(--surf2);border:1px solid var(--border);
+  color:var(--txt2);display:flex;align-items:center;justify-content:center;
+  font-size:16px;flex-shrink:0;
+}
+.appd-section{padding:0 20px 16px}
+.appd-sec-title{font-size:13px;font-weight:800;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
+.appd-desc{font-size:14px;line-height:1.6;color:var(--txt2)}
+.screenshots{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none}
+.screenshots::-webkit-scrollbar{display:none}
+.screenshot{
+  width:130px;height:230px;border-radius:12px;flex-shrink:0;
+  background:linear-gradient(145deg,var(--surf2),var(--surf3));
+  border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--txt3);font-size:12px;
+}
 
-    /* ===== PROFILE PAGE ===== */
-    .profile-hero {
-      background:linear-gradient(145deg, #FF6B35, #FF9558);
-      padding:40px 20px 30px; text-align:center; color:white;
-    }
-    .avatar-circle {
-      width:82px; height:82px; border-radius:50%;
-      background:rgba(255,255,255,.25); border:3px solid rgba(255,255,255,.7);
-      margin:0 auto 12px; display:flex; align-items:center; justify-content:center;
-      font-size:34px;
-    }
-    .profile-hero h2 { font-size:22px; font-weight:800; }
-    .profile-hero p { font-size:13px; opacity:.83; margin-top:4px; }
-    .list-card {
-      margin:14px 16px; background:var(--surface); border-radius:var(--radius);
-      overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border);
-    }
-    .list-item {
-      display:flex; align-items:center; padding:14px 16px;
-      border-bottom:1px solid var(--border); cursor:pointer; transition:.2s;
-    }
-    .list-item:last-child { border-bottom:none; }
-    .list-item:hover { background:var(--surface2); }
-    .li-icon { width:36px; height:36px; border-radius:9px; display:flex; align-items:center; justify-content:center; margin-right:13px; font-size:15px; }
-    .li-label { flex:1; font-size:15px; font-weight:600; color:var(--text); }
-    .li-right { font-size:13px; color:var(--text2); }
+/* ── NOTIFICATIONS ── */
+.notif-panel{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  background:var(--surf);
+  border-bottom:1px solid var(--border);
+  box-shadow:var(--shadow2);
+  transform:translateY(-110%);
+  transition:transform .35s cubic-bezier(.4,0,.2,1);
+  max-height:80vh;overflow-y:auto;
+}
+.notif-panel.open{transform:translateY(0)}
+.notif-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 18px;border-bottom:1px solid var(--border);
+}
+.notif-title{font-size:17px;font-weight:800;color:var(--txt)}
+.notif-clear{font-size:13px;color:var(--p);font-weight:600}
+.notif-list{padding:8px 0}
+.notif-item{
+  display:flex;gap:12px;padding:13px 18px;
+  border-bottom:1px solid var(--border);
+  transition:var(--trans);cursor:pointer;
+}
+.notif-item:last-child{border-bottom:none}
+.notif-item:active{background:var(--surf2)}
+.notif-item.unread{background:rgba(255,107,53,.04)}
+.notif-ico{
+  width:42px;height:42px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:18px;flex-shrink:0;
+}
+.notif-body{flex:1}
+.notif-msg{font-size:14px;font-weight:600;color:var(--txt);line-height:1.3}
+.notif-time{font-size:12px;color:var(--txt3);margin-top:3px}
+.notif-dot-live{
+  width:8px;height:8px;border-radius:50%;
+  background:var(--p);margin-top:6px;flex-shrink:0;
+}
+.notif-empty{
+  text-align:center;padding:40px 20px;
+}
+.notif-empty i{font-size:40px;color:var(--txt3);margin-bottom:12px;display:block}
+.notif-empty p{font-size:14px;color:var(--txt2);font-weight:500}
 
-    /* ===== SETTINGS PAGE ===== */
-    .settings-wrap { padding:14px; }
-    .sg-title { font-size:12px; font-weight:800; color:var(--primary); text-transform:uppercase; letter-spacing:.8px; margin:8px 4px 8px; }
-    .settings-card { background:var(--surface); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border); margin-bottom:14px; }
-    .setting-item { display:flex; align-items:center; padding:14px 16px; border-bottom:1px solid var(--border); }
-    .setting-item:last-child { border-bottom:none; }
-    .si-icon { width:34px; height:34px; border-radius:9px; display:flex; align-items:center; justify-content:center; margin-right:13px; font-size:15px; }
-    .si-body { flex:1; }
-    .si-label { font-size:15px; font-weight:600; color:var(--text); }
-    .si-desc { font-size:12px; color:var(--text2); margin-top:2px; }
-    .theme-opts { display:flex; gap:6px; }
-    .th-btn {
-      padding:6px 11px; border-radius:8px; border:2px solid var(--border);
-      background:var(--surface2); color:var(--text2); font-size:13px;
-      font-weight:700; cursor:pointer; transition:.2s;
-    }
-    .th-btn.active { border-color:var(--primary); color:var(--primary); background:rgba(255,107,53,.1); }
-    .lang-select {
-      background:var(--surface2); border:1.5px solid var(--border);
-      border-radius:9px; padding:7px 12px; font-size:14px;
-      color:var(--text); cursor:pointer; outline:none;
-    }
-    /* Toggle */
-    .toggle { position:relative; display:inline-block; width:46px; height:26px; }
-    .toggle input { display:none; }
-    .toggle-track {
-      position:absolute; inset:0; border-radius:26px;
-      background:var(--border); cursor:pointer; transition:.3s;
-    }
-    .toggle-track::before {
-      content:''; position:absolute; width:20px; height:20px;
-      left:3px; top:3px; border-radius:50%; background:white; transition:.3s;
-    }
-    .toggle input:checked + .toggle-track { background:var(--primary); }
-    .toggle input:checked + .toggle-track::before { transform:translateX(20px); }
+/* ── PROFILE PAGE ── */
+.profile-header{
+  background:linear-gradient(145deg,var(--p),var(--p2));
+  padding:28px 20px 24px;color:#fff;text-align:center;
+}
+.avatar-wrap{position:relative;display:inline-block;margin-bottom:12px}
+.avatar{
+  width:80px;height:80px;border-radius:50%;
+  background:rgba(255,255,255,.25);
+  border:3px solid rgba(255,255,255,.6);
+  display:flex;align-items:center;justify-content:center;
+  font-size:32px;font-weight:800;color:#fff;
+  overflow:hidden;
+}
+.verified-badge{
+  position:absolute;bottom:0;right:0;
+  width:26px;height:26px;border-radius:50%;
+  background:#fff;border:2px solid #fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;
+}
+.profile-name{font-size:22px;font-weight:900;margin-bottom:4px}
+.profile-email{font-size:13px;opacity:.85;margin-bottom:10px}
+.free-verified-pill{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.5);
+  color:#fff;padding:5px 14px;border-radius:20px;
+  font-size:12px;font-weight:700;
+}
+.profile-cards{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.p-card{background:var(--surf);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow)}
+.p-item{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 16px;border-bottom:1px solid var(--border);
+  cursor:pointer;transition:var(--trans);
+}
+.p-item:last-child{border-bottom:none}
+.p-item:active{background:var(--surf2)}
+.p-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.p-body{flex:1}
+.p-label{font-size:15px;font-weight:600;color:var(--txt)}
+.p-sub{font-size:12px;color:var(--txt2);margin-top:2px}
+.p-arrow{color:var(--txt3);font-size:12px}
 
-    /* ===== TOAST ===== */
-    .toast {
-      position:fixed; top:22px; left:50%;
-      transform:translateX(-50%) translateY(-120px);
-      background:var(--surface); color:var(--text);
-      padding:13px 20px; border-radius:13px;
-      box-shadow:0 6px 24px rgba(0,0,0,.22);
-      z-index:1000; max-width:88vw; font-size:13.5px;
-      font-weight:500; text-align:center;
-      transition:transform .4s cubic-bezier(.34,1.56,.64,1);
-      border-left:4px solid var(--primary); line-height:1.4;
-    }
-    .toast.show { transform:translateX(-50%) translateY(0); }
-    .toast.success { border-color:#4CAF50; }
-    .toast.error { border-color:#F44336; }
-    .toast.info { border-color:#2196F3; }
+/* ── SETTINGS ── */
+.settings-page{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
+.set-section-title{font-size:11px;font-weight:800;color:var(--p);text-transform:uppercase;letter-spacing:.8px;padding:4px 4px 2px}
+.set-card{background:var(--surf);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow)}
+.set-item{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);transition:var(--trans)}
+.set-item:last-child{border-bottom:none}
+.set-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.set-body{flex:1}
+.set-label{font-size:15px;font-weight:600;color:var(--txt)}
+.set-desc{font-size:12px;color:var(--txt2);margin-top:1px}
+.theme-row{display:flex;gap:6px}
+.theme-opt{
+  width:34px;height:34px;border-radius:10px;
+  background:var(--surf2);border:2px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;transition:var(--trans);
+}
+.theme-opt.active{border-color:var(--p);background:rgba(255,107,53,.1)}
+.lang-sel{
+  background:var(--surf2);border:1.5px solid var(--border);
+  border-radius:9px;padding:7px 11px;
+  font-size:13px;font-weight:600;color:var(--txt);
+  outline:none;font-family:inherit;
+}
+.toggle-sw{position:relative;width:44px;height:24px;flex-shrink:0}
+.toggle-sw input{opacity:0;width:0;height:0}
+.toggle-sw span{
+  position:absolute;inset:0;border-radius:24px;
+  background:var(--border);cursor:pointer;transition:var(--trans);
+}
+.toggle-sw span::before{
+  content:'';position:absolute;
+  width:18px;height:18px;border-radius:50%;
+  top:3px;left:3px;background:#fff;
+  transition:var(--trans);
+}
+.toggle-sw input:checked + span{background:var(--p)}
+.toggle-sw input:checked + span::before{transform:translateX(20px)}
 
-    /* ===== APPS FULL PAGE ===== */
-    .apps-full-wrap { padding:16px; }
+/* ── SEARCH EMPTY ── */
+.search-empty{
+  text-align:center;padding:40px 20px;
+}
+.search-empty .url-bar{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--surf2);border:1px solid var(--border);
+  border-radius:8px;padding:6px 14px;
+  font-size:12px;color:var(--txt2);font-family:monospace;
+  margin-bottom:16px;
+}
+.search-empty img{width:120px;height:120px;border-radius:16px;margin:0 auto 14px;object-fit:cover}
+.search-empty h3{font-size:17px;font-weight:800;color:var(--txt);margin-bottom:6px}
+.search-empty p{font-size:13px;color:var(--txt2);line-height:1.5}
 
-    /* ===== RESPONSIVE ===== */
-    @media(min-width:480px) {
-      .modal { border-radius:22px; margin-bottom:20px; }
-    }
-  </style>
+/* ── TOAST ── */
+.toast{
+  position:fixed;top:70px;left:50%;
+  transform:translateX(-50%) translateY(-30px);
+  background:var(--surf);color:var(--txt);
+  padding:12px 20px;border-radius:14px;
+  box-shadow:var(--shadow2);z-index:900;
+  font-size:13.5px;font-weight:600;
+  max-width:90vw;text-align:center;
+  opacity:0;transition:all .4s cubic-bezier(.34,1.56,.64,1);
+  border-left:4px solid var(--p);line-height:1.4;pointer-events:none;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.success{border-left-color:#22C55E}
+.toast.error{border-left-color:#EF4444}
+.toast.info{border-left-color:#3B82F6}
+
+/* ── NOTIF BACKDROP ── */
+.notif-backdrop{
+  position:fixed;inset:0;z-index:490;
+  background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;
+}
+.notif-backdrop.open{background:rgba(0,0,0,.4);pointer-events:all}
+
+/* ── LOADING ICON ── */
+.icon-load{
+  width:56px;height:56px;border-radius:14px;
+  background:var(--surf3);display:flex;align-items:center;
+  justify-content:center;color:var(--txt3);font-size:20px;
+}
+</style>
 </head>
-<body data-theme="system">
+<body>
 
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
+<!-- NOTIFICATION BACKDROP -->
+<div class="notif-backdrop" id="notifBackdrop" onclick="closeNotif()"></div>
+
+<!-- NOTIFICATION PANEL -->
+<div class="notif-panel" id="notifPanel">
+  <div class="notif-header">
+    <span class="notif-title" id="notifTitle">Thông Báo</span>
+    <span class="notif-clear" onclick="clearNotifs()" id="notifClear">Xóa tất cả</span>
+  </div>
+  <div class="notif-list" id="notifList"></div>
+</div>
+
 <!-- TOPBAR -->
 <header class="topbar">
   <div class="topbar-logo">
-    <div class="logo-box">NH</div>
+    <div class="logo-mark">NH</div>
     <div>
-      <h1>NguyenHia VN</h1>
-      <span id="topbar-sub">Thư Viện UI</span>
+      <div class="logo-text">NguyenHia VN</div>
+      <div class="logo-ver" id="topSub">v1.0.1 · Thư Viện UI</div>
     </div>
   </div>
-  <div class="topbar-right">
-    <div class="lang-pill" id="langPill" onclick="quickToggleLang()">VI</div>
-    <button class="icon-btn notif-dot" onclick="showNotif()" title="Thông báo"><i class="fa fa-bell"></i></button>
-    <button class="icon-btn" onclick="openOverlay('regOverlay')" title="Đăng ký"><i class="fa fa-user-plus"></i></button>
+  <div class="topbar-actions">
+    <div class="lang-btn" id="langPill" onclick="quickLang()">
+      <i class="fa fa-globe" style="font-size:11px"></i>
+      <span id="langLabel">VI</span>
+    </div>
+    <button class="tb-btn" id="notifBtn" onclick="openNotif()">
+      <i class="fa fa-bell"></i>
+      <div class="notif-badge" id="notifBadge"></div>
+    </button>
   </div>
 </header>
 
-<!-- ==================== HOME PAGE ==================== -->
+<!-- ═══════════════ HOME PAGE ═══════════════ -->
 <div class="page active" id="page-home">
-  <!-- Banner -->
-  <div class="banner">
-    <div class="banner-badge" id="bannerBadge">🇻🇳 Thư Viện UI Việt Nam #1</div>
-    <h2 id="bannerTitle">NguyenHia VN<br>UI Library</h2>
-    <p id="bannerDesc">Bộ công cụ giao diện đẹp, hiện đại và dễ sử dụng cho ứng dụng Việt Nam</p>
-    <div class="banner-btns">
-      <button class="btn-white" onclick="openOverlay('regOverlay')">
-        <i class="fa fa-rocket"></i><span id="btnGetStarted">Bắt Đầu</span>
-      </button>
-      <button class="btn-ghost" onclick="triggerDownload()">
-        <i class="fa fa-download"></i><span id="btnDlText">Tải Xuống</span>
-      </button>
+
+  <!-- Banner Slider -->
+  <div class="banner-wrap">
+    <div class="banner-slides" id="bannerSlides">
+      <div class="banner-slide bs-1">
+        <div class="bs-tag">🇻🇳 <span id="bTag1">Thư Viện UI #1</span></div>
+        <div class="bs-title" id="bTitle1">NguyenHia VN<br>UI Library</div>
+        <div class="bs-sub" id="bSub1">Bộ công cụ giao diện đẹp, hiện đại dành cho ứng dụng Việt Nam</div>
+        <div class="bs-actions">
+          <button class="bs-btn-white" onclick="goRegister()"><i class="fa fa-rocket"></i><span id="bBtn1">Bắt Đầu</span></button>
+          <button class="bs-btn-ghost" onclick="showToast(T('dlSoon'),'info')"><i class="fa fa-download"></i><span id="bBtn2">Tải Xuống</span></button>
+        </div>
+      </div>
+      <div class="banner-slide bs-2">
+        <div class="bs-tag">✨ <span id="bTag2">Tính Năng Mới</span></div>
+        <div class="bs-title" id="bTitle2">V1.0.1<br>Update</div>
+        <div class="bs-sub" id="bSub2">Giao diện mới, mượt mà hơn, tính năng đăng nhập & xác minh miễn phí</div>
+        <div class="bs-actions">
+          <button class="bs-btn-white" onclick="navTo('apps')"><i class="fa fa-th"></i><span id="bBtn3">Xem Ứng Dụng</span></button>
+        </div>
+      </div>
+      <div class="banner-slide bs-3">
+        <div class="bs-tag">🆓 <span id="bTag3">Miễn Phí</span></div>
+        <div class="bs-title" id="bTitle3">FREE<br>VERIFIED ✓</div>
+        <div class="bs-sub" id="bSub3">Đăng ký là tự động được xác minh. Không cần email xác nhận!</div>
+        <div class="bs-actions">
+          <button class="bs-btn-white" onclick="goRegister()"><i class="fa fa-check-circle"></i><span id="bBtn4">Đăng Ký Ngay</span></button>
+        </div>
+      </div>
     </div>
+    <div class="banner-dots" id="bannerDots"></div>
   </div>
 
   <!-- Search -->
-  <div class="search-wrap">
-    <div class="search-inner">
-      <i class="fa fa-search si"></i>
-      <input type="text" id="searchInput" placeholder="Tìm kiếm ứng dụng..." oninput="filterApps(this.value)">
-    </div>
+  <div class="search-bar">
+    <input type="search" id="searchInput" placeholder="Tìm kiếm ứng dụng..." oninput="handleSearch(this.value)" autocomplete="off">
+    <i class="fa fa-search search-icon"></i>
   </div>
 
-  <!-- Stats -->
-  <div class="stats-row">
-    <div class="stat-card"><div class="stat-num">50+</div><div class="stat-label" id="statApps">Ứng Dụng</div></div>
-    <div class="stat-card"><div class="stat-num">10K+</div><div class="stat-label" id="statUsers">Người Dùng</div></div>
-    <div class="stat-card"><div class="stat-num">4.9★</div><div class="stat-label" id="statRating">Đánh Giá</div></div>
+  <!-- Categories -->
+  <div style="padding:14px 0 0">
+    <div class="cats-scroll" id="catsRow"></div>
   </div>
 
-  <!-- Features -->
-  <div class="section">
+  <!-- Featured Apps (Grid) -->
+  <div class="sec">
     <div class="sec-head">
-      <span class="sec-title" id="featTitle">✨ Tính Năng Nổi Bật</span>
-      <span class="sec-link" id="featSeeAll">Xem tất cả</span>
+      <span class="sec-title" id="featAppsTitle">🔥 Nổi Bật</span>
+      <span class="sec-more" id="featAppsMore" onclick="navTo('apps')">Xem tất cả</span>
     </div>
-    <div class="feat-scroll" id="featureScroll"></div>
+    <div class="apps-grid" id="homeAppsGrid"></div>
   </div>
 
-  <!-- Download Banner -->
-  <div class="dl-banner">
-    <div>
-      <h3 id="dlBannerTitle">📱 Tải Ứng Dụng Ngay</h3>
-      <p id="dlBannerDesc">Trải nghiệm tốt nhất trên di động</p>
-    </div>
-    <button class="btn-dl" onclick="triggerDownload()">
-      <i class="fa fa-download"></i><span id="dlBannerBtn">Tải Ngay</span>
-    </button>
-  </div>
-
-  <!-- Apps List -->
-  <div class="section">
+  <!-- Features List -->
+  <div class="sec" style="padding-bottom:14px">
     <div class="sec-head">
-      <span class="sec-title" id="appsHomeTitle">📦 Ứng Dụng Nổi Bật</span>
-      <span class="sec-link" id="appsSeeAll" onclick="goToApps()">Xem tất cả</span>
+      <span class="sec-title" id="featuresTitle">✨ Tính Năng</span>
     </div>
-    <div class="apps-grid" id="appsHome"></div>
+    <div class="features-scroll" id="featuresList"></div>
   </div>
+
+  <!-- Top Apps List -->
+  <div class="sec" style="padding-bottom:16px">
+    <div class="sec-head">
+      <span class="sec-title" id="topAppsTitle">📱 Top Ứng Dụng</span>
+      <span class="sec-more" onclick="navTo('apps')" id="topAppsMore">Xem thêm</span>
+    </div>
+    <div class="apps-list" id="homeAppsList"></div>
+  </div>
+
+  <!-- Search Empty State -->
+  <div class="search-empty" id="searchEmpty" style="display:none">
+    <div class="url-bar"><i class="fa fa-exclamation-triangle"></i><span id="searchUrl">NguyenHia.Dev/Home/search</span></div>
+    <img src="https://http.cat/images/404.jpg" alt="Not found" style="border-radius:16px;margin:0 auto 14px">
+    <h3 id="searchEmptyTitle">Không tìm thấy kết quả</h3>
+    <p id="searchEmptyDesc">Không có ứng dụng nào khớp với tìm kiếm của bạn.</p>
+  </div>
+
 </div>
 
-<!-- ==================== APPS PAGE ==================== -->
+<!-- ═══════════════ APPS PAGE ═══════════════ -->
 <div class="page" id="page-apps">
-  <div class="apps-full-wrap">
-    <div style="padding:10px 0 16px;">
-      <div style="font-size:22px; font-weight:900;" id="appsPageTitle">📦 Tất Cả Ứng Dụng</div>
-      <div style="font-size:13px; color:var(--text2); margin-top:4px;" id="appsPageSub">Khám phá các ứng dụng hàng đầu</div>
-    </div>
-    <div class="apps-grid" id="appsFullGrid"></div>
+  <div style="padding:16px 16px 8px">
+    <div style="font-size:22px;font-weight:900;margin-bottom:4px" id="appsPageTitle">📦 Tất Cả Ứng Dụng</div>
+    <div style="font-size:13px;color:var(--txt2)" id="appsPageSub">Khám phá ứng dụng hàng đầu</div>
+  </div>
+  <div style="padding:0 16px 16px">
+    <div class="apps-list" id="appsFullList"></div>
   </div>
 </div>
 
-<!-- ==================== PROFILE PAGE ==================== -->
+<!-- ═══════════════ PROFILE PAGE ═══════════════ -->
 <div class="page" id="page-profile">
-  <div class="profile-hero">
-    <div class="avatar-circle" id="profileAvatar">👤</div>
-    <h2 id="profileName">Khách</h2>
-    <p id="profileEmail">Chưa đăng nhập</p>
-  </div>
-
-  <div class="list-card">
-    <div class="list-item" onclick="openOverlay('regOverlay')">
-      <div class="li-icon" style="background:#FFF3E0; color:#FF6B35;"><i class="fa fa-user-edit"></i></div>
-      <span class="li-label" id="proEditLabel">Chỉnh Sửa Hồ Sơ</span>
-      <i class="fa fa-chevron-right li-right"></i>
+  <div class="profile-header">
+    <div class="avatar-wrap">
+      <div class="avatar" id="profileAvatar">👤</div>
+      <div class="verified-badge" id="verifiedBadge" style="display:none">✅</div>
     </div>
-    <div class="list-item">
-      <div class="li-icon" style="background:#E3F2FD; color:#2196F3;"><i class="fa fa-envelope"></i></div>
-      <div style="flex:1;">
-        <div class="li-label" id="proEmailLabel">Email</div>
-        <div style="font-size:12px; color:var(--text2);" id="proEmailValue">—</div>
-      </div>
-    </div>
-    <div class="list-item">
-      <div class="li-icon" style="background:#E8F5E9; color:#4CAF50;"><i class="fa fa-shield-check"></i></div>
-      <span class="li-label" id="proVerifyLabel">Trạng Thái Xác Minh</span>
-      <span id="proVerifyBadge" style="font-size:12px; padding:3px 9px; background:#FFF3E0; color:#FF6B35; border-radius:20px; font-weight:700;">Chưa XM</span>
+    <div class="profile-name" id="profileName">Khách</div>
+    <div class="profile-email" id="profileEmail">Chưa đăng nhập</div>
+    <div class="free-verified-pill" id="verifiedPill" style="display:none">
+      <i class="fa fa-shield-check"></i><span id="verifiedPillText">FREE VERIFIED ✓</span>
     </div>
   </div>
+  <div class="profile-cards" id="profileCards"></div>
+</div>
 
-  <div class="list-card">
-    <div class="list-item" onclick="navTo('settings')">
-      <div class="li-icon" style="background:#F3E5F5; color:#9C27B0;"><i class="fa fa-cog"></i></div>
-      <span class="li-label" id="proSettingsLabel">Cài Đặt</span>
-      <i class="fa fa-chevron-right li-right"></i>
-    </div>
-    <div class="list-item">
-      <div class="li-icon" style="background:#FFF8E1; color:#FFC107;"><i class="fa fa-star"></i></div>
-      <span class="li-label" id="proRateLabel">Đánh Giá Ứng Dụng</span>
-      <i class="fa fa-chevron-right li-right"></i>
-    </div>
-    <div class="list-item" onclick="doLogout()">
-      <div class="li-icon" style="background:#FFEBEE; color:#F44336;"><i class="fa fa-sign-out-alt"></i></div>
-      <span class="li-label" id="proLogoutLabel" style="color:#F44336;">Đăng Xuất</span>
-    </div>
+<!-- ═══════════════ SETTINGS PAGE ═══════════════ -->
+<div class="page" id="page-settings">
+  <div class="settings-page" id="settingsContent"></div>
+</div>
+
+<!-- ═══════════════ BOTTOM NAV ═══════════════ -->
+<nav class="bnav">
+  <button class="bnav-btn active" id="nav-home" onclick="navTo('home')">
+    <i class="fa fa-home"></i><span id="navHome">Trang Chủ</span>
+  </button>
+  <button class="bnav-btn" id="nav-apps" onclick="navTo('apps')">
+    <i class="fa fa-th-large"></i><span id="navApps">Ứng Dụng</span>
+  </button>
+  <button class="bnav-btn" id="nav-profile" onclick="navTo('profile')">
+    <i class="fa fa-user-circle"></i><span id="navProfile">Hồ Sơ</span>
+  </button>
+  <button class="bnav-btn" id="nav-settings" onclick="navTo('settings')">
+    <i class="fa fa-sliders-h"></i><span id="navSettings">Cài Đặt</span>
+  </button>
+</nav>
+
+<!-- ═══════════════ APP DETAIL OVERLAY ═══════════════ -->
+<div class="overlay" id="appDetailOverlay" onclick="overlayOutClick(event,'appDetailOverlay')">
+  <div class="modal" id="appDetailModal">
+    <div class="modal-drag"></div>
+    <div class="appd-hero" id="appDetailContent"></div>
   </div>
 </div>
 
-<!-- ==================== SETTINGS PAGE ==================== -->
-<div class="page" id="page-settings">
-  <div class="settings-wrap">
+<script>
+// ╔══════════════════════════════════════════╗
+// ║           DATA                           ║
+// ╚══════════════════════════════════════════╝
+const APPS_DATA = [
+  {id:1,name:'Zalo',dev:'VNG Corporation',cat:'Social',rating:4.8,downloads:'50M+',
+   icon:'https://img.icons8.com/color/96/zalo.png',
+   desc:'Ứng dụng nhắn tin và gọi video hàng đầu Việt Nam với hơn 74 triệu người dùng.'},
+  {id:2,name:'Facebook',dev:'Meta Platforms',cat:'Social',rating:4.5,downloads:'5B+',
+   icon:'https://img.icons8.com/color/96/facebook-new.png',
+   desc:'Kết nối với bạn bè, gia đình và chia sẻ những khoảnh khắc đặc biệt.'},
+  {id:3,name:'YouTube',dev:'Google LLC',cat:'Video',rating:4.7,downloads:'10B+',
+   icon:'https://img.icons8.com/color/96/youtube-play.png',
+   desc:'Xem video, nghe nhạc, theo dõi tin tức và khám phá nội dung yêu thích.'},
+  {id:4,name:'TikTok',dev:'ByteDance Ltd',cat:'Video',rating:4.6,downloads:'3B+',
+   icon:'https://img.icons8.com/color/96/tiktok.png',
+   desc:'Video ngắn sáng tạo, thú vị và xu hướng toàn cầu trong tầm tay bạn.'},
+  {id:5,name:'Gmail',dev:'Google LLC',cat:'Productivity',rating:4.6,downloads:'10B+',
+   icon:'https://img.icons8.com/color/96/gmail-new.png',
+   desc:'Email nhanh, thông minh và miễn phí từ Google. Tích hợp hoàn hảo với Google Workspace.'},
+  {id:6,name:'Google Maps',dev:'Google LLC',cat:'Navigation',rating:4.7,downloads:'10B+',
+   icon:'https://img.icons8.com/color/96/google-maps-new.png',
+   desc:'Dẫn đường, bản đồ trực tuyến, thông tin giao thông và địa điểm xung quanh bạn.'},
+  {id:7,name:'Shopee',dev:'Sea Limited',cat:'Shopping',rating:4.6,downloads:'500M+',
+   icon:'https://logo.clearbit.com/shopee.vn',
+   desc:'Sàn thương mại điện tử hàng đầu Đông Nam Á với hàng triệu sản phẩm giá tốt.'},
+  {id:8,name:'Grab',dev:'Grab Holdings',cat:'Transport',rating:4.5,downloads:'200M+',
+   icon:'https://logo.clearbit.com/grab.com',
+   desc:'Đặt xe, giao đồ ăn, mua hàng tạp hóa và nhiều dịch vụ tiện ích khác.'},
+  {id:9,name:'MoMo',dev:'M_Service JSC',cat:'Finance',rating:4.7,downloads:'50M+',
+   icon:'https://logo.clearbit.com/momo.vn',
+   desc:'Ví điện tử số 1 Việt Nam. Thanh toán nhanh, chuyển tiền dễ dàng, nhận ưu đãi hàng ngày.'},
+  {id:10,name:'Instagram',dev:'Meta Platforms',cat:'Social',rating:4.5,downloads:'5B+',
+   icon:'https://img.icons8.com/color/96/instagram-new.png',
+   desc:'Chia sẻ ảnh, video ngắn và Reels. Kết nối với cộng đồng sáng tạo toàn thế giới.'},
+  {id:11,name:'Telegram',dev:'Telegram FZ-LLC',cat:'Social',rating:4.8,downloads:'1B+',
+   icon:'https://img.icons8.com/color/96/telegram-app.png',
+   desc:'Nhắn tin bảo mật, nhanh chóng. Nhóm lên tới 200.000 thành viên và kênh không giới hạn.'},
+  {id:12,name:'Spotify',dev:'Spotify AB',cat:'Music',rating:4.6,downloads:'1B+',
+   icon:'https://img.icons8.com/color/96/spotify.png',
+   desc:'Nghe nhạc, podcast và audiobook yêu thích không giới hạn. Cá nhân hóa theo sở thích.'},
+  {id:13,name:'Netflix',dev:'Netflix Inc',cat:'Entertainment',rating:4.5,downloads:'1B+',
+   icon:'https://img.icons8.com/color/96/netflix.png',
+   desc:'Phim, series và tài liệu hay nhất từ khắp thế giới. Xem mọi lúc, mọi nơi.'},
+  {id:14,name:'Discord',dev:'Discord Inc',cat:'Social',rating:4.6,downloads:'500M+',
+   icon:'https://img.icons8.com/color/96/discord-logo.png',
+   desc:'Nền tảng chat voice, video và text cho cộng đồng game, học tập và làm việc nhóm.'},
+  {id:15,name:'Lazada',dev:'Lazada Group',cat:'Shopping',rating:4.3,downloads:'200M+',
+   icon:'https://logo.clearbit.com/lazada.vn',
+   desc:'Mua sắm online với hàng ngàn deal hấp dẫn mỗi ngày từ các thương hiệu uy tín.'},
+  {id:16,name:'Tiki',dev:'Tiki Corporation',cat:'Shopping',rating:4.4,downloads:'20M+',
+   icon:'https://logo.clearbit.com/tiki.vn',
+   desc:'Mua sắm nhanh - giao hàng tốc độ. Hàng chính hãng, giá tốt nhất thị trường.'},
+];
 
-    <div class="sg-title" id="sgAppearance">Giao Diện</div>
-    <div class="settings-card">
-      <div class="setting-item">
-        <div class="si-icon" style="background:#FFF3E0; color:#FF6B35;"><i class="fa fa-paint-brush"></i></div>
-        <div class="si-body">
-          <div class="si-label" id="siThemeLabel">Chủ Đề</div>
-          <div class="si-desc" id="siThemeDesc">Hệ thống / Sáng / Tối</div>
-        </div>
-        <div class="theme-opts">
-          <button class="th-btn active" id="thSys" onclick="applyTheme('system')">⚙️</button>
-          <button class="th-btn" id="thLight" onclick="applyTheme('light')">☀️</button>
-          <button class="th-btn" id="thDark" onclick="applyTheme('dark')">🌙</button>
+const CATEGORIES = ['Tất Cả','Social','Video','Shopping','Finance','Music','Navigation','Productivity','Entertainment','Transport'];
+const FEATURES_DATA = [
+  {icon:'🎨',bg:'#FFF3E0',color:'#FF6B35',label_vi:'UI Đẹp',label_en:'Beautiful UI',desc_vi:'Thiết kế hiện đại',desc_en:'Modern design'},
+  {icon:'🌐',bg:'#E3F2FD',color:'#2196F3',label_vi:'Đa Ngôn Ngữ',label_en:'Multilingual',desc_vi:'VI & EN',desc_en:'VI & EN'},
+  {icon:'🆓',bg:'#E8F5E9',color:'#22C55E',label_vi:'Miễn Phí XM',label_en:'Free Verified',desc_vi:'Xác minh ngay',desc_en:'Instant verify'},
+  {icon:'🌙',bg:'#F3E5F5',color:'#9C27B0',label_vi:'Chế Độ Tối',label_en:'Dark Mode',desc_vi:'Bảo vệ mắt',desc_en:'Eye protection'},
+  {icon:'⚡',bg:'#FFF8E1',color:'#F59E0B',label_vi:'Siêu Nhanh',label_en:'Super Fast',desc_vi:'Không lag',desc_en:'No lag'},
+  {icon:'🔒',bg:'#FFEBEE',color:'#EF4444',label_vi:'Bảo Mật',label_en:'Secure',desc_vi:'Dữ liệu an toàn',desc_en:'Data safe'},
+];
+
+const NOTIFICATIONS = [
+  {id:1,icon:'🎉',bg:'#FFF3E0',msg_vi:'Chào mừng đến NguyenHia VN v1.0.1!',msg_en:'Welcome to NguyenHia VN v1.0.1!',time:'Vừa xong',unread:true},
+  {id:2,icon:'🆓',bg:'#E8F5E9',msg_vi:'Bạn đã được FREE VERIFIED sau khi đăng ký!',msg_en:'You got FREE VERIFIED after registration!',time:'1 phút trước',unread:true},
+  {id:3,icon:'📱',bg:'#E3F2FD',msg_vi:'16 ứng dụng mới đã được thêm vào danh sách',msg_en:'16 new apps added to the list',time:'5 phút trước',unread:false},
+  {id:4,icon:'✨',bg:'#F3E5F5',msg_vi:'Tính năng xem chi tiết ứng dụng đã ra mắt',msg_en:'App detail view feature launched',time:'10 phút trước',unread:false},
+];
+
+// ╔══════════════════════════════════════════╗
+// ║           STATE                          ║
+// ╚══════════════════════════════════════════╝
+const S = {
+  lang: localStorage.getItem('nhvn_lang')||'auto',
+  theme: localStorage.getItem('nhvn_theme')||'system',
+  session: JSON.parse(localStorage.getItem('nhvn_session')||'null'),
+  activeCat: 'Tất Cả',
+  bannerIdx: 0,
+  notifications: [...NOTIFICATIONS],
+  currentPage:'home'
+};
+
+// ╔══════════════════════════════════════════╗
+// ║           TRANSLATIONS                   ║
+// ╚══════════════════════════════════════════╝
+const TR = {
+  vi:{
+    topSub:'v1.0.1 · Thư Viện UI',langLabel:'VI',
+    bTag1:'Thư Viện UI #1',bTitle1:'NguyenHia VN\nUI Library',bSub1:'Bộ công cụ giao diện đẹp, hiện đại dành cho ứng dụng Việt Nam',
+    bBtn1:'Bắt Đầu',bBtn2:'Tải Xuống',bTag2:'Tính Năng Mới',bTitle2:'V1.0.1\nUpdate',
+    bSub2:'Giao diện mới, mượt mà hơn, tính năng đăng nhập & xác minh miễn phí',
+    bBtn3:'Xem Ứng Dụng',bTag3:'Miễn Phí',bTitle3:'FREE\nVERIFIED ✓',
+    bSub3:'Đăng ký là tự động được xác minh. Không cần email xác nhận!',bBtn4:'Đăng Ký Ngay',
+    featAppsTitle:'🔥 Nổi Bật',featAppsMore:'Xem tất cả',featuresTitle:'✨ Tính Năng',
+    topAppsTitle:'📱 Top Ứng Dụng',topAppsMore:'Xem thêm',
+    appsPageTitle:'📦 Tất Cả Ứng Dụng',appsPageSub:'Khám phá ứng dụng hàng đầu',
+    navHome:'Trang Chủ',navApps:'Ứng Dụng',navProfile:'Hồ Sơ',navSettings:'Cài Đặt',
+    notifTitle:'Thông Báo',notifClear:'Xóa tất cả',notifEmpty:'Không có thông báo mới',
+    profileGuest:'Khách',profileNotLogged:'Chưa đăng nhập',
+    verifiedPillText:'FREE VERIFIED ✓',
+    dlSoon:'📱 Tính năng tải xuống sắp ra mắt!',
+    btnGet:'Xem',btnInstall:'Cài Đặt Ngay',btnShare:'Chia Sẻ',
+    searchPH:'Tìm kiếm ứng dụng...',
+    searchEmptyTitle:'Không tìm thấy kết quả',
+    searchEmptyDesc:'Không có ứng dụng nào khớp với tìm kiếm của bạn.',
+    logoutMsg:'👋 Đăng xuất thành công',
+    sgAppearance:'Giao Diện',siThemeLabel:'Chủ Đề',siThemeDesc:'Hệ thống / Sáng / Tối',
+    sgLang:'Ngôn Ngữ',siLangLabel:'Ngôn Ngữ Ứng Dụng',siLangDesc:'Tự động / Tiếng Việt / English',
+    sgAccount:'Tài Khoản',siLogin:'Đăng Nhập',siRegister:'Đăng Ký',siLogout:'Đăng Xuất',
+    sgAbout:'Về Ứng Dụng',siVersion:'Phiên Bản',siMade:'Được Tạo Bởi',siNotif:'Thông Báo',
+    proEdit:'Chỉnh Sửa Hồ Sơ',proVerify:'Trạng Thái Xác Minh',
+    proFreeVerified:'FREE VERIFIED ✓',proSettings:'Cài Đặt',proRate:'Đánh Giá',proLogout:'Đăng Xuất',
+    proEmailLabel:'Email',proName:'Tên',
+    featViewBtn:'Xem →',
+    downloads:'Lượt tải',rating:'Đánh giá',category:'Danh mục',
+    screenshots:'Ảnh chụp màn hình',aboutApp:'Giới thiệu',
+    previewOnly:'Chức năng xem trước',
+  },
+  en:{
+    topSub:'v1.0.1 · UI Library',langLabel:'EN',
+    bTag1:'Vietnam UI Library #1',bTitle1:'NguyenHia VN\nUI Library',bSub1:'Beautiful, modern UI toolkit for Vietnamese applications',
+    bBtn1:'Get Started',bBtn2:'Download',bTag2:'New Features',bTitle2:'V1.0.1\nUpdate',
+    bSub2:'New design, smoother, with login & free verification features',
+    bBtn3:'View Apps',bTag3:'Free',bTitle3:'FREE\nVERIFIED ✓',
+    bSub3:'Register and get instantly verified. No email confirmation needed!',bBtn4:'Register Now',
+    featAppsTitle:'🔥 Featured',featAppsMore:'See all',featuresTitle:'✨ Features',
+    topAppsTitle:'📱 Top Apps',topAppsMore:'View more',
+    appsPageTitle:'📦 All Applications',appsPageSub:'Explore top applications',
+    navHome:'Home',navApps:'Apps',navProfile:'Profile',navSettings:'Settings',
+    notifTitle:'Notifications',notifClear:'Clear all',notifEmpty:'No new notifications',
+    profileGuest:'Guest',profileNotLogged:'Not logged in',
+    verifiedPillText:'FREE VERIFIED ✓',
+    dlSoon:'📱 Download feature coming soon!',
+    btnGet:'View',btnInstall:'Install Now',btnShare:'Share',
+    searchPH:'Search apps...',
+    searchEmptyTitle:'No results found',
+    searchEmptyDesc:'No apps match your search query.',
+    logoutMsg:'👋 Logged out successfully',
+    sgAppearance:'Appearance',siThemeLabel:'Theme',siThemeDesc:'System / Light / Dark',
+    sgLang:'Language',siLangLabel:'App Language',siLangDesc:'Auto / Vietnamese / English',
+    sgAccount:'Account',siLogin:'Login',siRegister:'Register',siLogout:'Logout',
+    sgAbout:'About',siVersion:'Version',siMade:'Made By',siNotif:'Notifications',
+    proEdit:'Edit Profile',proVerify:'Verification Status',
+    proFreeVerified:'FREE VERIFIED ✓',proSettings:'Settings',proRate:'Rate App',proLogout:'Logout',
+    proEmailLabel:'Email',proName:'Name',
+    featViewBtn:'View →',
+    downloads:'Downloads',rating:'Rating',category:'Category',
+    screenshots:'Screenshots',aboutApp:'About',
+    previewOnly:'Preview only',
+  }
+};
+
+function getLang(){return S.lang==='auto'?(navigator.language||'vi').toLowerCase().startsWith('vi')?'vi':'en':S.lang}
+function T(k){return TR[getLang()][k]||k}
+
+// ╔══════════════════════════════════════════╗
+// ║           THEME                          ║
+// ╚══════════════════════════════════════════╝
+function applyTheme(t){
+  S.theme=t;localStorage.setItem('nhvn_theme',t);
+  document.querySelectorAll('.theme-opt').forEach(el=>el.classList.remove('active'));
+  const map={system:'thSys',light:'thLight',dark:'thDark'};
+  const btn=document.getElementById(map[t]);if(btn)btn.classList.add('active');
+  if(t==='system'){
+    document.body.setAttribute('data-theme',window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
+  }else{
+    document.body.setAttribute('data-theme',t);
+  }
+}
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',e=>{
+  if(S.theme==='system')document.body.setAttribute('data-theme',e.matches?'dark':'light');
+});
+
+// ╔══════════════════════════════════════════╗
+// ║           NAVIGATION                     ║
+// ╚══════════════════════════════════════════╝
+function navTo(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.getElementById('nav-'+page).classList.add('active');
+  S.currentPage=page;
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(page==='profile')renderProfile();
+  if(page==='settings')renderSettings();
+  if(page==='apps')renderAppsPage();
+}
+
+// ╔══════════════════════════════════════════╗
+// ║           BANNER SLIDER                  ║
+// ╚══════════════════════════════════════════╝
+function initBanner(){
+  const dots=document.getElementById('bannerDots');
+  dots.innerHTML=[0,1,2].map(i=>`<div class="bdot ${i===0?'active':''}" onclick="goBanner(${i})"></div>`).join('');
+  setInterval(()=>goBanner((S.bannerIdx+1)%3),4000);
+}
+function goBanner(idx){
+  S.bannerIdx=idx;
+  document.getElementById('bannerSlides').style.transform=`translateX(-${idx*100}%)`;
+  document.querySelectorAll('.bdot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+}
+
+// ╔══════════════════════════════════════════╗
+// ║           CATEGORIES                     ║
+// ╚══════════════════════════════════════════╝
+function renderCats(){
+  const l=getLang();
+  const catLabels={'Tất Cả':l==='vi'?'Tất Cả':'All','Social':'Social','Video':'Video','Shopping':l==='vi'?'Mua Sắm':'Shopping',
+    'Finance':l==='vi'?'Tài Chính':'Finance','Music':l==='vi'?'Âm Nhạc':'Music','Navigation':l==='vi'?'Bản Đồ':'Maps',
+    'Productivity':l==='vi'?'Năng Suất':'Productivity','Entertainment':l==='vi'?'Giải Trí':'Entertainment','Transport':l==='vi'?'Di Chuyển':'Transport'};
+  document.getElementById('catsRow').innerHTML=CATEGORIES.map(c=>
+    `<div class="cat-chip ${S.activeCat===c?'active':''}" onclick="filterCat('${c}')">${catLabels[c]||c}</div>`
+  ).join('');
+}
+function filterCat(cat){
+  S.activeCat=cat;renderCats();
+  const filtered=cat==='Tất Cả'?APPS_DATA:APPS_DATA.filter(a=>a.cat===cat);
+  renderAppsList('homeAppsList',filtered.slice(0,6));
+  renderAppsGrid('homeAppsGrid',filtered.slice(0,8));
+}
+
+// ╔══════════════════════════════════════════╗
+// ║           RENDER APPS                    ║
+// ╚══════════════════════════════════════════╝
+function appIconHTML(app,size=56,r=14){
+  return`<div style="width:${size}px;height:${size}px;border-radius:${r}px;overflow:hidden;background:var(--surf2);box-shadow:0 2px 8px rgba(0,0,0,.12);flex-shrink:0">
+    <img src="${app.icon}" alt="${app.name}" style="width:100%;height:100%;object-fit:cover"
+      onerror="this.parentNode.innerHTML='<div style=width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:${Math.floor(size*.45)}px;background:linear-gradient(135deg,#FF6B35,#FF9558);color:#fff;font-weight:900>${app.name.charAt(0)}</div>'">
+  </div>`;
+}
+
+function starsHTML(rating){
+  const full=Math.floor(rating),half=rating%1>=.5?1:0;
+  let s='';
+  for(let i=0;i<full;i++)s+='<i class="fa fa-star" style="color:#FBBF24;font-size:11px"></i>';
+  if(half)s+='<i class="fa fa-star-half-alt" style="color:#FBBF24;font-size:11px"></i>';
+  return s+`<span class="star-num">${rating}</span>`;
+}
+
+function renderAppsList(containerId, apps){
+  document.getElementById(containerId).innerHTML=apps.map(a=>`
+    <div class="app-card" onclick="openAppDetail(${a.id})">
+      ${appIconHTML(a,56,14)}
+      <div class="app-card-info">
+        <div class="app-card-name">${a.name}</div>
+        <div class="app-card-cat">${a.dev}</div>
+        <div class="app-card-stars">${starsHTML(a.rating)}</div>
+      </div>
+      <button class="btn-get" onclick="event.stopPropagation();openAppDetail(${a.id})">${T('btnGet')}</button>
+    </div>
+  `).join('');
+}
+
+function renderAppsGrid(containerId, apps){
+  document.getElementById(containerId).innerHTML=apps.map(a=>`
+    <div class="app-grid-item" onclick="openAppDetail(${a.id})">
+      ${appIconHTML(a,52,14)}
+      <div class="app-grid-name">${a.name}</div>
+    </div>
+  `).join('');
+}
+
+function renderAppsPage(){
+  renderAppsList('appsFullList', APPS_DATA);
+}
+
+// ╔══════════════════════════════════════════╗
+// ║           APP DETAIL                     ║
+// ╚══════════════════════════════════════════╝
+function openAppDetail(id){
+  const app=APPS_DATA.find(a=>a.id===id);if(!app)return;
+  const l=getLang();
+  document.getElementById('appDetailContent').innerHTML=`
+    <div class="appd-top">
+      ${appIconHTML(app,76,18)}
+      <div class="appd-info">
+        <div class="appd-name">${app.name}</div>
+        <div class="appd-dev">${app.dev}</div>
+        <div class="appd-badges">
+          <span class="badge badge-free">🆓 ${l==='vi'?'Miễn Phí':'Free'}</span>
+          <span class="badge badge-cat">${app.cat}</span>
         </div>
       </div>
     </div>
+    <div class="appd-stats">
+      <div class="appd-stat">
+        <div class="appd-stat-val">${app.rating}★</div>
+        <div class="appd-stat-label">${T('rating')}</div>
+      </div>
+      <div class="appd-stat">
+        <div class="appd-stat-val">${app.downloads}</div>
+        <div class="appd-stat-label">${T('downloads')}</div>
+      </div>
+      <div class="appd-stat">
+        <div class="appd-stat-val">${app.cat}</div>
+        <div class="appd-stat-label">${T('category')}</div>
+      </div>
+    </div>
+    <div class="appd-actions">
+      <button class="btn-install" onclick="showToast('${T('dlSoon')}','info')">${T('btnInstall')}</button>
+      <button class="btn-share" onclick="showToast('${l==='vi'?'Đã sao chép liên kết!':'Link copied!'}','success')"><i class="fa fa-share-alt"></i></button>
+    </div>
+  `;
+  document.getElementById('appDetailModal').innerHTML+=`
+    <div class="appd-section">
+      <div class="appd-sec-title">${T('aboutApp')}</div>
+      <div class="appd-desc">${app.desc}</div>
+    </div>
+    <div class="appd-section">
+      <div class="appd-sec-title">${T('screenshots')}</div>
+      <div class="screenshots">
+        ${[1,2,3].map(i=>`<div class="screenshot"><i class="fa fa-image" style="font-size:24px;margin-bottom:8px;display:block"></i>${T('previewOnly')} ${i}</div>`).join('')}
+      </div>
+    </div>
+  `;
+  document.getElementById('appDetailOverlay').classList.add('open');
+}
+function overlayOutClick(e,id){if(e.target.id===id)document.getElementById(id).classList.remove('open')}
 
-    <div class="sg-title" id="sgLanguage">Ngôn Ngữ</div>
-    <div class="settings-card">
-      <div class="setting-item">
-        <div class="si-icon" style="background:#E3F2FD; color:#2196F3;"><i class="fa fa-globe"></i></div>
-        <div class="si-body">
-          <div class="si-label" id="siLangLabel">Ngôn Ngữ Ứng Dụng</div>
-          <div class="si-desc" id="siLangDesc">Tự động từ cài đặt hệ thống</div>
+// ╔══════════════════════════════════════════╗
+// ║           FEATURES                       ║
+// ╚══════════════════════════════════════════╝
+function renderFeatures(){
+  const l=getLang();
+  document.getElementById('featuresList').innerHTML=FEATURES_DATA.map(f=>`
+    <div class="feature-card">
+      <div class="feat-icon-box" style="background:${f.bg};color:${f.color}">${f.icon}</div>
+      <div class="feat-title">${l==='vi'?f.label_vi:f.label_en}</div>
+      <div class="feat-desc">${l==='vi'?f.desc_vi:f.desc_en}</div>
+      <button class="feat-view-btn" onclick="showToast('${l==='vi'?f.label_vi:f.label_en}','info')">${T('featViewBtn')}</button>
+    </div>
+  `).join('');
+}
+
+// ╔══════════════════════════════════════════╗
+// ║           SEARCH                         ║
+// ╚══════════════════════════════════════════╝
+function handleSearch(q){
+  const empty=document.getElementById('searchEmpty');
+  const grid=document.querySelector('.sec:has(#homeAppsGrid)');
+  const listSec=document.querySelector('.sec:has(#homeAppsList)');
+  if(!q){
+    renderAppsGrid('homeAppsGrid',APPS_DATA.slice(0,8));
+    renderAppsList('homeAppsList',APPS_DATA.slice(0,6));
+    empty.style.display='none';return;
+  }
+  const filtered=APPS_DATA.filter(a=>a.name.toLowerCase().includes(q.toLowerCase())||a.cat.toLowerCase().includes(q.toLowerCase()));
+  if(filtered.length===0){
+    renderAppsGrid('homeAppsGrid',[]);
+    renderAppsList('homeAppsList',[]);
+    document.getElementById('searchUrl').textContent=`NguyenHia.Dev/Home/${encodeURIComponent(q)}`;
+    document.getElementById('searchEmptyTitle').textContent=T('searchEmptyTitle');
+    document.getElementById('searchEmptyDesc').textContent=T('searchEmptyDesc');
+    empty.style.display='block';
+  }else{
+    empty.style.display='none';
+    renderAppsGrid('homeAppsGrid',filtered.slice(0,8));
+    renderAppsList('homeAppsList',filtered.slice(0,6));
+  }
+}
+
+// ╔══════════════════════════════════════════╗
+// ║           NOTIFICATIONS                  ║
+// ╚══════════════════════════════════════════╝
+function openNotif(){
+  renderNotifs();
+  document.getElementById('notifPanel').classList.add('open');
+  document.getElementById('notifBackdrop').classList.add('open');
+}
+function closeNotif(){
+  document.getElementById('notifPanel').classList.remove('open');
+  document.getElementById('notifBackdrop').classList.remove('open');
+}
+function renderNotifs(){
+  const l=getLang();
+  const list=document.getElementById('notifList');
+  if(S.notifications.length===0){
+    list.innerHTML=`<div class="notif-empty"><i class="fa fa-bell-slash"></i><p>${T('notifEmpty')}</p></div>`;
+    document.getElementById('notifBadge').style.display='none';return;
+  }
+  list.innerHTML=S.notifications.map(n=>`
+    <div class="notif-item ${n.unread?'unread':''}" onclick="readNotif(${n.id})">
+      <div class="notif-ico" style="background:${n.bg}">${n.icon}</div>
+      <div class="notif-body">
+        <div class="notif-msg">${l==='vi'?n.msg_vi:n.msg_en}</div>
+        <div class="notif-time">${n.time}</div>
+      </div>
+      ${n.unread?'<div class="notif-dot-live"></div>':''}
+    </div>
+  `).join('');
+  const unread=S.notifications.filter(n=>n.unread).length;
+  document.getElementById('notifBadge').style.display=unread>0?'block':'none';
+}
+function readNotif(id){S.notifications=S.notifications.map(n=>n.id===id?{...n,unread:false}:n);renderNotifs()}
+function clearNotifs(){S.notifications=[];renderNotifs();closeNotif();showToast(getLang()==='vi'?'Đã xóa tất cả thông báo':'All notifications cleared','info')}
+
+// ╔══════════════════════════════════════════╗
+// ║           PROFILE                        ║
+// ╚══════════════════════════════════════════╝
+function renderProfile(){
+  const u=S.session;const l=getLang();
+  if(u){
+    document.getElementById('profileName').textContent=u.name;
+    document.getElementById('profileEmail').textContent=u.email;
+    document.getElementById('profileAvatar').textContent=u.name.charAt(0).toUpperCase();
+    document.getElementById('verifiedBadge').style.display='flex';
+    document.getElementById('verifiedPill').style.display='inline-flex';
+    document.getElementById('verifiedPillText').textContent=T('verifiedPillText');
+  }else{
+    document.getElementById('profileName').textContent=T('profileGuest');
+    document.getElementById('profileEmail').textContent=T('profileNotLogged');
+    document.getElementById('profileAvatar').textContent='👤';
+    document.getElementById('verifiedBadge').style.display='none';
+    document.getElementById('verifiedPill').style.display='none';
+  }
+  const cards=document.getElementById('profileCards');
+  if(u){
+    cards.innerHTML=`
+      <div class="p-card">
+        <div class="p-item">
+          <div class="p-ico" style="background:#FFF3E0;color:#FF6B35"><i class="fa fa-user"></i></div>
+          <div class="p-body"><div class="p-label">${T('proName')}</div><div class="p-sub">${u.name}</div></div>
         </div>
-        <select class="lang-select" id="langSelect" onchange="changeLang(this.value)">
-          <option value="auto">🌐 Tự Động</option>
+        <div class="p-item">
+          <div class="p-ico" style="background:#E3F2FD;color:#2196F3"><i class="fa fa-envelope"></i></div>
+          <div class="p-body"><div class="p-label">${T('proEmailLabel')}</div><div class="p-sub">${u.email}</div></div>
+        </div>
+        <div class="p-item">
+          <div class="p-ico" style="background:#E8F5E9;color:#22C55E"><i class="fa fa-shield-check"></i></div>
+          <div class="p-body"><div class="p-label">${T('proVerify')}</div><div class="p-sub" style="color:#22C55E;font-weight:700">${T('proFreeVerified')}</div></div>
+        </div>
+      </div>
+      <div class="p-card">
+        <div class="p-item" onclick="navTo('settings')">
+          <div class="p-ico" style="background:#F3E5F5;color:#9C27B0"><i class="fa fa-cog"></i></div>
+          <div class="p-body"><div class="p-label">${T('proSettings')}</div></div>
+          <i class="fa fa-chevron-right p-arrow"></i>
+        </div>
+        <div class="p-item">
+          <div class="p-ico" style="background:#FFF8E1;color:#F59E0B"><i class="fa fa-star"></i></div>
+          <div class="p-body"><div class="p-label">${T('proRate')}</div></div>
+          <i class="fa fa-chevron-right p-arrow"></i>
+        </div>
+        <div class="p-item" onclick="doLogout()">
+          <div class="p-ico" style="background:#FFEBEE;color:#EF4444"><i class="fa fa-sign-out-alt"></i></div>
+          <div class="p-body"><div class="p-label" style="color:#EF4444">${T('proLogout')}</div></div>
+        </div>
+      </div>`;
+  }else{
+    cards.innerHTML=`
+      <div class="p-card">
+        <div class="p-item" onclick="goLogin()">
+          <div class="p-ico" style="background:#E3F2FD;color:#2196F3"><i class="fa fa-sign-in-alt"></i></div>
+          <div class="p-body"><div class="p-label">${T('siLogin')}</div></div>
+          <i class="fa fa-chevron-right p-arrow"></i>
+        </div>
+        <div class="p-item" onclick="goRegister()">
+          <div class="p-ico" style="background:#E8F5E9;color:#22C55E"><i class="fa fa-user-plus"></i></div>
+          <div class="p-body"><div class="p-label">${T('siRegister')}</div></div>
+          <i class="fa fa-chevron-right p-arrow"></i>
+        </div>
+      </div>`;
+  }
+}
+
+function doLogout(){
+  S.session=null;localStorage.removeItem('nhvn_session');
+  renderProfile();showToast(T('logoutMsg'),'info');
+}
+
+// ╔══════════════════════════════════════════╗
+// ║           SETTINGS                       ║
+// ╚══════════════════════════════════════════╝
+function renderSettings(){
+  const l=getLang();
+  document.getElementById('settingsContent').innerHTML=`
+    <div class="set-section-title">${T('sgAppearance')}</div>
+    <div class="set-card">
+      <div class="set-item">
+        <div class="set-ico" style="background:#FFF3E0;color:#FF6B35"><i class="fa fa-palette"></i></div>
+        <div class="set-body"><div class="set-label">${T('siThemeLabel')}</div><div class="set-desc">${T('siThemeDesc')}</div></div>
+        <div class="theme-row">
+          <button class="theme-opt" id="thSys" onclick="applyTheme('system')" title="System">⚙️</button>
+          <button class="theme-opt" id="thLight" onclick="applyTheme('light')" title="Light">☀️</button>
+          <button class="theme-opt" id="thDark" onclick="applyTheme('dark')" title="Dark">🌙</button>
+        </div>
+      </div>
+    </div>
+    <div class="set-section-title">${T('sgLang')}</div>
+    <div class="set-card">
+      <div class="set-item">
+        <div class="set-ico" style="background:#E3F2FD;color:#2196F3"><i class="fa fa-globe"></i></div>
+        <div class="set-body"><div class="set-label">${T('siLangLabel')}</div><div class="set-desc">${T('siLangDesc')}</div></div>
+        <select class="lang-sel" id="langSelect" onchange="changeLang(this.value)">
+          <option value="auto">🌐 Auto</option>
           <option value="vi">🇻🇳 Tiếng Việt</option>
           <option value="en">🇬🇧 English</option>
         </select>
       </div>
     </div>
-
-    <div class="sg-title" id="sgAccount">Tài Khoản</div>
-    <div class="settings-card">
-      <div class="setting-item" onclick="openOverlay('regOverlay')">
-        <div class="si-icon" style="background:#E8F5E9; color:#4CAF50;"><i class="fa fa-user-plus"></i></div>
-        <div class="si-body"><div class="si-label" id="siRegLabel">Đăng Ký / Đăng Nhập</div></div>
-        <i class="fa fa-chevron-right" style="color:var(--text2);"></i>
+    <div class="set-section-title">${T('sgAccount')}</div>
+    <div class="set-card">
+      <div class="set-item" onclick="goLogin()">
+        <div class="set-ico" style="background:#E8F5E9;color:#22C55E"><i class="fa fa-sign-in-alt"></i></div>
+        <div class="set-body"><div class="set-label">${T('siLogin')}</div></div>
+        <i class="fa fa-chevron-right" style="color:var(--txt3)"></i>
       </div>
-      <div class="setting-item">
-        <div class="si-icon" style="background:#FFF3E0; color:#FF6B35;"><i class="fa fa-bell"></i></div>
-        <div class="si-body"><div class="si-label" id="siNotifLabel">Thông Báo</div></div>
-        <label class="toggle"><input type="checkbox" checked><span class="toggle-track"></span></label>
+      <div class="set-item" onclick="goRegister()">
+        <div class="set-ico" style="background:#E3F2FD;color:#2196F3"><i class="fa fa-user-plus"></i></div>
+        <div class="set-body"><div class="set-label">${T('siRegister')}</div></div>
+        <i class="fa fa-chevron-right" style="color:var(--txt3)"></i>
       </div>
-    </div>
-
-    <div class="sg-title" id="sgAbout">Về Ứng Dụng</div>
-    <div class="settings-card">
-      <div class="setting-item">
-        <div class="si-icon" style="background:#F3E5F5; color:#9C27B0;"><i class="fa fa-info-circle"></i></div>
-        <div class="si-body"><div class="si-label" id="siVersionLabel">Phiên Bản</div></div>
-        <span style="color:var(--text2); font-size:14px; font-weight:600;">v1.0.0</span>
-      </div>
-      <div class="setting-item">
-        <div class="si-icon" style="background:#FFEBEE; color:#F44336;"><i class="fa fa-heart"></i></div>
-        <div class="si-body"><div class="si-label" id="siMadeLabel">Được Tạo Bởi</div></div>
-        <span style="color:var(--primary); font-size:13px; font-weight:800;">NguyenHia VN</span>
+      <div class="set-item">
+        <div class="set-ico" style="background:#FFF3E0;color:#FF6B35"><i class="fa fa-bell"></i></div>
+        <div class="set-body"><div class="set-label">${T('siNotif')}</div></div>
+        <label class="toggle-sw"><input type="checkbox" checked><span></span></label>
       </div>
     </div>
-
-  </div>
-</div>
-
-<!-- ==================== BOTTOM NAV ==================== -->
-<nav class="bottom-nav">
-  <button class="nav-btn active" id="nav-home" onclick="navTo('home')">
-    <i class="fa fa-home"></i><span id="navHome">Trang Chủ</span>
-  </button>
-  <button class="nav-btn" id="nav-apps" onclick="navTo('apps')">
-    <i class="fa fa-th"></i><span id="navApps">Ứng Dụng</span>
-  </button>
-  <button class="nav-btn" id="nav-profile" onclick="navTo('profile')">
-    <i class="fa fa-user"></i><span id="navProfile">Hồ Sơ</span>
-  </button>
-  <button class="nav-btn" id="nav-settings" onclick="navTo('settings')">
-    <i class="fa fa-cog"></i><span id="navSettings">Cài Đặt</span>
-  </button>
-</nav>
-
-<!-- ==================== REGISTER OVERLAY ==================== -->
-<div class="overlay" id="regOverlay" onclick="overlayClick(event, 'regOverlay')">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-title" id="regTitle">Đăng Ký Tài Khoản</div>
-    <div class="modal-sub" id="regSub">Tham gia NguyenHia VN ngay hôm nay!</div>
-
-    <!-- Name -->
-    <div class="form-group">
-      <label class="form-label" id="lblName">Họ và Tên</label>
-      <div class="input-wrap">
-        <i class="fa fa-user in-icon-left"></i>
-        <input type="text" class="form-input" id="fName" placeholder="Nguyễn Văn A">
+    <div class="set-section-title">${T('sgAbout')}</div>
+    <div class="set-card">
+      <div class="set-item">
+        <div class="set-ico" style="background:#F3E5F5;color:#9C27B0"><i class="fa fa-info-circle"></i></div>
+        <div class="set-body"><div class="set-label">${T('siVersion')}</div></div>
+        <span style="color:var(--txt2);font-size:14px;font-weight:700">v1.0.1</span>
       </div>
-      <div class="err-msg" id="eName"></div>
-    </div>
-
-    <!-- Email -->
-    <div class="form-group">
-      <label class="form-label" id="lblEmail">Email</label>
-      <div class="input-wrap">
-        <i class="fa fa-envelope in-icon-left"></i>
-        <input type="email" class="form-input" id="fEmail" placeholder="example@gmail.com">
+      <div class="set-item">
+        <div class="set-ico" style="background:#FFEBEE;color:#EF4444"><i class="fa fa-heart"></i></div>
+        <div class="set-body"><div class="set-label">${T('siMade')}</div></div>
+        <span style="color:var(--p);font-size:13px;font-weight:800">NguyenHia VN</span>
       </div>
-      <div class="err-msg" id="eEmail"></div>
     </div>
-
-    <!-- Password -->
-    <div class="form-group">
-      <label class="form-label" id="lblPass">Mật Khẩu</label>
-      <div class="input-wrap">
-        <i class="fa fa-lock in-icon-left"></i>
-        <input type="password" class="form-input" id="fPass" placeholder="••••••••" style="padding-right:44px;">
-        <i class="fa fa-eye in-icon-right" id="eyePass" onclick="toggleEye('fPass','eyePass')"></i>
-      </div>
-      <div class="err-msg" id="ePass"></div>
-    </div>
-
-    <!-- Confirm Password -->
-    <div class="form-group">
-      <label class="form-label" id="lblConfirm">Xác Nhận Mật Khẩu</label>
-      <div class="input-wrap">
-        <i class="fa fa-lock in-icon-left"></i>
-        <input type="password" class="form-input" id="fConfirm" placeholder="••••••••" style="padding-right:44px;">
-        <i class="fa fa-eye in-icon-right" id="eyeConfirm" onclick="toggleEye('fConfirm','eyeConfirm')"></i>
-      </div>
-      <div class="err-msg" id="eConfirm"></div>
-    </div>
-
-    <button class="btn-register" id="btnRegister" onclick="handleRegister()">
-      🚀 <span id="btnRegText">Đăng Ký</span>
-    </button>
-
-    <div class="form-footer" id="regFooterText">
-      Đã có tài khoản? <a onclick="closeOverlay('regOverlay')" id="regLoginLink">Đăng Nhập</a>
-    </div>
-
-    <button class="btn-secondary" id="btnClose" onclick="closeOverlay('regOverlay')">Đóng</button>
-  </div>
-</div>
-
-<script>
-// ============================================================
-// DATA & STATE
-// ============================================================
-let state = {
-  lang: localStorage.getItem('nhvn_lang') || 'auto',
-  theme: localStorage.getItem('nhvn_theme') || 'system',
-  user: JSON.parse(localStorage.getItem('nhvn_user') || 'null'),
-  currentPage: 'home'
-};
-
-const APPS = [
-  { name:'Zalo', icon:'💬', bg:'#E3F2FD', color:'#0068FF' },
-  { name:'Shopee', icon:'🛍️', bg:'#FFF3E0', color:'#EE4D2D' },
-  { name:'Grab', icon:'🚗', bg:'#E8F5E9', color:'#00B14F' },
-  { name:'MoMo', icon:'💳', bg:'#FCE4EC', color:'#A50064' },
-  { name:'TikTok', icon:'🎵', bg:'#F5F5F5', color:'#000000' },
-  { name:'Facebook', icon:'👥', bg:'#E8F0FE', color:'#1877F2' },
-  { name:'YouTube', icon:'▶️', bg:'#FFEBEE', color:'#FF0000' },
-  { name:'Gmail', icon:'📧', bg:'#FFEBEE', color:'#EA4335' },
-  { name:'Google Maps', icon:'🗺️', bg:'#E8F5E9', color:'#4CAF50' },
-  { name:'VNPay', icon:'💰', bg:'#E3F2FD', color:'#006FBA' },
-  { name:'Lazada', icon:'🏪', bg:'#FFF3E0', color:'#F57722' },
-  { name:'Viber', icon:'📞', bg:'#EDE7F6', color:'#7360F2' },
-  { name:'Tiki', icon:'📦', bg:'#E3F2FD', color:'#1A94FF' },
-  { name:'ZaloPay', icon:'💸', bg:'#E3F2FD', color:'#0068FF' },
-  { name:'VNPT Pay', icon:'🏦', bg:'#E8F5E9', color:'#00813D' },
-  { name:'Agoda', icon:'🏨', bg:'#FFF8E1', color:'#EB5400' },
-];
-
-const FEATURES = [
-  { icon:'🎨', label_vi:'Chủ Đề', label_en:'Themes', desc_vi:'Tùy chỉnh giao diện', desc_en:'Customize UI', bg:'#FFF3E0', color:'#FF6B35' },
-  { icon:'🌐', label_vi:'Đa Ngôn Ngữ', label_en:'Multi-Lang', desc_vi:'VI & EN tự động', desc_en:'VI & EN auto', bg:'#E3F2FD', color:'#2196F3' },
-  { icon:'📱', label_vi:'Mobile First', label_en:'Mobile First', desc_vi:'Thiết kế di động', desc_en:'Mobile design', bg:'#F3E5F5', color:'#9C27B0' },
-  { icon:'🔒', label_vi:'Bảo Mật', label_en:'Security', desc_vi:'An toàn tuyệt đối', desc_en:'100% safe', bg:'#E8F5E9', color:'#4CAF50' },
-  { icon:'⚡', label_vi:'Hiệu Suất', label_en:'Performance', desc_vi:'Nhanh & mượt mà', desc_en:'Fast & smooth', bg:'#FFF8E1', color:'#FFC107' },
-];
-
-// ============================================================
-// TRANSLATIONS
-// ============================================================
-const TR = {
-  vi: {
-    topSub:'Thư Viện UI',
-    bannerBadge:'🇻🇳 Thư Viện UI Việt Nam #1',
-    bannerDesc:'Bộ công cụ giao diện đẹp, hiện đại và dễ sử dụng cho ứng dụng Việt Nam',
-    btnGetStarted:'Bắt Đầu', btnDlText:'Tải Xuống',
-    statApps:'Ứng Dụng', statUsers:'Người Dùng', statRating:'Đánh Giá',
-    featTitle:'✨ Tính Năng Nổi Bật', featSeeAll:'Xem tất cả',
-    dlBannerTitle:'📱 Tải Ứng Dụng Ngay', dlBannerDesc:'Trải nghiệm tốt nhất trên di động', dlBannerBtn:'Tải Ngay',
-    appsHomeTitle:'📦 Ứng Dụng Nổi Bật', appsSeeAll:'Xem tất cả',
-    appsPageTitle:'📦 Tất Cả Ứng Dụng', appsPageSub:'Khám phá các ứng dụng hàng đầu',
-    navHome:'Trang Chủ', navApps:'Ứng Dụng', navProfile:'Hồ Sơ', navSettings:'Cài Đặt',
-    regTitle:'Đăng Ký Tài Khoản', regSub:'Tham gia NguyenHia VN ngay hôm nay!',
-    lblName:'Họ và Tên', lblEmail:'Email', lblPass:'Mật Khẩu', lblConfirm:'Xác Nhận Mật Khẩu',
-    btnRegText:'Đăng Ký', regFooter:'Đã có tài khoản?', regLoginLink:'Đăng Nhập', btnClose:'Đóng',
-    eName1:'Vui lòng nhập họ và tên', eName2:'Tên phải có ít nhất 2 ký tự',
-    eEmail1:'Vui lòng nhập email', eEmail2:'Email không hợp lệ',
-    ePass1:'Vui lòng nhập mật khẩu', ePass2:'Mật khẩu phải có ít nhất 8 ký tự',
-    eConfirm1:'Vui lòng xác nhận mật khẩu', eConfirm2:'Mật khẩu xác nhận không khớp',
-    regSuccess:'🎉 Đăng ký thành công! Chào mừng bạn!',
-    alertEmail:'Vui lòng kiểm tra email của bạn từ ứng dụng Google trên tài khoản hồ sơ',
-    dlInfo:'📱 Tính năng tải xuống sắp ra mắt!',
-    notifEmpty:'🔔 Không có thông báo mới',
-    logoutMsg:'👋 Đã đăng xuất thành công',
-    proGuest:'Khách', proNotLoggedIn:'Chưa đăng nhập',
-    proEditLabel:'Chỉnh Sửa Hồ Sơ', proEmailLabel:'Email',
-    proVerifyLabel:'Trạng Thái Xác Minh', proSettingsLabel:'Cài Đặt',
-    proRateLabel:'Đánh Giá Ứng Dụng', proLogoutLabel:'Đăng Xuất',
-    proVerifyBadge:'Chưa XM',
-    sgAppearance:'Giao Diện', siThemeLabel:'Chủ Đề', siThemeDesc:'Hệ thống / Sáng / Tối',
-    sgLanguage:'Ngôn Ngữ', siLangLabel:'Ngôn Ngữ Ứng Dụng', siLangDesc:'Tự động từ cài đặt hệ thống',
-    sgAccount:'Tài Khoản', siRegLabel:'Đăng Ký / Đăng Nhập', siNotifLabel:'Thông Báo',
-    sgAbout:'Về Ứng Dụng', siVersionLabel:'Phiên Bản', siMadeLabel:'Được Tạo Bởi',
-    searchPH:'Tìm kiếm ứng dụng...',
-  },
-  en: {
-    topSub:'UI Library',
-    bannerBadge:'🇻🇳 Vietnam UI Library #1',
-    bannerDesc:'Beautiful, modern & easy-to-use UI toolkit for Vietnamese applications',
-    btnGetStarted:'Get Started', btnDlText:'Download',
-    statApps:'Apps', statUsers:'Users', statRating:'Rating',
-    featTitle:'✨ Featured', featSeeAll:'See all',
-    dlBannerTitle:'📱 Download App Now', dlBannerDesc:'Best experience on mobile', dlBannerBtn:'Download',
-    appsHomeTitle:'📦 Featured Apps', appsSeeAll:'See all',
-    appsPageTitle:'📦 All Applications', appsPageSub:'Explore top applications',
-    navHome:'Home', navApps:'Apps', navProfile:'Profile', navSettings:'Settings',
-    regTitle:'Create Account', regSub:'Join NguyenHia VN today!',
-    lblName:'Full Name', lblEmail:'Email', lblPass:'Password', lblConfirm:'Confirm Password',
-    btnRegText:'Register', regFooter:'Already have an account?', regLoginLink:'Login', btnClose:'Close',
-    eName1:'Please enter your name', eName2:'Name must be at least 2 characters',
-    eEmail1:'Please enter your email', eEmail2:'Invalid email address',
-    ePass1:'Please enter your password', ePass2:'Password must be at least 8 characters',
-    eConfirm1:'Please confirm your password', eConfirm2:'Passwords do not match',
-    regSuccess:'🎉 Registration successful! Welcome!',
-    alertEmail:'Please check your email from Google apps on your profile account',
-    dlInfo:'📱 Download feature coming soon!',
-    notifEmpty:'🔔 No new notifications',
-    logoutMsg:'👋 Logged out successfully',
-    proGuest:'Guest', proNotLoggedIn:'Not logged in',
-    proEditLabel:'Edit Profile', proEmailLabel:'Email',
-    proVerifyLabel:'Verification Status', proSettingsLabel:'Settings',
-    proRateLabel:'Rate App', proLogoutLabel:'Logout',
-    proVerifyBadge:'Not Verified',
-    sgAppearance:'Appearance', siThemeLabel:'Theme', siThemeDesc:'System / Light / Dark',
-    sgLanguage:'Language', siLangLabel:'App Language', siLangDesc:'Auto from system settings',
-    sgAccount:'Account', siRegLabel:'Register / Login', siNotifLabel:'Notifications',
-    sgAbout:'About', siVersionLabel:'Version', siMadeLabel:'Made By',
-    searchPH:'Search apps...',
-  }
-};
-
-// ============================================================
-// LANGUAGE SYSTEM
-// ============================================================
-function getSystemLang() {
-  const l = navigator.language || navigator.userLanguage || 'vi';
-  return l.toLowerCase().startsWith('vi') ? 'vi' : 'en';
+  `;
+  // Restore theme buttons
+  const map={system:'thSys',light:'thLight',dark:'thDark'};
+  const btn=document.getElementById(map[S.theme]);if(btn)btn.classList.add('active');
+  document.getElementById('langSelect').value=S.lang;
 }
 
-function getActiveLang() {
-  return state.lang === 'auto' ? getSystemLang() : state.lang;
+// ╔══════════════════════════════════════════╗
+// ║           LANGUAGE                       ║
+// ╚══════════════════════════════════════════╝
+function quickLang(){
+  const cur=getLang();
+  S.lang=cur==='vi'?'en':'vi';
+  localStorage.setItem('nhvn_lang',S.lang);
+  applyTranslations();
 }
-
-function T(key) {
-  return TR[getActiveLang()][key] || key;
+function changeLang(v){
+  S.lang=v;localStorage.setItem('nhvn_lang',v);
+  applyTranslations();
 }
-
-function applyTranslations() {
-  const l = getActiveLang();
-  document.getElementById('langPill').textContent = l.toUpperCase();
-  document.documentElement.lang = l;
-
-  const ids = [
-    'topSub','bannerBadge','bannerDesc','btnGetStarted','btnDlText',
-    'statApps','statUsers','statRating','featTitle','featSeeAll',
-    'dlBannerTitle','dlBannerDesc','dlBannerBtn','appsHomeTitle','appsSeeAll',
-    'appsPageTitle','appsPageSub',
-    'navHome','navApps','navProfile','navSettings',
-    'regTitle','regSub','lblName','lblEmail','lblPass','lblConfirm',
-    'btnRegText','btnClose',
-    'proEditLabel','proEmailLabel','proVerifyLabel','proSettingsLabel',
-    'proRateLabel','proLogoutLabel','proVerifyBadge',
-    'sgAppearance','siThemeLabel','siThemeDesc','sgLanguage',
-    'siLangLabel','siLangDesc','sgAccount','siRegLabel','siNotifLabel',
-    'sgAbout','siVersionLabel','siMadeLabel',
-  ];
-
-  ids.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.textContent = TR[l][id] || '';
+function applyTranslations(){
+  const l=getLang();
+  document.getElementById('langLabel').textContent=TR[l].langLabel;
+  document.getElementById('topSub').textContent=T('topSub');
+  ['featAppsTitle','featAppsMore','featuresTitle','topAppsTitle','topAppsMore',
+   'appsPageTitle','appsPageSub','navHome','navApps','navProfile','navSettings',
+   'notifTitle','notifClear','bTag1','bBtn1','bBtn2','bTag2','bBtn3','bTag3','bBtn4'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.textContent=T(id);
   });
-
-  // Footer special
-  const regFT = document.getElementById('regFooterText');
-  if (regFT) regFT.innerHTML = `${TR[l].regFooter} <a onclick="closeOverlay('regOverlay')" id="regLoginLink">${TR[l].regLoginLink}</a>`;
-
-  // bannerTitle stays bilingual-friendly
-  document.getElementById('bannerTitle').innerHTML = 'NguyenHia VN<br><span style="font-size:20px; opacity:.85;">UI Library</span>';
-
-  // Placeholder
-  document.getElementById('searchInput').placeholder = TR[l].searchPH;
-
-  // Features
-  renderFeatures();
-  // Apps
-  renderApps('appsHome', 8);
-  renderApps('appsFullGrid', APPS.length);
-
-  // Profile update
-  updateProfileUI();
+  document.getElementById('searchInput').placeholder=T('searchPH');
+  renderCats();renderFeatures();
+  renderAppsList('homeAppsList',APPS_DATA.slice(0,6));
+  renderAppsGrid('homeAppsGrid',APPS_DATA.slice(0,8));
+  renderNotifs();
 }
 
-function changeLang(val) {
-  state.lang = val;
-  localStorage.setItem('nhvn_lang', val);
+// ╔══════════════════════════════════════════╗
+// ║           AUTH REDIRECT                  ║
+// ╚══════════════════════════════════════════╝
+function goLogin(){window.location.href='login.html'}
+function goRegister(){window.location.href='register.html'}
+
+// Check if redirected from login/register
+function checkAuthReturn(){
+  const sess=localStorage.getItem('nhvn_session');
+  if(sess){S.session=JSON.parse(sess)}
+}
+
+// ╔══════════════════════════════════════════╗
+// ║           TOAST                          ║
+// ╚══════════════════════════════════════════╝
+let _toastT=null;
+function showToast(msg,type='info',dur=3000){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.className=`toast ${type} show`;
+  clearTimeout(_toastT);
+  _toastT=setTimeout(()=>el.classList.remove('show'),dur);
+}
+
+// ╔══════════════════════════════════════════╗
+// ║           INIT                           ║
+// ╚══════════════════════════════════════════╝
+(function init(){
+  checkAuthReturn();
+  applyTheme(S.theme);
   applyTranslations();
-}
-
-function quickToggleLang() {
-  const cur = getActiveLang();
-  const next = cur === 'vi' ? 'en' : 'vi';
-  state.lang = next;
-  document.getElementById('langSelect').value = next;
-  localStorage.setItem('nhvn_lang', next);
-  applyTranslations();
-}
-
-// ============================================================
-// THEME SYSTEM
-// ============================================================
-function applyTheme(theme) {
-  state.theme = theme;
-  localStorage.setItem('nhvn_theme', theme);
-
-  ['thSys','thLight','thDark'].forEach(id => {
-    document.getElementById(id).classList.remove('active');
-  });
-
-  if (theme === 'system') {
-    document.getElementById('thSys').classList.add('active');
-    const dark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    document.body.setAttribute('data-theme', dark ? 'dark' : 'light');
-  } else {
-    const map = { light:'thLight', dark:'thDark' };
-    document.getElementById(map[theme]).classList.add('active');
-    document.body.setAttribute('data-theme', theme);
-  }
-}
-
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-  if (state.theme === 'system') {
-    document.body.setAttribute('data-theme', e.matches ? 'dark' : 'light');
-  }
-});
-
-// ============================================================
-// NAVIGATION
-// ============================================================
-function navTo(page) {
-  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('page-' + page).classList.add('active');
-  document.getElementById('nav-' + page).classList.add('active');
-  state.currentPage = page;
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function goToApps() { navTo('apps'); }
-
-// ============================================================
-// RENDER FEATURES
-// ============================================================
-function renderFeatures() {
-  const l = getActiveLang();
-  const html = FEATURES.map(f => `
-    <div class="feat-card" onclick="toast('${l==='vi'?f.label_vi:f.label_en}', 'info')">
-      <div class="feat-ico" style="background:${f.bg}; color:${f.color};">${f.icon}</div>
-      <h4>${l === 'vi' ? f.label_vi : f.label_en}</h4>
-      <p>${l === 'vi' ? f.desc_vi : f.desc_en}</p>
-    </div>
-  `).join('');
-  document.getElementById('featureScroll').innerHTML = html;
-}
-
-// ============================================================
-// RENDER APPS
-// ============================================================
-function renderApps(containerId, limit) {
-  const list = APPS.slice(0, limit);
-  const html = list.map(a => `
-    <div class="app-item" onclick="toast('${T('navApps')}: ${a.name}', 'info')">
-      <div class="app-ico" style="background:${a.bg}; font-size:24px;">${a.icon}</div>
-      <div class="app-name">${a.name}</div>
-    </div>
-  `).join('');
-  const el = document.getElementById(containerId);
-  if (el) el.innerHTML = html;
-}
-
-// ============================================================
-// SEARCH FILTER
-// ============================================================
-function filterApps(query) {
-  const l = getActiveLang();
-  const q = query.toLowerCase();
-  const filtered = q ? APPS.filter(a => a.name.toLowerCase().includes(q)) : APPS.slice(0, 8);
-  const html = filtered.map(a => `
-    <div class="app-item" onclick="toast('${a.name}', 'info')">
-      <div class="app-ico" style="background:${a.bg};">${a.icon}</div>
-      <div class="app-name">${a.name}</div>
-    </div>
-  `).join('');
-  document.getElementById('appsHome').innerHTML = html || '<p style="color:var(--text2);font-size:14px;padding:12px;grid-column:span 4;">Không tìm thấy / Not found</p>';
-}
-
-// ============================================================
-// MODAL
-// ============================================================
-function openOverlay(id) {
-  document.getElementById(id).classList.add('show');
-}
-
-function closeOverlay(id) {
-  document.getElementById(id).classList.remove('show');
-}
-
-function overlayClick(e, id) {
-  if (e.target.id === id) closeOverlay(id);
-}
-
-// ============================================================
-// FORM - PASSWORD TOGGLE
-// ============================================================
-function toggleEye(inputId, iconId) {
-  const inp = document.getElementById(inputId);
-  const ico = document.getElementById(iconId);
-  inp.type = inp.type === 'password' ? 'text' : 'password';
-  ico.className = inp.type === 'text' ? 'fa fa-eye-slash in-icon-right' : 'fa fa-eye in-icon-right';
-}
-
-// ============================================================
-// REGISTRATION
-// ============================================================
-function setErr(fieldId, errId, msg) {
-  document.getElementById(fieldId).classList.add('err');
-  const el = document.getElementById(errId);
-  el.textContent = msg;
-  el.classList.add('show');
-}
-
-function clearErr(fieldId, errId) {
-  document.getElementById(fieldId).classList.remove('err');
-  document.getElementById(errId).classList.remove('show');
-}
-
-function clearAllErrors() {
-  [['fName','eName'],['fEmail','eEmail'],['fPass','ePass'],['fConfirm','eConfirm']]
-    .forEach(([f,e]) => clearErr(f, e));
-}
-
-function handleRegister() {
-  clearAllErrors();
-  const l = getActiveLang();
-  const t = TR[l];
-
-  const name = document.getElementById('fName').value.trim();
-  const email = document.getElementById('fEmail').value.trim();
-  const pass = document.getElementById('fPass').value;
-  const confirm = document.getElementById('fConfirm').value;
-  let ok = true;
-
-  if (!name) { setErr('fName','eName', t.eName1); ok = false; }
-  else if (name.length < 2) { setErr('fName','eName', t.eName2); ok = false; }
-
-  if (!email) { setErr('fEmail','eEmail', t.eEmail1); ok = false; }
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setErr('fEmail','eEmail', t.eEmail2); ok = false; }
-
-  if (!pass) { setErr('fPass','ePass', t.ePass1); ok = false; }
-  else if (pass.length < 8) { setErr('fPass','ePass', t.ePass2); ok = false; }
-
-  if (!confirm) { setErr('fConfirm','eConfirm', t.eConfirm1); ok = false; }
-  else if (pass !== confirm) { setErr('fConfirm','eConfirm', t.eConfirm2); ok = false; }
-
-  if (!ok) return;
-
-  // Success
-  state.user = { name, email };
-  localStorage.setItem('nhvn_user', JSON.stringify(state.user));
-
-  closeOverlay('regOverlay');
-  ['fName','fEmail','fPass','fConfirm'].forEach(id => document.getElementById(id).value = '');
-
-  updateProfileUI();
-
-  // Alert: email check
-  setTimeout(() => {
-    toast('✉️ ' + t.alertEmail, 'info', 6000);
-  }, 600);
-
-  setTimeout(() => toast(t.regSuccess, 'success'), 200);
-}
-
-// ============================================================
-// PROFILE UPDATE
-// ============================================================
-function updateProfileUI() {
-  const l = getActiveLang();
-  const t = TR[l];
-  const u = state.user;
-
-  if (u && u.name) {
-    document.getElementById('profileName').textContent = u.name;
-    document.getElementById('profileEmail').textContent = u.email;
-    document.getElementById('proEmailValue').textContent = u.email;
-    document.getElementById('profileAvatar').textContent = u.name.charAt(0).toUpperCase();
-    document.getElementById('proVerifyBadge').textContent = t.proVerifyBadge;
-    document.getElementById('proVerifyBadge').style.background = '#FFF3E0';
-    document.getElementById('proVerifyBadge').style.color = '#FF6B35';
-  } else {
-    document.getElementById('profileName').textContent = t.proGuest;
-    document.getElementById('profileEmail').textContent = t.proNotLoggedIn;
-    document.getElementById('proEmailValue').textContent = '—';
-    document.getElementById('profileAvatar').textContent = '👤';
-    document.getElementById('proVerifyBadge').textContent = t.proVerifyBadge;
-  }
-}
-
-function doLogout() {
-  state.user = null;
-  localStorage.removeItem('nhvn_user');
-  updateProfileUI();
-  toast(T('logoutMsg'), 'info');
-}
-
-// ============================================================
-// TOAST
-// ============================================================
-let toastTimer = null;
-function toast(msg, type = 'info', dur = 3200) {
-  const el = document.getElementById('toast');
-  el.textContent = msg;
-  el.className = `toast ${type} show`;
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => el.classList.remove('show'), dur);
-}
-
-// ============================================================
-// UTILITY
-// ============================================================
-function showNotif() { toast(T('notifEmpty'), 'info'); }
-function triggerDownload() { toast(T('dlInfo'), 'info'); }
-
-// ============================================================
-// SYSTEM LANGUAGE OBSERVER
-// ============================================================
-// Observe system language if set to auto
-const langObserver = new MutationObserver(() => {
-  if (state.lang === 'auto') applyTranslations();
-});
-
-// ============================================================
-// INIT
-// ============================================================
-(function init() {
-  // Restore saved lang select
-  document.getElementById('langSelect').value = state.lang;
-
-  // Apply theme
-  applyTheme(state.theme);
-
-  // Apply translations & render
-  applyTranslations();
+  initBanner();
+  renderNotifs();
+  // Check unread
+  const unread=S.notifications.filter(n=>n.unread).length;
+  document.getElementById('notifBadge').style.display=unread>0?'block':'none';
 })();
 </script>
 </body>
