@@ -3,500 +3,541 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NguyenHia VN">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#FF6B35">
 <title>NguyenHia VN</title>
+<!-- Force no Safari nav UI -->
+<meta name="apple-touch-fullscreen" content="yes">
+<link rel="apple-touch-icon" href="https://i.postimg.cc/VvtqQ7bJ/Nguyen-Hia-VN.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
+@font-face{font-family:'MinecraftViet';src:url('fonts/minecraft-Viet.ttf') format('truetype');font-weight:normal;font-style:normal;font-display:swap}
+
 :root{
-  --p:#FF6B35;--pd:#E55525;--p2:#FF9558;
-  --bg:#F2F3F7;--surf:#FFFFFF;--surf2:#F7F8FC;--surf3:#EDEEF4;
-  --txt:#111827;--txt2:#6B7280;--txt3:#9CA3AF;
-  --border:#E5E7EB;--shadow:0 2px 12px rgba(0,0,0,.06);
-  --shadow2:0 8px 32px rgba(0,0,0,.10);
+  --p:#FF6B35;--pd:#CC4E1F;--p2:#FF9558;
+  --bg:#F1F2F7;--surf:#FFFFFF;--surf2:#F5F6FA;--surf3:#ECEDF4;
+  --txt:#0F1117;--txt2:#5C6070;--txt3:#9CA3AF;
+  --border:#E2E4EE;--divider:#ECEDF4;
+  --sh:0 1px 4px rgba(0,0,0,.06),0 4px 16px rgba(0,0,0,.04);
+  --sh2:0 4px 24px rgba(0,0,0,.10),0 1px 4px rgba(0,0,0,.06);
   --r:16px;--r2:12px;--r3:8px;
-  --nav:64px;--top:58px;
-  --trans:all .25s cubic-bezier(.4,0,.2,1);
+  --nav:60px;--top:56px;
+  --t:all .22s cubic-bezier(.4,0,.2,1);
 }
 [data-theme=dark]{
-  --bg:#0D0D14;--surf:#161622;--surf2:#1E1E2E;--surf3:#252536;
-  --txt:#F9FAFB;--txt2:#9CA3AF;--txt3:#6B7280;
-  --border:#2A2A3E;--shadow:0 2px 12px rgba(0,0,0,.3);
-  --shadow2:0 8px 32px rgba(0,0,0,.5);
+  --bg:#0A0A12;--surf:#121220;--surf2:#1A1A2A;--surf3:#222235;
+  --txt:#F0F1FF;--txt2:#8B8FA8;--txt3:#555670;
+  --border:#252540;--divider:#1E1E30;
+  --sh:0 1px 4px rgba(0,0,0,.4),0 4px 16px rgba(0,0,0,.3);
+  --sh2:0 4px 24px rgba(0,0,0,.5),0 1px 4px rgba(0,0,0,.4);
 }
+
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;height:100%}
 body{
-  font-family:'Inter',system-ui,sans-serif;
-  background:var(--bg);color:var(--txt);
-  transition:background .35s,color .35s;
+  font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);
+  transition:background .3s,color .3s;
   padding-bottom:calc(var(--nav) + env(safe-area-inset-bottom));
-  min-height:100vh;overscroll-behavior:none;
+  min-height:100%;overscroll-behavior-y:none;
 }
-img{display:block;user-select:none}
-button{font-family:inherit;cursor:pointer;border:none;background:none}
 
 /* ── TOPBAR ── */
 .topbar{
-  position:sticky;top:0;z-index:400;
-  height:var(--top);
-  background:var(--surf);
-  border-bottom:1px solid var(--border);
-  display:flex;align-items:center;
-  padding:0 16px;gap:10px;
-  backdrop-filter:blur(20px);
-  transition:var(--trans);
+  position:sticky;top:0;z-index:500;height:var(--top);
+  background:var(--surf);border-bottom:1px solid var(--border);
+  display:flex;align-items:center;padding:0 14px;gap:8px;
+  transition:var(--t);
 }
-.topbar-logo{display:flex;align-items:center;gap:9px;flex:1}
-.logo-mark{
-  width:36px;height:36px;border-radius:10px;
-  background:linear-gradient(135deg,var(--p),var(--p2));
+.tb-brand{display:flex;align-items:center;gap:9px;flex:1;min-width:0}
+.tb-icon{
+  width:34px;height:34px;border-radius:9px;overflow:hidden;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(255,107,53,.3);
+}
+.tb-icon img{width:100%;height:100%;object-fit:cover}
+.tb-name{font-family:'MinecraftViet','Inter',sans-serif;font-size:16px;font-weight:700;color:var(--txt);white-space:nowrap}
+.tb-ver{font-size:10px;color:var(--txt3);margin-top:1px}
+.tb-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.ib{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--surf2);color:var(--txt2);border:none;
   display:flex;align-items:center;justify-content:center;
-  font-weight:900;font-size:13px;color:#fff;flex-shrink:0;
+  font-size:14px;cursor:pointer;transition:var(--t);position:relative;
 }
-.logo-text{font-size:17px;font-weight:800;color:var(--txt);letter-spacing:-.3px}
-.logo-ver{font-size:10px;color:var(--txt2);font-weight:500}
-.topbar-actions{display:flex;align-items:center;gap:6px}
-.tb-btn{
-  width:36px;height:36px;border-radius:50%;
-  background:var(--surf2);color:var(--txt2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:15px;transition:var(--trans);position:relative;
+.ib:active{background:var(--surf3);color:var(--p)}
+.nb::after{
+  content:'';position:absolute;top:5px;right:5px;
+  width:7px;height:7px;border-radius:50%;
+  background:#EF4444;border:1.5px solid var(--surf);
 }
-.tb-btn:hover,.tb-btn:active{background:var(--surf3);color:var(--p)}
-.notif-badge{
-  position:absolute;top:3px;right:3px;
-  width:9px;height:9px;background:#EF4444;
-  border-radius:50%;border:2px solid var(--surf);
-}
-.lang-btn{
-  padding:0 12px;border-radius:20px;height:32px;
-  background:var(--surf2);color:var(--txt2);
-  font-size:12px;font-weight:700;
-  display:flex;align-items:center;gap:5px;
-  transition:var(--trans);
-}
-.lang-btn:hover{background:var(--p);color:#fff}
 
 /* ── PAGES ── */
-.page{display:none;min-height:calc(100vh - var(--top) - var(--nav))}
-.page.active{display:block;animation:fadeSlide .3s ease}
-@keyframes fadeSlide{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.page{display:none}
+.page.active{display:block;animation:pgIn .28s cubic-bezier(.4,0,.2,1)}
+@keyframes pgIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 
 /* ── BOTTOM NAV ── */
 .bnav{
-  position:fixed;bottom:0;left:0;right:0;
-  height:var(--nav);
-  background:var(--surf);
+  position:fixed;bottom:0;left:0;right:0;z-index:500;
+  height:var(--nav);background:var(--surf);
   border-top:1px solid var(--border);
-  display:flex;z-index:400;
-  padding-bottom:env(safe-area-inset-bottom);
+  display:flex;padding-bottom:env(safe-area-inset-bottom);
 }
-.bnav-btn{
-  flex:1;display:flex;flex-direction:column;
-  align-items:center;justify-content:center;gap:3px;
-  background:none;border:none;color:var(--txt3);
-  font-size:10px;font-weight:600;transition:var(--trans);
-  padding:6px 0;
+.nb-btn{
+  flex:1;display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:3px;color:var(--txt3);
+  border:none;background:none;cursor:pointer;
+  font-size:10px;font-weight:600;transition:var(--t);
 }
-.bnav-btn i{font-size:20px;transition:var(--trans)}
-.bnav-btn.active{color:var(--p)}
-.bnav-btn.active i{transform:translateY(-2px)}
+.nb-btn i{font-size:19px;transition:var(--t)}
+.nb-btn.active{color:var(--p)}
+.nb-btn.active i{transform:translateY(-1px)}
 
-/* ── FEATURED BANNER ── */
-.banner-wrap{position:relative;overflow:hidden;background:var(--surf)}
-.banner-slides{display:flex;transition:transform .5s cubic-bezier(.4,0,.2,1)}
-.banner-slide{
-  min-width:100%;padding:28px 20px 24px;
-  position:relative;overflow:hidden;
-}
-.bs-1{background:linear-gradient(145deg,#FF6B35 0%,#FF9558 50%,#FFB380 100%)}
-.bs-2{background:linear-gradient(145deg,#4A90D9 0%,#7B5EA7 100%)}
-.bs-3{background:linear-gradient(145deg,#11998e 0%,#38ef7d 100%)}
-.banner-slide::before{
-  content:'';position:absolute;top:-80px;right:-80px;
-  width:260px;height:260px;border-radius:50%;
-  background:rgba(255,255,255,.08);
-}
-.banner-slide::after{
-  content:'';position:absolute;bottom:-60px;right:20px;
-  width:180px;height:180px;border-radius:50%;
-  background:rgba(255,255,255,.05);
-}
-.bs-tag{
-  display:inline-flex;align-items:center;gap:5px;
-  background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.35);
-  color:#fff;padding:4px 11px;border-radius:20px;
-  font-size:11px;font-weight:700;margin-bottom:12px;
-}
-.bs-title{font-size:24px;font-weight:900;color:#fff;line-height:1.2;margin-bottom:8px}
-.bs-sub{font-size:13px;color:rgba(255,255,255,.85);line-height:1.5;margin-bottom:18px;max-width:270px}
-.bs-actions{display:flex;gap:9px;flex-wrap:wrap}
-.bs-btn-white{
-  background:#fff;border:none;
-  padding:10px 20px;border-radius:24px;
-  font-size:13px;font-weight:800;
-  display:flex;align-items:center;gap:6px;
-  color:var(--p);transition:var(--trans);
-  box-shadow:0 4px 14px rgba(0,0,0,.15);
-}
-.bs-btn-ghost{
-  background:rgba(255,255,255,.18);
-  border:1.5px solid rgba(255,255,255,.5);
-  color:#fff;padding:10px 18px;border-radius:24px;
-  font-size:13px;font-weight:700;
-  display:flex;align-items:center;gap:6px;
-  transition:var(--trans);
-}
-.bs-btn-white:active,.bs-btn-ghost:active{transform:scale(.96)}
-.banner-dots{
-  position:absolute;bottom:12px;left:50%;
-  transform:translateX(-50%);
-  display:flex;gap:6px;
-}
-.bdot{
-  width:6px;height:6px;border-radius:3px;
-  background:rgba(255,255,255,.4);transition:var(--trans);
-}
-.bdot.active{width:18px;background:rgba(255,255,255,.9)}
-
-/* ── SEARCH ── */
-.search-bar{
-  margin:14px 16px 0;position:relative;
-}
-.search-bar input{
-  width:100%;padding:12px 16px 12px 44px;
+/* ── SEARCH BAR ── */
+.search-box{padding:12px 14px 0;position:relative}
+.search-box input{
+  width:100%;padding:11px 14px 11px 40px;
   background:var(--surf);border:1.5px solid var(--border);
-  border-radius:14px;font-size:15px;color:var(--txt);
-  outline:none;transition:var(--trans);font-family:inherit;
+  border-radius:12px;font-size:14px;color:var(--txt);
+  outline:none;transition:var(--t);font-family:'Inter',sans-serif;
 }
-.search-bar input:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(255,107,53,.12)}
-.search-bar input::placeholder{color:var(--txt3)}
-.search-icon{position:absolute;left:15px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:14px}
-.search-bar input:focus ~ .search-icon{color:var(--p)}
+.search-box input:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(255,107,53,.1)}
+.search-box input::placeholder{color:var(--txt3)}
+.search-box i{position:absolute;left:26px;top:50%;transform:translateY(-30%);color:var(--txt3);font-size:13px;pointer-events:none}
+.search-box input:focus+i{color:var(--p)}
+.search-clear{
+  position:absolute;right:22px;top:50%;transform:translateY(-30%);
+  width:20px;height:20px;border-radius:50%;
+  background:var(--surf3);border:none;
+  display:none;align-items:center;justify-content:center;
+  color:var(--txt3);font-size:10px;cursor:pointer;
+}
+.search-clear.show{display:flex}
 
 /* ── SECTION ── */
-.sec{padding:18px 16px 4px}
-.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.sec-title{font-size:17px;font-weight:800;color:var(--txt)}
-.sec-more{font-size:13px;font-weight:600;color:var(--p);cursor:pointer}
+.sec{padding:14px 14px 2px}
+.sec-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.sec-title{font-family:'MinecraftViet','Inter',sans-serif;font-size:15px;font-weight:700;color:var(--txt)}
+.sec-more{font-size:13px;font-weight:600;color:var(--p);cursor:pointer;flex-shrink:0}
+
+/* ── FEATURE APP BANNER ── */
+.fab-wrap{position:relative;overflow:hidden;border-radius:0}
+.fab-track{display:flex;will-change:transform;transition:transform .45s cubic-bezier(.4,0,.2,1)}
+.fab-slide{
+  min-width:100%;padding:22px 18px 28px;
+  position:relative;overflow:hidden;
+}
+.fab-slide::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,0,0,.15),transparent)}
+.fab-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;position:relative}
+.fab-icon{
+  width:58px;height:58px;border-radius:16px;overflow:hidden;
+  background:rgba(255,255,255,.2);flex-shrink:0;
+  box-shadow:0 4px 16px rgba(0,0,0,.2);
+}
+.fab-icon img{width:100%;height:100%;object-fit:cover}
+.fab-meta{flex:1;position:relative}
+.fab-badge{
+  display:inline-block;padding:2px 9px;border-radius:6px;
+  font-size:10px;font-weight:800;letter-spacing:.5px;
+  background:rgba(255,255,255,.25);color:#fff;
+  margin-bottom:5px;
+}
+.fab-title{font-family:'MinecraftViet','Inter',sans-serif;font-size:19px;font-weight:700;color:#fff;line-height:1.1;margin-bottom:3px}
+.fab-sub{font-size:12px;color:rgba(255,255,255,.8)}
+.fab-desc{font-size:13px;color:rgba(255,255,255,.85);line-height:1.5;margin-bottom:16px;max-width:280px;position:relative}
+.fab-actions{display:flex;gap:9px;position:relative}
+.fab-btn-dl{
+  display:flex;align-items:center;gap:7px;
+  background:#fff;border:none;color:inherit;
+  padding:10px 18px;border-radius:22px;
+  font-size:13px;font-weight:800;cursor:pointer;
+  box-shadow:0 3px 12px rgba(0,0,0,.2);
+  transition:var(--t);
+}
+.fab-btn-dl:active{transform:scale(.95)}
+.fab-btn-share{
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.4);
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:14px;cursor:pointer;transition:var(--t);
+}
+.fab-dots{
+  position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
+  display:flex;gap:5px;
+}
+.fab-dot{
+  width:5px;height:5px;border-radius:3px;
+  background:rgba(255,255,255,.35);transition:var(--t);
+}
+.fab-dot.active{width:16px;background:rgba(255,255,255,.9)}
 
 /* ── CATEGORIES ── */
-.cats-scroll{display:flex;gap:8px;overflow-x:auto;padding:0 16px 4px;scrollbar-width:none}
-.cats-scroll::-webkit-scrollbar{display:none}
-.cat-chip{
-  display:flex;align-items:center;gap:6px;
-  padding:8px 14px;border-radius:20px;
+.cats{display:flex;gap:7px;overflow-x:auto;padding:12px 14px 0;scrollbar-width:none}
+.cats::-webkit-scrollbar{display:none}
+.cat{
+  flex-shrink:0;padding:7px 14px;border-radius:20px;
   background:var(--surf);border:1.5px solid var(--border);
   font-size:13px;font-weight:600;color:var(--txt2);
-  white-space:nowrap;transition:var(--trans);flex-shrink:0;
+  cursor:pointer;transition:var(--t);white-space:nowrap;
 }
-.cat-chip.active,.cat-chip:hover{background:var(--p);color:#fff;border-color:var(--p)}
+.cat.active,.cat:active{background:var(--p);color:#fff;border-color:var(--p)}
 
-/* ── APP CARD (Store Style) ── */
-.apps-list{display:flex;flex-direction:column;gap:1px;background:var(--border);border-radius:var(--r);overflow:hidden;border:1px solid var(--border)}
-.app-card{
-  display:flex;align-items:center;gap:13px;
-  padding:13px 14px;background:var(--surf);
-  transition:var(--trans);cursor:pointer;
+/* ── APP LIST ── */
+.app-list{background:var(--surf);border-radius:var(--r);border:1px solid var(--border);overflow:hidden}
+.app-row{
+  display:flex;align-items:center;gap:12px;
+  padding:11px 13px;border-bottom:1px solid var(--divider);
+  cursor:pointer;transition:var(--t);
 }
-.app-card:active{background:var(--surf2)}
-.app-card-icon{
-  width:56px;height:56px;border-radius:14px;
-  overflow:hidden;flex-shrink:0;
-  background:var(--surf2);
-  box-shadow:0 2px 8px rgba(0,0,0,.12);
+.app-row:last-child{border-bottom:none}
+.app-row:active{background:var(--surf2)}
+.aico{
+  width:52px;height:52px;border-radius:13px;
+  overflow:hidden;flex-shrink:0;background:var(--surf2);
+  box-shadow:0 2px 8px rgba(0,0,0,.1);
 }
-.app-card-icon img{width:100%;height:100%;object-fit:cover}
-.app-card-info{flex:1;min-width:0}
-.app-card-name{font-size:15px;font-weight:700;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.app-card-cat{font-size:12px;color:var(--txt2);margin-top:1px}
-.app-card-stars{display:flex;align-items:center;gap:3px;margin-top:5px}
-.stars{color:#FBBF24;font-size:11px}
-.star-num{font-size:11px;color:var(--txt2);font-weight:600}
-.btn-get{
-  padding:7px 16px;border-radius:20px;
-  background:var(--surf2);color:var(--p);
-  font-size:13px;font-weight:800;flex-shrink:0;
-  border:1.5px solid var(--border);transition:var(--trans);
+.aico img{
+  width:100%;height:100%;object-fit:cover;
+  transition:opacity .2s;
 }
-.btn-get:active{background:var(--p);color:#fff;border-color:var(--p);transform:scale(.95)}
+.aico img.loading{opacity:0}
+.ainfo{flex:1;min-width:0}
+.aname{font-size:15px;font-weight:700;color:var(--txt);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.adev{font-size:12px;color:var(--txt2);margin-top:1px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.arating{display:flex;align-items:center;gap:3px;margin-top:4px}
+.astar{color:#FBBF24;font-size:11px}
+.arnum{font-size:11px;color:var(--txt3);font-weight:600}
+.abtn{
+  padding:7px 14px;border-radius:18px;
+  background:var(--surf2);border:1.5px solid var(--border);
+  color:var(--p);font-size:13px;font-weight:800;
+  flex-shrink:0;cursor:pointer;transition:var(--t);
+  font-family:'Inter',sans-serif;
+}
+.abtn:active{background:var(--p);color:#fff;border-color:var(--p);transform:scale(.95)}
 
-/* ── APPS GRID (home) ── */
-.apps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
-.app-grid-item{
+/* ── APP GRID ── */
+.app-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.ag-item{
   display:flex;flex-direction:column;align-items:center;
-  gap:6px;padding:10px 4px;border-radius:12px;
-  cursor:pointer;transition:var(--trans);
+  gap:5px;padding:10px 4px;border-radius:10px;
+  cursor:pointer;transition:var(--t);
 }
-.app-grid-item:active{background:var(--surf3);transform:scale(.93)}
-.app-grid-icon{
-  width:52px;height:52px;border-radius:14px;
+.ag-item:active{background:var(--surf3);transform:scale(.92)}
+.ag-ico{
+  width:50px;height:50px;border-radius:13px;
   overflow:hidden;background:var(--surf2);
-  box-shadow:0 2px 8px rgba(0,0,0,.10);flex-shrink:0;
+  box-shadow:0 2px 8px rgba(0,0,0,.1);
 }
-.app-grid-icon img{width:100%;height:100%;object-fit:cover}
-.app-grid-name{font-size:11px;font-weight:600;color:var(--txt);text-align:center;line-height:1.2}
+.ag-ico img{width:100%;height:100%;object-fit:cover}
+.ag-name{font-size:11px;font-weight:600;color:var(--txt);text-align:center;line-height:1.2}
 
-/* ── FEATURED FEATURES ── */
-.features-scroll{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
-.features-scroll::-webkit-scrollbar{display:none}
-.feature-card{
-  min-width:140px;background:var(--surf);border-radius:var(--r);
-  border:1px solid var(--border);padding:16px 13px;
-  box-shadow:var(--shadow);flex-shrink:0;transition:var(--trans);
+/* ── NOTIFICATION PANEL ── */
+.notif-overlay{
+  position:fixed;inset:0;z-index:800;
+  background:rgba(0,0,0,0);pointer-events:none;
+  transition:background .25s;
 }
-.feature-card:active{transform:scale(.97)}
-.feat-icon-box{
-  width:46px;height:46px;border-radius:12px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;margin-bottom:10px;
+.notif-overlay.open{background:rgba(0,0,0,.5);pointer-events:all}
+.notif-sheet{
+  position:absolute;top:0;left:0;right:0;
+  background:var(--surf);max-height:75vh;overflow-y:auto;
+  transform:translateY(-100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
+  border-radius:0 0 24px 24px;box-shadow:var(--sh2);
 }
-.feat-title{font-size:13px;font-weight:800;color:var(--txt);margin-bottom:3px}
-.feat-desc{font-size:11px;color:var(--txt2);line-height:1.4}
-.feat-view-btn{
-  margin-top:9px;padding:5px 11px;border-radius:8px;
-  background:var(--surf2);border:1px solid var(--border);
-  font-size:11px;font-weight:700;color:var(--p);
-  transition:var(--trans);
-}
-.feat-view-btn:active{background:var(--p);color:#fff}
-
-/* ── APP DETAIL MODAL ── */
-.overlay{
-  position:fixed;inset:0;z-index:600;
-  background:rgba(0,0,0,0);
-  display:flex;align-items:flex-end;justify-content:center;
-  pointer-events:none;transition:background .3s;
-}
-.overlay.open{background:rgba(0,0,0,.55);pointer-events:all}
-.modal{
-  background:var(--surf);width:100%;max-width:520px;
-  border-radius:24px 24px 0 0;
-  max-height:92vh;overflow-y:auto;
-  transform:translateY(100%);transition:transform .35s cubic-bezier(.4,0,.2,1);
-  padding:0 0 24px;
-}
-.overlay.open .modal{transform:translateY(0)}
-.modal-drag{width:40px;height:4px;background:var(--surf3);border-radius:2px;margin:14px auto 0}
-
-/* App Detail */
-.appd-hero{padding:20px 20px 0}
-.appd-top{display:flex;gap:14px;margin-bottom:16px}
-.appd-icon{width:76px;height:76px;border-radius:18px;overflow:hidden;background:var(--surf2);box-shadow:var(--shadow2);flex-shrink:0}
-.appd-icon img{width:100%;height:100%;object-fit:cover}
-.appd-info{flex:1}
-.appd-name{font-size:20px;font-weight:900;color:var(--txt);margin-bottom:3px}
-.appd-dev{font-size:13px;color:var(--txt2);margin-bottom:8px}
-.appd-badges{display:flex;gap:6px;flex-wrap:wrap}
-.badge{padding:3px 9px;border-radius:6px;font-size:11px;font-weight:700}
-.badge-free{background:#DCFCE7;color:#16A34A}
-.badge-cat{background:var(--surf2);color:var(--txt2);border:1px solid var(--border)}
-[data-theme=dark] .badge-free{background:rgba(22,163,74,.2);color:#4ADE80}
-.appd-stats{display:flex;gap:0;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:16px}
-.appd-stat{flex:1;text-align:center;padding:10px 8px;border-right:1px solid var(--border)}
-.appd-stat:last-child{border-right:none}
-.appd-stat-val{font-size:15px;font-weight:800;color:var(--txt)}
-.appd-stat-label{font-size:10px;color:var(--txt2);margin-top:2px}
-.appd-actions{display:flex;gap:10px;margin-bottom:18px}
-.btn-install{
-  flex:1;padding:13px;border-radius:14px;
-  background:var(--p);color:#fff;
-  font-size:15px;font-weight:800;
-  transition:var(--trans);
-}
-.btn-install:active{background:var(--pd);transform:scale(.97)}
-.btn-share{
-  width:46px;height:46px;border-radius:14px;
-  background:var(--surf2);border:1px solid var(--border);
-  color:var(--txt2);display:flex;align-items:center;justify-content:center;
-  font-size:16px;flex-shrink:0;
-}
-.appd-section{padding:0 20px 16px}
-.appd-sec-title{font-size:13px;font-weight:800;color:var(--txt2);text-transform:uppercase;letter-spacing:.6px;margin-bottom:10px}
-.appd-desc{font-size:14px;line-height:1.6;color:var(--txt2)}
-.screenshots{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none}
-.screenshots::-webkit-scrollbar{display:none}
-.screenshot{
-  width:130px;height:230px;border-radius:12px;flex-shrink:0;
-  background:linear-gradient(145deg,var(--surf2),var(--surf3));
-  border:1px solid var(--border);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--txt3);font-size:12px;
-}
-
-/* ── NOTIFICATIONS ── */
-.notif-panel{
-  position:fixed;top:0;left:0;right:0;z-index:500;
-  background:var(--surf);
-  border-bottom:1px solid var(--border);
-  box-shadow:var(--shadow2);
-  transform:translateY(-110%);
-  transition:transform .35s cubic-bezier(.4,0,.2,1);
-  max-height:80vh;overflow-y:auto;
-}
-.notif-panel.open{transform:translateY(0)}
-.notif-header{
+.notif-overlay.open .notif-sheet{transform:translateY(0)}
+.notif-hdr{
   display:flex;align-items:center;justify-content:space-between;
   padding:16px 18px;border-bottom:1px solid var(--border);
+  position:sticky;top:0;background:var(--surf);
 }
-.notif-title{font-size:17px;font-weight:800;color:var(--txt)}
-.notif-clear{font-size:13px;color:var(--p);font-weight:600}
-.notif-list{padding:8px 0}
+.notif-ttl{font-family:'MinecraftViet','Inter',sans-serif;font-size:17px;font-weight:700}
+.notif-clr{color:var(--p);font-size:13px;font-weight:700;cursor:pointer;border:none;background:none;font-family:inherit}
 .notif-item{
-  display:flex;gap:12px;padding:13px 18px;
-  border-bottom:1px solid var(--border);
-  transition:var(--trans);cursor:pointer;
+  display:flex;align-items:flex-start;gap:11px;
+  padding:13px 18px;border-bottom:1px solid var(--divider);
+  cursor:pointer;transition:var(--t);
 }
 .notif-item:last-child{border-bottom:none}
 .notif-item:active{background:var(--surf2)}
 .notif-item.unread{background:rgba(255,107,53,.04)}
-.notif-ico{
-  width:42px;height:42px;border-radius:12px;
+.ni-ico{
+  width:40px;height:40px;border-radius:11px;
   display:flex;align-items:center;justify-content:center;
-  font-size:18px;flex-shrink:0;
+  font-size:18px;flex-shrink:0;margin-top:1px;
 }
-.notif-body{flex:1}
-.notif-msg{font-size:14px;font-weight:600;color:var(--txt);line-height:1.3}
-.notif-time{font-size:12px;color:var(--txt3);margin-top:3px}
-.notif-dot-live{
-  width:8px;height:8px;border-radius:50%;
-  background:var(--p);margin-top:6px;flex-shrink:0;
+.ni-body{flex:1}
+.ni-msg{font-size:14px;font-weight:600;color:var(--txt);line-height:1.35}
+.ni-time{font-size:11px;color:var(--txt3);margin-top:3px}
+.ni-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--p);flex-shrink:0;margin-top:5px;
 }
-.notif-empty{
-  text-align:center;padding:40px 20px;
+.notif-empty{text-align:center;padding:40px 20px}
+.notif-empty i{font-size:38px;color:var(--txt3);display:block;margin-bottom:10px}
+.notif-empty p{font-size:14px;color:var(--txt2)}
+
+/* ── APP DETAIL MODAL ── */
+.modal-overlay{
+  position:fixed;inset:0;z-index:700;
+  background:rgba(0,0,0,0);pointer-events:none;
+  display:flex;align-items:flex-end;justify-content:center;
+  transition:background .25s;
 }
-.notif-empty i{font-size:40px;color:var(--txt3);margin-bottom:12px;display:block}
-.notif-empty p{font-size:14px;color:var(--txt2);font-weight:500}
+.modal-overlay.open{background:rgba(0,0,0,.55);pointer-events:all}
+.modal-sheet{
+  background:var(--surf);width:100%;max-width:520px;
+  border-radius:22px 22px 0 0;max-height:90vh;overflow-y:auto;
+  transform:translateY(105%);transition:transform .38s cubic-bezier(.4,0,.2,1);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.modal-overlay.open .modal-sheet{transform:translateY(0)}
+.modal-drag{width:38px;height:4px;background:var(--surf3);border-radius:2px;margin:14px auto}
+
+/* App Detail Inside */
+.ad-wrap{padding:0 18px 20px}
+.ad-hero{display:flex;gap:14px;margin-bottom:16px}
+.ad-icon{
+  width:72px;height:72px;border-radius:18px;overflow:hidden;
+  background:var(--surf2);box-shadow:var(--sh2);flex-shrink:0;
+}
+.ad-icon img{width:100%;height:100%;object-fit:cover}
+.ad-info{flex:1}
+.ad-name{font-family:'MinecraftViet','Inter',sans-serif;font-size:20px;font-weight:700;margin-bottom:3px}
+.ad-dev{font-size:13px;color:var(--txt2);margin-bottom:8px}
+.ad-tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{padding:3px 9px;border-radius:6px;font-size:11px;font-weight:700}
+.tag-free{background:#DCFCE7;color:#15803D}
+.tag-cat{background:var(--surf2);color:var(--txt2);border:1px solid var(--border)}
+[data-theme=dark] .tag-free{background:rgba(21,128,61,.2);color:#4ADE80}
+.ad-stats{display:flex;border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px}
+.ads-cell{flex:1;text-align:center;padding:10px 6px;border-right:1px solid var(--border)}
+.ads-cell:last-child{border-right:none}
+.ads-val{font-size:15px;font-weight:800;color:var(--txt)}
+.ads-lbl{font-size:10px;color:var(--txt2);margin-top:2px}
+.ad-btns{display:flex;gap:9px;margin-bottom:18px}
+.btn-install{
+  flex:1;padding:13px;border-radius:13px;
+  background:var(--p);color:#fff;font-size:15px;font-weight:800;
+  border:none;cursor:pointer;font-family:inherit;transition:var(--t);
+  display:flex;align-items:center;justify-content:center;gap:7px;
+}
+.btn-install:active{background:var(--pd);transform:scale(.97)}
+.btn-share{
+  width:46px;height:46px;border-radius:13px;
+  background:var(--surf2);border:1px solid var(--border);
+  color:var(--txt2);display:flex;align-items:center;justify-content:center;
+  font-size:16px;cursor:pointer;flex-shrink:0;transition:var(--t);
+}
+.btn-share:active{color:var(--p)}
+.ad-section{margin-bottom:18px}
+.ad-sec-ttl{font-size:12px;font-weight:800;color:var(--txt2);text-transform:uppercase;letter-spacing:.7px;margin-bottom:9px}
+.ad-desc{font-size:14px;line-height:1.65;color:var(--txt2)}
+.ad-platforms{display:flex;gap:8px}
+.pf-chip{
+  padding:6px 12px;border-radius:8px;
+  background:var(--surf2);border:1px solid var(--border);
+  font-size:12px;font-weight:700;color:var(--txt2);
+  display:flex;align-items:center;gap:5px;
+}
+.screenshots-row{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none}
+.screenshots-row::-webkit-scrollbar{display:none}
+.ss-ph{
+  width:120px;height:210px;flex-shrink:0;
+  border-radius:12px;background:var(--surf2);
+  border:1px solid var(--border);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:8px;color:var(--txt3);font-size:11px;
+}
+
+/* ── DOWNLOAD BANNER ── */
+.dl-banner{
+  margin:14px 14px 0;
+  background:linear-gradient(135deg,#4A90D9,#7B5EA7);
+  border-radius:var(--r);padding:16px;
+  display:flex;align-items:center;gap:12px;color:#fff;
+  box-shadow:0 4px 16px rgba(74,144,217,.3);
+}
+.dlb-icon{
+  width:48px;height:48px;border-radius:12px;
+  overflow:hidden;flex-shrink:0;
+  box-shadow:0 2px 8px rgba(0,0,0,.2);
+}
+.dlb-icon img{width:100%;height:100%;object-fit:cover}
+.dlb-body{flex:1}
+.dlb-ttl{font-family:'MinecraftViet','Inter',sans-serif;font-size:15px;font-weight:700;margin-bottom:2px}
+.dlb-sub{font-size:12px;opacity:.85}
+.dlb-btn{
+  padding:9px 15px;border-radius:20px;
+  background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.45);
+  color:#fff;font-size:13px;font-weight:800;
+  cursor:pointer;white-space:nowrap;flex-shrink:0;
+  display:flex;align-items:center;gap:6px;transition:var(--t);
+  font-family:inherit;
+}
+.dlb-btn:active{background:rgba(255,255,255,.35);transform:scale(.95)}
 
 /* ── PROFILE PAGE ── */
-.profile-header{
+.pro-hero{
   background:linear-gradient(145deg,var(--p),var(--p2));
-  padding:28px 20px 24px;color:#fff;text-align:center;
+  padding:30px 18px 24px;color:#fff;text-align:center;
 }
-.avatar-wrap{position:relative;display:inline-block;margin-bottom:12px}
-.avatar{
-  width:80px;height:80px;border-radius:50%;
-  background:rgba(255,255,255,.25);
-  border:3px solid rgba(255,255,255,.6);
+.pro-ava{
+  width:76px;height:76px;border-radius:50%;
+  background:rgba(255,255,255,.22);border:3px solid rgba(255,255,255,.55);
   display:flex;align-items:center;justify-content:center;
-  font-size:32px;font-weight:800;color:#fff;
-  overflow:hidden;
+  font-size:30px;font-weight:800;color:#fff;
+  margin:0 auto 12px;overflow:hidden;position:relative;
 }
-.verified-badge{
+.pro-vbadge{
   position:absolute;bottom:0;right:0;
-  width:26px;height:26px;border-radius:50%;
-  background:#fff;border:2px solid #fff;
-  display:flex;align-items:center;justify-content:center;
-  font-size:13px;
+  width:22px;height:22px;border-radius:50%;
+  background:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;
 }
-.profile-name{font-size:22px;font-weight:900;margin-bottom:4px}
-.profile-email{font-size:13px;opacity:.85;margin-bottom:10px}
-.free-verified-pill{
+.pro-name{font-family:'MinecraftViet','Inter',sans-serif;font-size:21px;font-weight:700;margin-bottom:3px}
+.pro-email{font-size:13px;opacity:.82;margin-bottom:10px}
+.pro-pill{
   display:inline-flex;align-items:center;gap:5px;
-  background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.5);
-  color:#fff;padding:5px 14px;border-radius:20px;
-  font-size:12px;font-weight:700;
+  background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.45);
+  color:#fff;padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700;
 }
-.profile-cards{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
-.p-card{background:var(--surf);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow)}
-.p-item{
-  display:flex;align-items:center;gap:12px;
-  padding:14px 16px;border-bottom:1px solid var(--border);
-  cursor:pointer;transition:var(--trans);
+.pro-cards{padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.pro-card{background:var(--surf);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;box-shadow:var(--sh)}
+.pi{
+  display:flex;align-items:center;gap:11px;
+  padding:13px 14px;border-bottom:1px solid var(--divider);
+  cursor:pointer;transition:var(--t);
 }
-.p-item:last-child{border-bottom:none}
-.p-item:active{background:var(--surf2)}
-.p-ico{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
-.p-body{flex:1}
-.p-label{font-size:15px;font-weight:600;color:var(--txt)}
-.p-sub{font-size:12px;color:var(--txt2);margin-top:2px}
-.p-arrow{color:var(--txt3);font-size:12px}
+.pi:last-child{border-bottom:none}
+.pi:active{background:var(--surf2)}
+.pi-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.pi-body{flex:1}
+.pi-label{font-size:14px;font-weight:600;color:var(--txt)}
+.pi-sub{font-size:11px;color:var(--txt2);margin-top:2px}
+.pi-arrow{color:var(--txt3);font-size:11px}
 
-/* ── SETTINGS ── */
-.settings-page{padding:14px 16px;display:flex;flex-direction:column;gap:10px}
-.set-section-title{font-size:11px;font-weight:800;color:var(--p);text-transform:uppercase;letter-spacing:.8px;padding:4px 4px 2px}
-.set-card{background:var(--surf);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;box-shadow:var(--shadow)}
-.set-item{display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);transition:var(--trans)}
-.set-item:last-child{border-bottom:none}
-.set-ico{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
-.set-body{flex:1}
-.set-label{font-size:15px;font-weight:600;color:var(--txt)}
-.set-desc{font-size:12px;color:var(--txt2);margin-top:1px}
-.theme-row{display:flex;gap:6px}
-.theme-opt{
-  width:34px;height:34px;border-radius:10px;
+/* ── SETTINGS PAGE ── */
+.set-page{padding:12px 14px;display:flex;flex-direction:column;gap:10px}
+.set-sec-ttl{font-size:11px;font-weight:800;color:var(--p);text-transform:uppercase;letter-spacing:.8px;padding:2px 2px}
+.set-card{background:var(--surf);border-radius:var(--r);border:1px solid var(--border);overflow:hidden;box-shadow:var(--sh)}
+.si{
+  display:flex;align-items:center;gap:11px;
+  padding:13px 14px;border-bottom:1px solid var(--divider);transition:var(--t);
+}
+.si:last-child{border-bottom:none}
+.si-ico{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.si-body{flex:1}
+.si-label{font-size:14px;font-weight:600;color:var(--txt)}
+.si-sub{font-size:11px;color:var(--txt2);margin-top:1px}
+.theme-row{display:flex;gap:5px}
+.topt{
+  width:32px;height:32px;border-radius:9px;
   background:var(--surf2);border:2px solid var(--border);
   display:flex;align-items:center;justify-content:center;
-  font-size:15px;transition:var(--trans);
+  font-size:14px;cursor:pointer;transition:var(--t);
 }
-.theme-opt.active{border-color:var(--p);background:rgba(255,107,53,.1)}
+.topt.active{border-color:var(--p);background:rgba(255,107,53,.1)}
 .lang-sel{
   background:var(--surf2);border:1.5px solid var(--border);
-  border-radius:9px;padding:7px 11px;
-  font-size:13px;font-weight:600;color:var(--txt);
-  outline:none;font-family:inherit;
+  border-radius:9px;padding:6px 10px;font-size:13px;
+  font-weight:600;color:var(--txt);outline:none;font-family:'Inter',sans-serif;
 }
-.toggle-sw{position:relative;width:44px;height:24px;flex-shrink:0}
-.toggle-sw input{opacity:0;width:0;height:0}
-.toggle-sw span{
+.tog{position:relative;width:42px;height:24px;flex-shrink:0}
+.tog input{opacity:0;width:0;height:0}
+.tog span{
   position:absolute;inset:0;border-radius:24px;
-  background:var(--border);cursor:pointer;transition:var(--trans);
+  background:var(--border);cursor:pointer;transition:var(--t);
 }
-.toggle-sw span::before{
+.tog span::before{
   content:'';position:absolute;
   width:18px;height:18px;border-radius:50%;
-  top:3px;left:3px;background:#fff;
-  transition:var(--trans);
+  top:3px;left:3px;background:#fff;transition:var(--t);
 }
-.toggle-sw input:checked + span{background:var(--p)}
-.toggle-sw input:checked + span::before{transform:translateX(20px)}
+.tog input:checked+span{background:var(--p)}
+.tog input:checked+span::before{transform:translateX(18px)}
+.visitor-count{
+  font-size:18px;font-weight:900;color:var(--p);
+  font-family:'MinecraftViet','Inter',sans-serif;
+}
 
-/* ── SEARCH EMPTY ── */
+/* ── SEARCH RESULTS ── */
 .search-empty{
-  text-align:center;padding:40px 20px;
+  text-align:center;padding:36px 20px;
 }
-.search-empty .url-bar{
+.search-url-bar{
   display:inline-flex;align-items:center;gap:6px;
-  background:var(--surf2);border:1px solid var(--border);
-  border-radius:8px;padding:6px 14px;
-  font-size:12px;color:var(--txt2);font-family:monospace;
-  margin-bottom:16px;
+  background:var(--surf);border:1px solid var(--border);
+  border-radius:9px;padding:7px 14px;
+  font-size:12px;color:var(--txt2);font-family:'Courier New',monospace;
+  margin-bottom:16px;max-width:100%;overflow:hidden;
+  box-shadow:var(--sh);
 }
-.search-empty img{width:120px;height:120px;border-radius:16px;margin:0 auto 14px;object-fit:cover}
-.search-empty h3{font-size:17px;font-weight:800;color:var(--txt);margin-bottom:6px}
+.search-empty-img{
+  width:130px;height:130px;border-radius:18px;
+  margin:0 auto 14px;overflow:hidden;
+  box-shadow:var(--sh2);
+}
+.search-empty-img img{width:100%;height:100%;object-fit:cover}
+.search-empty h3{font-family:'MinecraftViet','Inter',sans-serif;font-size:18px;font-weight:700;margin-bottom:6px}
 .search-empty p{font-size:13px;color:var(--txt2);line-height:1.5}
+
+/* ── WEBCLIPPER DOWNLOAD CARD ── */
+.webclipper-card{
+  margin:14px 14px 0;
+  background:linear-gradient(135deg,#1a1a2e,#16213e);
+  border-radius:var(--r);padding:18px;
+  display:flex;align-items:center;gap:14px;
+  border:1px solid rgba(255,107,53,.3);
+  box-shadow:0 4px 20px rgba(255,107,53,.15);
+}
+.wc-icon{
+  width:52px;height:52px;border-radius:14px;
+  overflow:hidden;flex-shrink:0;
+  box-shadow:0 3px 12px rgba(0,0,0,.3);
+}
+.wc-icon img{width:100%;height:100%;object-fit:cover}
+.wc-body{flex:1}
+.wc-title{font-family:'MinecraftViet','Inter',sans-serif;font-size:15px;font-weight:700;color:#fff;margin-bottom:3px}
+.wc-sub{font-size:11px;color:rgba(255,255,255,.6);line-height:1.4}
+.wc-btn{
+  padding:9px 13px;border-radius:12px;
+  background:var(--p);border:none;color:#fff;
+  font-size:12px;font-weight:800;
+  cursor:pointer;white-space:nowrap;flex-shrink:0;
+  display:flex;align-items:center;gap:5px;
+  transition:var(--t);font-family:inherit;
+}
+.wc-btn:active{background:var(--pd);transform:scale(.95)}
 
 /* ── TOAST ── */
 .toast{
-  position:fixed;top:70px;left:50%;
-  transform:translateX(-50%) translateY(-30px);
+  position:fixed;top:calc(var(--top) + 10px);left:50%;
+  transform:translateX(-50%) translateY(-20px);
   background:var(--surf);color:var(--txt);
-  padding:12px 20px;border-radius:14px;
-  box-shadow:var(--shadow2);z-index:900;
-  font-size:13.5px;font-weight:600;
-  max-width:90vw;text-align:center;
-  opacity:0;transition:all .4s cubic-bezier(.34,1.56,.64,1);
-  border-left:4px solid var(--p);line-height:1.4;pointer-events:none;
+  padding:11px 18px;border-radius:12px;
+  box-shadow:var(--sh2);z-index:999;
+  font-size:13px;font-weight:600;
+  max-width:88vw;text-align:center;
+  opacity:0;transition:all .38s cubic-bezier(.34,1.56,.64,1);
+  border-left:4px solid var(--p);pointer-events:none;line-height:1.4;
 }
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.success{border-left-color:#22C55E}
 .toast.error{border-left-color:#EF4444}
 .toast.info{border-left-color:#3B82F6}
 
-/* ── NOTIF BACKDROP ── */
-.notif-backdrop{
-  position:fixed;inset:0;z-index:490;
-  background:rgba(0,0,0,0);pointer-events:none;transition:background .3s;
+/* ── LOADING SKELETON ── */
+.skel{
+  background:linear-gradient(90deg,var(--surf2) 25%,var(--surf3) 50%,var(--surf2) 75%);
+  background-size:200% 100%;
+  animation:skel .9s ease infinite;border-radius:8px;
 }
-.notif-backdrop.open{background:rgba(0,0,0,.4);pointer-events:all}
-
-/* ── LOADING ICON ── */
-.icon-load{
-  width:56px;height:56px;border-radius:14px;
-  background:var(--surf3);display:flex;align-items:center;
-  justify-content:center;color:var(--txt3);font-size:20px;
-}
+@keyframes skel{from{background-position:200% 0}to{background-position:-200% 0}}
+.skel-row{display:flex;align-items:center;gap:12px;padding:11px 13px;border-bottom:1px solid var(--divider)}
 </style>
 </head>
 <body>
@@ -504,782 +545,853 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 <!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- NOTIFICATION BACKDROP -->
-<div class="notif-backdrop" id="notifBackdrop" onclick="closeNotif()"></div>
-
-<!-- NOTIFICATION PANEL -->
-<div class="notif-panel" id="notifPanel">
-  <div class="notif-header">
-    <span class="notif-title" id="notifTitle">Thông Báo</span>
-    <span class="notif-clear" onclick="clearNotifs()" id="notifClear">Xóa tất cả</span>
+<!-- NOTIFICATION OVERLAY -->
+<div class="notif-overlay" id="notifOverlay" onclick="closeNotif(event)">
+  <div class="notif-sheet" id="notifSheet">
+    <div class="notif-hdr">
+      <span class="notif-ttl" id="notifTitle">Thông Báo</span>
+      <button class="notif-clr" onclick="clearNotifs()" id="notifClear">Xóa tất cả</button>
+    </div>
+    <div id="notifList"></div>
   </div>
-  <div class="notif-list" id="notifList"></div>
+</div>
+
+<!-- APP DETAIL MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal-sheet">
+    <div class="modal-drag"></div>
+    <div id="modalContent"></div>
+  </div>
 </div>
 
 <!-- TOPBAR -->
 <header class="topbar">
-  <div class="topbar-logo">
-    <div class="logo-mark">NH</div>
+  <div class="tb-brand">
+    <div class="tb-icon">
+      <img src="https://i.postimg.cc/VvtqQ7bJ/Nguyen-Hia-VN.png" alt="NguyenHia VN"
+        onerror="this.parentNode.style.background='linear-gradient(135deg,#FF6B35,#FF9558)';this.style.display='none'">
+    </div>
     <div>
-      <div class="logo-text">NguyenHia VN</div>
-      <div class="logo-ver" id="topSub">v1.0.1 · Thư Viện UI</div>
+      <div class="tb-name">NguyenHia VN</div>
+      <div class="tb-ver">v1.0.4</div>
     </div>
   </div>
-  <div class="topbar-actions">
-    <div class="lang-btn" id="langPill" onclick="quickLang()">
-      <i class="fa fa-globe" style="font-size:11px"></i>
-      <span id="langLabel">VI</span>
-    </div>
-    <button class="tb-btn" id="notifBtn" onclick="openNotif()">
+  <div class="tb-right">
+    <button class="ib nb" id="notifBtn" onclick="openNotif()" aria-label="Notifications">
       <i class="fa fa-bell"></i>
-      <div class="notif-badge" id="notifBadge"></div>
+    </button>
+    <button class="ib" onclick="navTo('profile')" aria-label="Profile">
+      <i class="fa fa-user-circle"></i>
     </button>
   </div>
 </header>
 
-<!-- ═══════════════ HOME PAGE ═══════════════ -->
+<!-- ══════════ HOME PAGE ══════════ -->
 <div class="page active" id="page-home">
 
-  <!-- Banner Slider -->
-  <div class="banner-wrap">
-    <div class="banner-slides" id="bannerSlides">
-      <div class="banner-slide bs-1">
-        <div class="bs-tag">🇻🇳 <span id="bTag1">Thư Viện UI #1</span></div>
-        <div class="bs-title" id="bTitle1">NguyenHia VN<br>UI Library</div>
-        <div class="bs-sub" id="bSub1">Bộ công cụ giao diện đẹp, hiện đại dành cho ứng dụng Việt Nam</div>
-        <div class="bs-actions">
-          <button class="bs-btn-white" onclick="goRegister()"><i class="fa fa-rocket"></i><span id="bBtn1">Bắt Đầu</span></button>
-          <button class="bs-btn-ghost" onclick="showToast(T('dlSoon'),'info')"><i class="fa fa-download"></i><span id="bBtn2">Tải Xuống</span></button>
-        </div>
-      </div>
-      <div class="banner-slide bs-2">
-        <div class="bs-tag">✨ <span id="bTag2">Tính Năng Mới</span></div>
-        <div class="bs-title" id="bTitle2">V1.0.1<br>Update</div>
-        <div class="bs-sub" id="bSub2">Giao diện mới, mượt mà hơn, tính năng đăng nhập & xác minh miễn phí</div>
-        <div class="bs-actions">
-          <button class="bs-btn-white" onclick="navTo('apps')"><i class="fa fa-th"></i><span id="bBtn3">Xem Ứng Dụng</span></button>
-        </div>
-      </div>
-      <div class="banner-slide bs-3">
-        <div class="bs-tag">🆓 <span id="bTag3">Miễn Phí</span></div>
-        <div class="bs-title" id="bTitle3">FREE<br>VERIFIED ✓</div>
-        <div class="bs-sub" id="bSub3">Đăng ký là tự động được xác minh. Không cần email xác nhận!</div>
-        <div class="bs-actions">
-          <button class="bs-btn-white" onclick="goRegister()"><i class="fa fa-check-circle"></i><span id="bBtn4">Đăng Ký Ngay</span></button>
-        </div>
-      </div>
+  <!-- Features App Banner -->
+  <div class="fab-wrap" id="fabWrap">
+    <div class="fab-track" id="fabTrack">
+      <!-- Loaded from FeaturesAppBanner.json -->
+      <div style="min-width:100%;height:190px;background:var(--surf2)" class="skel"></div>
     </div>
-    <div class="banner-dots" id="bannerDots"></div>
+    <div class="fab-dots" id="fabDots"></div>
+  </div>
+
+  <!-- WebClipper Download -->
+  <div class="webclipper-card">
+    <div class="wc-icon">
+      <img src="https://i.postimg.cc/VvtqQ7bJ/Nguyen-Hia-VN.png" alt="App">
+    </div>
+    <div class="wc-body">
+      <div class="wc-title" id="wcTitle">Thêm Vào Home Screen</div>
+      <div class="wc-sub" id="wcSub">Cài đặt WebClipper · Không có UI Safari</div>
+    </div>
+    <button class="wc-btn" onclick="downloadWebClipper()" id="wcBtn">
+      <i class="fa fa-download"></i><span id="wcBtnTxt">Cài Đặt</span>
+    </button>
   </div>
 
   <!-- Search -->
-  <div class="search-bar">
-    <input type="search" id="searchInput" placeholder="Tìm kiếm ứng dụng..." oninput="handleSearch(this.value)" autocomplete="off">
-    <i class="fa fa-search search-icon"></i>
-  </div>
-
-  <!-- Categories -->
-  <div style="padding:14px 0 0">
-    <div class="cats-scroll" id="catsRow"></div>
-  </div>
-
-  <!-- Featured Apps (Grid) -->
-  <div class="sec">
-    <div class="sec-head">
-      <span class="sec-title" id="featAppsTitle">🔥 Nổi Bật</span>
-      <span class="sec-more" id="featAppsMore" onclick="navTo('apps')">Xem tất cả</span>
-    </div>
-    <div class="apps-grid" id="homeAppsGrid"></div>
-  </div>
-
-  <!-- Features List -->
-  <div class="sec" style="padding-bottom:14px">
-    <div class="sec-head">
-      <span class="sec-title" id="featuresTitle">✨ Tính Năng</span>
-    </div>
-    <div class="features-scroll" id="featuresList"></div>
-  </div>
-
-  <!-- Top Apps List -->
-  <div class="sec" style="padding-bottom:16px">
-    <div class="sec-head">
-      <span class="sec-title" id="topAppsTitle">📱 Top Ứng Dụng</span>
-      <span class="sec-more" onclick="navTo('apps')" id="topAppsMore">Xem thêm</span>
-    </div>
-    <div class="apps-list" id="homeAppsList"></div>
+  <div class="search-box">
+    <input type="search" id="searchInput" placeholder="Tìm kiếm ứng dụng..."
+      oninput="handleSearch(this.value)" autocomplete="off" spellcheck="false">
+    <i class="fa fa-search"></i>
+    <button class="search-clear" id="searchClear" onclick="clearSearch()">
+      <i class="fa fa-times"></i>
+    </button>
   </div>
 
   <!-- Search Empty State -->
   <div class="search-empty" id="searchEmpty" style="display:none">
-    <div class="url-bar"><i class="fa fa-exclamation-triangle"></i><span id="searchUrl">NguyenHia.Dev/Home/search</span></div>
-    <img src="https://http.cat/images/404.jpg" alt="Not found" style="border-radius:16px;margin:0 auto 14px">
-    <h3 id="searchEmptyTitle">Không tìm thấy kết quả</h3>
-    <p id="searchEmptyDesc">Không có ứng dụng nào khớp với tìm kiếm của bạn.</p>
+    <div class="search-url-bar"><i class="fa fa-exclamation-circle" style="color:#EF4444"></i><span id="searchUrlText">NguyenHia.Dev/Home/search</span></div>
+    <div class="search-empty-img">
+      <img src="https://http.cat/images/404.jpg" alt="404" onerror="this.src='https://cataas.com/cat/angry'">
+    </div>
+    <h3 id="seTitle">Không tìm thấy</h3>
+    <p id="seDesc">Không có ứng dụng nào khớp với tìm kiếm của bạn.</p>
+  </div>
+
+  <!-- Categories -->
+  <div class="cats" id="catsRow"></div>
+
+  <!-- Featured Grid -->
+  <div class="sec" id="secFeatured">
+    <div class="sec-head">
+      <span class="sec-title" id="featTtl">🔥 Nổi Bật</span>
+      <span class="sec-more" onclick="navTo('apps')" id="featMore">Tất cả</span>
+    </div>
+    <div class="app-grid" id="homeGrid"></div>
+  </div>
+
+  <!-- Top Apps List -->
+  <div class="sec" style="padding-bottom:16px" id="secTopApps">
+    <div class="sec-head">
+      <span class="sec-title" id="topTtl">📱 Top Ứng Dụng</span>
+      <span class="sec-more" onclick="navTo('apps')" id="topMore">Xem thêm</span>
+    </div>
+    <div class="app-list" id="homeList">
+      <!-- Skeleton -->
+      <div class="skel-row"><div class="skel" style="width:52px;height:52px;border-radius:13px;flex-shrink:0"></div><div style="flex:1;display:flex;flex-direction:column;gap:7px"><div class="skel" style="height:14px;width:60%"></div><div class="skel" style="height:11px;width:40%"></div></div></div>
+      <div class="skel-row"><div class="skel" style="width:52px;height:52px;border-radius:13px;flex-shrink:0"></div><div style="flex:1;display:flex;flex-direction:column;gap:7px"><div class="skel" style="height:14px;width:55%"></div><div class="skel" style="height:11px;width:38%"></div></div></div>
+    </div>
   </div>
 
 </div>
 
-<!-- ═══════════════ APPS PAGE ═══════════════ -->
+<!-- ══════════ APPS PAGE ══════════ -->
 <div class="page" id="page-apps">
-  <div style="padding:16px 16px 8px">
-    <div style="font-size:22px;font-weight:900;margin-bottom:4px" id="appsPageTitle">📦 Tất Cả Ứng Dụng</div>
-    <div style="font-size:13px;color:var(--txt2)" id="appsPageSub">Khám phá ứng dụng hàng đầu</div>
+  <div style="padding:14px 14px 8px">
+    <div style="font-family:'MinecraftViet','Inter',sans-serif;font-size:21px;font-weight:700;margin-bottom:3px" id="appsPageTtl">📦 Tất Cả Ứng Dụng</div>
+    <div style="font-size:13px;color:var(--txt2)" id="appsPageSub">Tải về và khám phá</div>
   </div>
-  <div style="padding:0 16px 16px">
-    <div class="apps-list" id="appsFullList"></div>
+  <div style="padding:0 14px 16px">
+    <div class="app-list" id="appsFullList"></div>
   </div>
 </div>
 
-<!-- ═══════════════ PROFILE PAGE ═══════════════ -->
+<!-- ══════════ PROFILE PAGE ══════════ -->
 <div class="page" id="page-profile">
-  <div class="profile-header">
-    <div class="avatar-wrap">
-      <div class="avatar" id="profileAvatar">👤</div>
-      <div class="verified-badge" id="verifiedBadge" style="display:none">✅</div>
+  <div class="pro-hero" id="proHero">
+    <div class="pro-ava" id="proAva">
+      <span id="proAvaChar">👤</span>
+      <div class="pro-vbadge" id="proVBadge" style="display:none">✅</div>
     </div>
-    <div class="profile-name" id="profileName">Khách</div>
-    <div class="profile-email" id="profileEmail">Chưa đăng nhập</div>
-    <div class="free-verified-pill" id="verifiedPill" style="display:none">
-      <i class="fa fa-shield-check"></i><span id="verifiedPillText">FREE VERIFIED ✓</span>
+    <div class="pro-name" id="proName">Khách</div>
+    <div class="pro-email" id="proEmail">Chưa đăng nhập</div>
+    <div class="pro-pill" id="proPill" style="display:none">
+      <i class="fa fa-check-circle"></i><span id="proPillTxt">FREE VERIFIED ✓</span>
     </div>
   </div>
-  <div class="profile-cards" id="profileCards"></div>
+  <div class="pro-cards" id="proCards"></div>
 </div>
 
-<!-- ═══════════════ SETTINGS PAGE ═══════════════ -->
+<!-- ══════════ SETTINGS PAGE ══════════ -->
 <div class="page" id="page-settings">
-  <div class="settings-page" id="settingsContent"></div>
+  <div class="set-page" id="setContent"></div>
 </div>
 
-<!-- ═══════════════ BOTTOM NAV ═══════════════ -->
+<!-- BOTTOM NAV -->
 <nav class="bnav">
-  <button class="bnav-btn active" id="nav-home" onclick="navTo('home')">
-    <i class="fa fa-home"></i><span id="navHome">Trang Chủ</span>
+  <button class="nb-btn active" id="nav-home" onclick="navTo('home')">
+    <i class="fa fa-home"></i><span id="nb0">Trang Chủ</span>
   </button>
-  <button class="bnav-btn" id="nav-apps" onclick="navTo('apps')">
-    <i class="fa fa-th-large"></i><span id="navApps">Ứng Dụng</span>
+  <button class="nb-btn" id="nav-apps" onclick="navTo('apps')">
+    <i class="fa fa-th-large"></i><span id="nb1">Ứng Dụng</span>
   </button>
-  <button class="bnav-btn" id="nav-profile" onclick="navTo('profile')">
-    <i class="fa fa-user-circle"></i><span id="navProfile">Hồ Sơ</span>
+  <button class="nb-btn" id="nav-profile" onclick="navTo('profile')">
+    <i class="fa fa-user-circle"></i><span id="nb2">Hồ Sơ</span>
   </button>
-  <button class="bnav-btn" id="nav-settings" onclick="navTo('settings')">
-    <i class="fa fa-sliders-h"></i><span id="navSettings">Cài Đặt</span>
+  <button class="nb-btn" id="nav-settings" onclick="navTo('settings')">
+    <i class="fa fa-sliders-h"></i><span id="nb3">Cài Đặt</span>
   </button>
 </nav>
 
-<!-- ═══════════════ APP DETAIL OVERLAY ═══════════════ -->
-<div class="overlay" id="appDetailOverlay" onclick="overlayOutClick(event,'appDetailOverlay')">
-  <div class="modal" id="appDetailModal">
-    <div class="modal-drag"></div>
-    <div class="appd-hero" id="appDetailContent"></div>
-  </div>
-</div>
-
 <script>
-// ╔══════════════════════════════════════════╗
-// ║           DATA                           ║
-// ╚══════════════════════════════════════════╝
-const APPS_DATA = [
-  {id:1,name:'Zalo',dev:'VNG Corporation',cat:'Social',rating:4.8,downloads:'50M+',
-   icon:'https://img.icons8.com/color/96/zalo.png',
-   desc:'Ứng dụng nhắn tin và gọi video hàng đầu Việt Nam với hơn 74 triệu người dùng.'},
-  {id:2,name:'Facebook',dev:'Meta Platforms',cat:'Social',rating:4.5,downloads:'5B+',
-   icon:'https://img.icons8.com/color/96/facebook-new.png',
-   desc:'Kết nối với bạn bè, gia đình và chia sẻ những khoảnh khắc đặc biệt.'},
-  {id:3,name:'YouTube',dev:'Google LLC',cat:'Video',rating:4.7,downloads:'10B+',
-   icon:'https://img.icons8.com/color/96/youtube-play.png',
-   desc:'Xem video, nghe nhạc, theo dõi tin tức và khám phá nội dung yêu thích.'},
-  {id:4,name:'TikTok',dev:'ByteDance Ltd',cat:'Video',rating:4.6,downloads:'3B+',
-   icon:'https://img.icons8.com/color/96/tiktok.png',
-   desc:'Video ngắn sáng tạo, thú vị và xu hướng toàn cầu trong tầm tay bạn.'},
-  {id:5,name:'Gmail',dev:'Google LLC',cat:'Productivity',rating:4.6,downloads:'10B+',
-   icon:'https://img.icons8.com/color/96/gmail-new.png',
-   desc:'Email nhanh, thông minh và miễn phí từ Google. Tích hợp hoàn hảo với Google Workspace.'},
-  {id:6,name:'Google Maps',dev:'Google LLC',cat:'Navigation',rating:4.7,downloads:'10B+',
-   icon:'https://img.icons8.com/color/96/google-maps-new.png',
-   desc:'Dẫn đường, bản đồ trực tuyến, thông tin giao thông và địa điểm xung quanh bạn.'},
-  {id:7,name:'Shopee',dev:'Sea Limited',cat:'Shopping',rating:4.6,downloads:'500M+',
-   icon:'https://logo.clearbit.com/shopee.vn',
-   desc:'Sàn thương mại điện tử hàng đầu Đông Nam Á với hàng triệu sản phẩm giá tốt.'},
-  {id:8,name:'Grab',dev:'Grab Holdings',cat:'Transport',rating:4.5,downloads:'200M+',
-   icon:'https://logo.clearbit.com/grab.com',
-   desc:'Đặt xe, giao đồ ăn, mua hàng tạp hóa và nhiều dịch vụ tiện ích khác.'},
-  {id:9,name:'MoMo',dev:'M_Service JSC',cat:'Finance',rating:4.7,downloads:'50M+',
-   icon:'https://logo.clearbit.com/momo.vn',
-   desc:'Ví điện tử số 1 Việt Nam. Thanh toán nhanh, chuyển tiền dễ dàng, nhận ưu đãi hàng ngày.'},
-  {id:10,name:'Instagram',dev:'Meta Platforms',cat:'Social',rating:4.5,downloads:'5B+',
-   icon:'https://img.icons8.com/color/96/instagram-new.png',
-   desc:'Chia sẻ ảnh, video ngắn và Reels. Kết nối với cộng đồng sáng tạo toàn thế giới.'},
-  {id:11,name:'Telegram',dev:'Telegram FZ-LLC',cat:'Social',rating:4.8,downloads:'1B+',
-   icon:'https://img.icons8.com/color/96/telegram-app.png',
-   desc:'Nhắn tin bảo mật, nhanh chóng. Nhóm lên tới 200.000 thành viên và kênh không giới hạn.'},
-  {id:12,name:'Spotify',dev:'Spotify AB',cat:'Music',rating:4.6,downloads:'1B+',
-   icon:'https://img.icons8.com/color/96/spotify.png',
-   desc:'Nghe nhạc, podcast và audiobook yêu thích không giới hạn. Cá nhân hóa theo sở thích.'},
-  {id:13,name:'Netflix',dev:'Netflix Inc',cat:'Entertainment',rating:4.5,downloads:'1B+',
-   icon:'https://img.icons8.com/color/96/netflix.png',
-   desc:'Phim, series và tài liệu hay nhất từ khắp thế giới. Xem mọi lúc, mọi nơi.'},
-  {id:14,name:'Discord',dev:'Discord Inc',cat:'Social',rating:4.6,downloads:'500M+',
-   icon:'https://img.icons8.com/color/96/discord-logo.png',
-   desc:'Nền tảng chat voice, video và text cho cộng đồng game, học tập và làm việc nhóm.'},
-  {id:15,name:'Lazada',dev:'Lazada Group',cat:'Shopping',rating:4.3,downloads:'200M+',
-   icon:'https://logo.clearbit.com/lazada.vn',
-   desc:'Mua sắm online với hàng ngàn deal hấp dẫn mỗi ngày từ các thương hiệu uy tín.'},
-  {id:16,name:'Tiki',dev:'Tiki Corporation',cat:'Shopping',rating:4.4,downloads:'20M+',
-   icon:'https://logo.clearbit.com/tiki.vn',
-   desc:'Mua sắm nhanh - giao hàng tốc độ. Hàng chính hãng, giá tốt nhất thị trường.'},
-];
-
-const CATEGORIES = ['Tất Cả','Social','Video','Shopping','Finance','Music','Navigation','Productivity','Entertainment','Transport'];
-const FEATURES_DATA = [
-  {icon:'🎨',bg:'#FFF3E0',color:'#FF6B35',label_vi:'UI Đẹp',label_en:'Beautiful UI',desc_vi:'Thiết kế hiện đại',desc_en:'Modern design'},
-  {icon:'🌐',bg:'#E3F2FD',color:'#2196F3',label_vi:'Đa Ngôn Ngữ',label_en:'Multilingual',desc_vi:'VI & EN',desc_en:'VI & EN'},
-  {icon:'🆓',bg:'#E8F5E9',color:'#22C55E',label_vi:'Miễn Phí XM',label_en:'Free Verified',desc_vi:'Xác minh ngay',desc_en:'Instant verify'},
-  {icon:'🌙',bg:'#F3E5F5',color:'#9C27B0',label_vi:'Chế Độ Tối',label_en:'Dark Mode',desc_vi:'Bảo vệ mắt',desc_en:'Eye protection'},
-  {icon:'⚡',bg:'#FFF8E1',color:'#F59E0B',label_vi:'Siêu Nhanh',label_en:'Super Fast',desc_vi:'Không lag',desc_en:'No lag'},
-  {icon:'🔒',bg:'#FFEBEE',color:'#EF4444',label_vi:'Bảo Mật',label_en:'Secure',desc_vi:'Dữ liệu an toàn',desc_en:'Data safe'},
-];
-
-const NOTIFICATIONS = [
-  {id:1,icon:'🎉',bg:'#FFF3E0',msg_vi:'Chào mừng đến NguyenHia VN v1.0.1!',msg_en:'Welcome to NguyenHia VN v1.0.1!',time:'Vừa xong',unread:true},
-  {id:2,icon:'🆓',bg:'#E8F5E9',msg_vi:'Bạn đã được FREE VERIFIED sau khi đăng ký!',msg_en:'You got FREE VERIFIED after registration!',time:'1 phút trước',unread:true},
-  {id:3,icon:'📱',bg:'#E3F2FD',msg_vi:'16 ứng dụng mới đã được thêm vào danh sách',msg_en:'16 new apps added to the list',time:'5 phút trước',unread:false},
-  {id:4,icon:'✨',bg:'#F3E5F5',msg_vi:'Tính năng xem chi tiết ứng dụng đã ra mắt',msg_en:'App detail view feature launched',time:'10 phút trước',unread:false},
-];
-
-// ╔══════════════════════════════════════════╗
-// ║           STATE                          ║
-// ╚══════════════════════════════════════════╝
+'use strict';
+// ══════════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════════
+const $ = id => document.getElementById(id);
 const S = {
-  lang: localStorage.getItem('nhvn_lang')||'auto',
-  theme: localStorage.getItem('nhvn_theme')||'system',
-  session: JSON.parse(localStorage.getItem('nhvn_session')||'null'),
-  activeCat: 'Tất Cả',
-  bannerIdx: 0,
-  notifications: [...NOTIFICATIONS],
-  currentPage:'home'
+  lang: localStorage.getItem('nhvn_lang') || 'auto',
+  theme: localStorage.getItem('nhvn_theme') || 'system',
+  session: JSON.parse(localStorage.getItem('nhvn_session') || 'null'),
+  page: 'home',
+  cat: 'All',
+  fabIdx: 0,
+  fabTimer: null,
+  appsData: [],
+  bannerData: [],
+  notifications: [],
+  visitors: parseInt(localStorage.getItem('nhvn_visitors') || '0')
 };
 
-// ╔══════════════════════════════════════════╗
-// ║           TRANSLATIONS                   ║
-// ╚══════════════════════════════════════════╝
-const TR = {
-  vi:{
-    topSub:'v1.0.1 · Thư Viện UI',langLabel:'VI',
-    bTag1:'Thư Viện UI #1',bTitle1:'NguyenHia VN\nUI Library',bSub1:'Bộ công cụ giao diện đẹp, hiện đại dành cho ứng dụng Việt Nam',
-    bBtn1:'Bắt Đầu',bBtn2:'Tải Xuống',bTag2:'Tính Năng Mới',bTitle2:'V1.0.1\nUpdate',
-    bSub2:'Giao diện mới, mượt mà hơn, tính năng đăng nhập & xác minh miễn phí',
-    bBtn3:'Xem Ứng Dụng',bTag3:'Miễn Phí',bTitle3:'FREE\nVERIFIED ✓',
-    bSub3:'Đăng ký là tự động được xác minh. Không cần email xác nhận!',bBtn4:'Đăng Ký Ngay',
-    featAppsTitle:'🔥 Nổi Bật',featAppsMore:'Xem tất cả',featuresTitle:'✨ Tính Năng',
-    topAppsTitle:'📱 Top Ứng Dụng',topAppsMore:'Xem thêm',
-    appsPageTitle:'📦 Tất Cả Ứng Dụng',appsPageSub:'Khám phá ứng dụng hàng đầu',
-    navHome:'Trang Chủ',navApps:'Ứng Dụng',navProfile:'Hồ Sơ',navSettings:'Cài Đặt',
-    notifTitle:'Thông Báo',notifClear:'Xóa tất cả',notifEmpty:'Không có thông báo mới',
-    profileGuest:'Khách',profileNotLogged:'Chưa đăng nhập',
-    verifiedPillText:'FREE VERIFIED ✓',
-    dlSoon:'📱 Tính năng tải xuống sắp ra mắt!',
-    btnGet:'Xem',btnInstall:'Cài Đặt Ngay',btnShare:'Chia Sẻ',
-    searchPH:'Tìm kiếm ứng dụng...',
-    searchEmptyTitle:'Không tìm thấy kết quả',
-    searchEmptyDesc:'Không có ứng dụng nào khớp với tìm kiếm của bạn.',
-    logoutMsg:'👋 Đăng xuất thành công',
-    sgAppearance:'Giao Diện',siThemeLabel:'Chủ Đề',siThemeDesc:'Hệ thống / Sáng / Tối',
-    sgLang:'Ngôn Ngữ',siLangLabel:'Ngôn Ngữ Ứng Dụng',siLangDesc:'Tự động / Tiếng Việt / English',
-    sgAccount:'Tài Khoản',siLogin:'Đăng Nhập',siRegister:'Đăng Ký',siLogout:'Đăng Xuất',
-    sgAbout:'Về Ứng Dụng',siVersion:'Phiên Bản',siMade:'Được Tạo Bởi',siNotif:'Thông Báo',
-    proEdit:'Chỉnh Sửa Hồ Sơ',proVerify:'Trạng Thái Xác Minh',
-    proFreeVerified:'FREE VERIFIED ✓',proSettings:'Cài Đặt',proRate:'Đánh Giá',proLogout:'Đăng Xuất',
-    proEmailLabel:'Email',proName:'Tên',
-    featViewBtn:'Xem →',
-    downloads:'Lượt tải',rating:'Đánh giá',category:'Danh mục',
-    screenshots:'Ảnh chụp màn hình',aboutApp:'Giới thiệu',
-    previewOnly:'Chức năng xem trước',
-  },
-  en:{
-    topSub:'v1.0.1 · UI Library',langLabel:'EN',
-    bTag1:'Vietnam UI Library #1',bTitle1:'NguyenHia VN\nUI Library',bSub1:'Beautiful, modern UI toolkit for Vietnamese applications',
-    bBtn1:'Get Started',bBtn2:'Download',bTag2:'New Features',bTitle2:'V1.0.1\nUpdate',
-    bSub2:'New design, smoother, with login & free verification features',
-    bBtn3:'View Apps',bTag3:'Free',bTitle3:'FREE\nVERIFIED ✓',
-    bSub3:'Register and get instantly verified. No email confirmation needed!',bBtn4:'Register Now',
-    featAppsTitle:'🔥 Featured',featAppsMore:'See all',featuresTitle:'✨ Features',
-    topAppsTitle:'📱 Top Apps',topAppsMore:'View more',
-    appsPageTitle:'📦 All Applications',appsPageSub:'Explore top applications',
-    navHome:'Home',navApps:'Apps',navProfile:'Profile',navSettings:'Settings',
-    notifTitle:'Notifications',notifClear:'Clear all',notifEmpty:'No new notifications',
-    profileGuest:'Guest',profileNotLogged:'Not logged in',
-    verifiedPillText:'FREE VERIFIED ✓',
-    dlSoon:'📱 Download feature coming soon!',
-    btnGet:'View',btnInstall:'Install Now',btnShare:'Share',
-    searchPH:'Search apps...',
-    searchEmptyTitle:'No results found',
-    searchEmptyDesc:'No apps match your search query.',
-    logoutMsg:'👋 Logged out successfully',
-    sgAppearance:'Appearance',siThemeLabel:'Theme',siThemeDesc:'System / Light / Dark',
-    sgLang:'Language',siLangLabel:'App Language',siLangDesc:'Auto / Vietnamese / English',
-    sgAccount:'Account',siLogin:'Login',siRegister:'Register',siLogout:'Logout',
-    sgAbout:'About',siVersion:'Version',siMade:'Made By',siNotif:'Notifications',
-    proEdit:'Edit Profile',proVerify:'Verification Status',
-    proFreeVerified:'FREE VERIFIED ✓',proSettings:'Settings',proRate:'Rate App',proLogout:'Logout',
-    proEmailLabel:'Email',proName:'Name',
-    featViewBtn:'View →',
-    downloads:'Downloads',rating:'Rating',category:'Category',
-    screenshots:'Screenshots',aboutApp:'About',
-    previewOnly:'Preview only',
-  }
+// ══════════════════════════════════════════════════
+// LANGUAGE — Auto detect, no text API
+// ══════════════════════════════════════════════════
+const isVI = () => {
+  if (S.lang === 'auto') return (navigator.language || 'vi').toLowerCase().startsWith('vi');
+  return S.lang === 'vi';
 };
 
-function getLang(){return S.lang==='auto'?(navigator.language||'vi').toLowerCase().startsWith('vi')?'vi':'en':S.lang}
-function T(k){return TR[getLang()][k]||k}
+const L = (vi, en) => isVI() ? vi : en;
 
-// ╔══════════════════════════════════════════╗
-// ║           THEME                          ║
-// ╚══════════════════════════════════════════╝
-function applyTheme(t){
-  S.theme=t;localStorage.setItem('nhvn_theme',t);
-  document.querySelectorAll('.theme-opt').forEach(el=>el.classList.remove('active'));
-  const map={system:'thSys',light:'thLight',dark:'thDark'};
-  const btn=document.getElementById(map[t]);if(btn)btn.classList.add('active');
-  if(t==='system'){
-    document.body.setAttribute('data-theme',window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');
-  }else{
-    document.body.setAttribute('data-theme',t);
-  }
+// ══════════════════════════════════════════════════
+// THEME
+// ══════════════════════════════════════════════════
+function applyTheme(t) {
+  S.theme = t; localStorage.setItem('nhvn_theme', t);
+  ['thSys','thLight','thDark'].forEach(id => { const el=$(id); if(el) el.classList.remove('active'); });
+  const map = {system:'thSys', light:'thLight', dark:'thDark'};
+  const btn = $(map[t]); if(btn) btn.classList.add('active');
+  if (t === 'system') {
+    document.body.setAttribute('data-theme', window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  } else document.body.setAttribute('data-theme', t);
 }
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',e=>{
-  if(S.theme==='system')document.body.setAttribute('data-theme',e.matches?'dark':'light');
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+  if (S.theme === 'system') document.body.setAttribute('data-theme', e.matches ? 'dark' : 'light');
 });
 
-// ╔══════════════════════════════════════════╗
-// ║           NAVIGATION                     ║
-// ╚══════════════════════════════════════════╝
-function navTo(page){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.bnav-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+page).classList.add('active');
-  document.getElementById('nav-'+page).classList.add('active');
-  S.currentPage=page;
-  window.scrollTo({top:0,behavior:'smooth'});
-  if(page==='profile')renderProfile();
-  if(page==='settings')renderSettings();
-  if(page==='apps')renderAppsPage();
+// ══════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════
+function navTo(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nb-btn').forEach(b => b.classList.remove('active'));
+  $('page-' + page).classList.add('active');
+  $('nav-' + page).classList.add('active');
+  S.page = page;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (page === 'profile') renderProfile();
+  if (page === 'settings') renderSettings();
+  if (page === 'apps') renderAppsPage();
 }
 
-// ╔══════════════════════════════════════════╗
-// ║           BANNER SLIDER                  ║
-// ╚══════════════════════════════════════════╝
-function initBanner(){
-  const dots=document.getElementById('bannerDots');
-  dots.innerHTML=[0,1,2].map(i=>`<div class="bdot ${i===0?'active':''}" onclick="goBanner(${i})"></div>`).join('');
-  setInterval(()=>goBanner((S.bannerIdx+1)%3),4000);
-}
-function goBanner(idx){
-  S.bannerIdx=idx;
-  document.getElementById('bannerSlides').style.transform=`translateX(-${idx*100}%)`;
-  document.querySelectorAll('.bdot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+// ══════════════════════════════════════════════════
+// API — LOAD JSON DATA
+// ══════════════════════════════════════════════════
+async function loadApps() {
+  try {
+    const r = await fetch('AppList.json');
+    if (!r.ok) throw new Error('failed');
+    S.appsData = await r.json();
+  } catch {
+    // Fallback inline
+    S.appsData = getFallbackApps();
+  }
+  renderHomeGrid();
+  renderHomeList();
+  renderCats();
 }
 
-// ╔══════════════════════════════════════════╗
-// ║           CATEGORIES                     ║
-// ╚══════════════════════════════════════════╝
-function renderCats(){
-  const l=getLang();
-  const catLabels={'Tất Cả':l==='vi'?'Tất Cả':'All','Social':'Social','Video':'Video','Shopping':l==='vi'?'Mua Sắm':'Shopping',
-    'Finance':l==='vi'?'Tài Chính':'Finance','Music':l==='vi'?'Âm Nhạc':'Music','Navigation':l==='vi'?'Bản Đồ':'Maps',
-    'Productivity':l==='vi'?'Năng Suất':'Productivity','Entertainment':l==='vi'?'Giải Trí':'Entertainment','Transport':l==='vi'?'Di Chuyển':'Transport'};
-  document.getElementById('catsRow').innerHTML=CATEGORIES.map(c=>
-    `<div class="cat-chip ${S.activeCat===c?'active':''}" onclick="filterCat('${c}')">${catLabels[c]||c}</div>`
+async function loadBanners() {
+  try {
+    const r = await fetch('FeaturesAppBanner.json');
+    if (!r.ok) throw new Error('failed');
+    S.bannerData = await r.json();
+  } catch {
+    S.bannerData = getFallbackBanners();
+  }
+  renderFAB();
+}
+
+async function loadNotifications() {
+  // Simulated notification API
+  await new Promise(r => setTimeout(r, 300));
+  S.notifications = [
+    { id:1, icon:'🚀', bg:'#FFF3E0', msg_vi:'NguyenHia VN v1.0.4 đã ra mắt!', msg_en:'NguyenHia VN v1.0.4 is live!', time: L('Vừa xong','Just now'), unread:true },
+    { id:2, icon:'📦', bg:'#E3F2FD', msg_vi:'16 ứng dụng mới đã được cập nhật.', msg_en:'16 apps have been updated.', time: L('2 phút trước','2 min ago'), unread:true },
+    { id:3, icon:'🆓', bg:'#E8F5E9', msg_vi:'Đăng ký ngay để nhận FREE VERIFIED!', msg_en:'Register now to get FREE VERIFIED!', time: L('5 phút trước','5 min ago'), unread:false },
+    { id:4, icon:'🌙', bg:'#F3E5F5', msg_vi:'Chế độ tối mới mượt mà hơn.', msg_en:'New smoother dark mode.', time: L('10 phút trước','10 min ago'), unread:false },
+  ];
+  const unread = S.notifications.filter(n => n.unread).length;
+  if (unread > 0) $('notifBtn').classList.add('nb');
+  else $('notifBtn').classList.remove('nb');
+}
+
+function getFallbackApps() {
+  return [
+    {id:1,name:'Zalo',developer:'VNG',category:'Social',rating:4.8,size:'112 MB',downloads:'50M+',icon:'https://img.icons8.com/color/96/zalo.png',downloadUrl:'https://zalo.me/download',description:'Nhắn tin, gọi video hàng đầu VN.',free:true,featured:true,platform:['iOS','Android']},
+    {id:2,name:'Facebook',developer:'Meta',category:'Social',rating:4.5,size:'78 MB',downloads:'5B+',icon:'https://img.icons8.com/color/96/facebook-new.png',downloadUrl:'https://facebook.com',description:'Mạng xã hội lớn nhất thế giới.',free:true,featured:true,platform:['iOS','Android']},
+    {id:3,name:'YouTube',developer:'Google',category:'Video',rating:4.7,size:'95 MB',downloads:'10B+',icon:'https://img.icons8.com/color/96/youtube-play.png',downloadUrl:'https://youtube.com',description:'Xem video, nghe nhạc không giới hạn.',free:true,featured:false,platform:['iOS','Android']},
+    {id:4,name:'TikTok',developer:'ByteDance',category:'Video',rating:4.6,size:'88 MB',downloads:'3B+',icon:'https://img.icons8.com/color/96/tiktok.png',downloadUrl:'https://tiktok.com',description:'Video ngắn trending toàn cầu.',free:true,featured:true,platform:['iOS','Android']},
+    {id:5,name:'MoMo',developer:'M_Service',category:'Finance',rating:4.7,size:'68 MB',downloads:'50M+',icon:'https://img.icons8.com/color/96/momo-payment.png',downloadUrl:'https://momo.vn',description:'Ví điện tử số 1 Việt Nam.',free:true,featured:true,platform:['iOS','Android']},
+    {id:6,name:'Shopee',developer:'Sea Ltd',category:'Shopping',rating:4.6,size:'105 MB',downloads:'500M+',icon:'https://img.icons8.com/color/96/shopee.png',downloadUrl:'https://shopee.vn',description:'Sàn TMĐT hàng đầu ĐNÁ.',free:true,featured:true,platform:['iOS','Android']},
+    {id:7,name:'Grab',developer:'Grab Holdings',category:'Transport',rating:4.5,size:'92 MB',downloads:'200M+',icon:'https://img.icons8.com/color/96/grab.png',downloadUrl:'https://grab.com',description:'Đặt xe, giao đồ ăn tiện lợi.',free:true,featured:false,platform:['iOS','Android']},
+    {id:8,name:'Spotify',developer:'Spotify AB',category:'Music',rating:4.6,size:'80 MB',downloads:'1B+',icon:'https://img.icons8.com/color/96/spotify.png',downloadUrl:'https://spotify.com',description:'Nghe nhạc, podcast yêu thích.',free:true,featured:true,platform:['iOS','Android']},
+  ];
+}
+
+function getFallbackBanners() {
+  return [
+    {id:1,title:'Zalo — Chat Việt Nam',subtitle:'Ứng Dụng Số 1',appName:'Zalo',description:'Nhắn tin, gọi điện miễn phí với 74 triệu người dùng.',icon:'https://img.icons8.com/color/96/zalo.png',downloadUrl:'https://zalo.me/download',gradient:['#0068FF','#00B4FF'],badge:'HOT',free:true,rating:4.8},
+    {id:2,title:'MoMo — Ví Điện Tử',subtitle:'Thanh Toán Dễ Dàng',appName:'MoMo',description:'Thanh toán hóa đơn, chuyển tiền và nhận ưu đãi khủng.',icon:'https://img.icons8.com/color/96/momo-payment.png',downloadUrl:'https://momo.vn',gradient:['#A50064','#E91E8C'],badge:'NEW',free:true,rating:4.7},
+    {id:3,title:'Shopee — Mua Sắm',subtitle:'Giá Tốt Mỗi Ngày',appName:'Shopee',description:'Hàng triệu sản phẩm chính hãng với deal hấp dẫn.',icon:'https://img.icons8.com/color/96/shopee.png',downloadUrl:'https://shopee.vn',gradient:['#EE4D2D','#FF7043'],badge:'SALE',free:true,rating:4.6},
+  ];
+}
+
+// ══════════════════════════════════════════════════
+// FEATURE APP BANNER
+// ══════════════════════════════════════════════════
+function renderFAB() {
+  const data = S.bannerData;
+  if (!data.length) return;
+  const vi = isVI();
+  $('fabTrack').innerHTML = data.map((b, i) => {
+    const c1 = b.gradient[0], c2 = b.gradient[1];
+    const dlTxt = vi ? 'Tải Xuống' : 'Download';
+    const freeTxt = vi ? 'Miễn Phí' : 'Free';
+    return `
+    <div class="fab-slide" style="background:linear-gradient(135deg,${c1},${c2})">
+      <div class="fab-top">
+        <div class="fab-icon">
+          <img src="${b.icon}" alt="${b.appName}"
+            onerror="this.parentNode.style.background='rgba(255,255,255,.2)';this.style.display='none'">
+        </div>
+        <div class="fab-meta">
+          <div class="fab-badge">${b.badge}</div>
+          <div class="fab-title">${vi ? b.title : b.title}</div>
+          <div class="fab-sub">⭐ ${b.rating} · ${b.free ? freeTxt : '$4.99'}</div>
+        </div>
+      </div>
+      <div class="fab-desc">${vi ? b.description : b.description}</div>
+      <div class="fab-actions">
+        <button class="fab-btn-dl" style="color:${c1}" onclick="handleFabDownload('${b.downloadUrl}','${b.appName}')">
+          <i class="fa fa-download"></i>${dlTxt}
+        </button>
+        <button class="fab-btn-share" onclick="handleFabShare('${b.appName}')">
+          <i class="fa fa-share-alt"></i>
+        </button>
+      </div>
+    </div>`;
+  }).join('');
+
+  $('fabDots').innerHTML = data.map((_, i) =>
+    `<div class="fab-dot ${i === 0 ? 'active' : ''}" onclick="gotoFAB(${i})"></div>`
   ).join('');
-}
-function filterCat(cat){
-  S.activeCat=cat;renderCats();
-  const filtered=cat==='Tất Cả'?APPS_DATA:APPS_DATA.filter(a=>a.cat===cat);
-  renderAppsList('homeAppsList',filtered.slice(0,6));
-  renderAppsGrid('homeAppsGrid',filtered.slice(0,8));
+
+  clearInterval(S.fabTimer);
+  S.fabTimer = setInterval(() => gotoFAB((S.fabIdx + 1) % data.length), 4500);
 }
 
-// ╔══════════════════════════════════════════╗
-// ║           RENDER APPS                    ║
-// ╚══════════════════════════════════════════╝
-function appIconHTML(app,size=56,r=14){
-  return`<div style="width:${size}px;height:${size}px;border-radius:${r}px;overflow:hidden;background:var(--surf2);box-shadow:0 2px 8px rgba(0,0,0,.12);flex-shrink:0">
-    <img src="${app.icon}" alt="${app.name}" style="width:100%;height:100%;object-fit:cover"
-      onerror="this.parentNode.innerHTML='<div style=width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:${Math.floor(size*.45)}px;background:linear-gradient(135deg,#FF6B35,#FF9558);color:#fff;font-weight:900>${app.name.charAt(0)}</div>'">
+function gotoFAB(idx) {
+  S.fabIdx = idx;
+  $('fabTrack').style.transform = `translateX(-${idx * 100}%)`;
+  document.querySelectorAll('.fab-dot').forEach((d, i) => d.classList.toggle('active', i === idx));
+}
+
+function handleFabDownload(url, name) {
+  window.open(url, '_blank');
+  showToast(`⬇ ${L('Đang tải','Downloading')} ${name}...`, 'success');
+}
+
+function handleFabShare(name) {
+  if (navigator.share) {
+    navigator.share({ title: name, url: window.location.href }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(window.location.href).catch(() => {});
+    showToast(L('Đã sao chép liên kết!', 'Link copied!'), 'success');
+  }
+}
+
+// ══════════════════════════════════════════════════
+// CATEGORIES
+// ══════════════════════════════════════════════════
+const catMap = {
+  'All': { vi:'Tất Cả', en:'All' },
+  'Social': { vi:'Xã Hội', en:'Social' },
+  'Video': { vi:'Video', en:'Video' },
+  'Shopping': { vi:'Mua Sắm', en:'Shopping' },
+  'Finance': { vi:'Tài Chính', en:'Finance' },
+  'Music': { vi:'Âm Nhạc', en:'Music' },
+  'Navigation': { vi:'Bản Đồ', en:'Maps' },
+  'Productivity': { vi:'Năng Suất', en:'Productivity' },
+  'Entertainment': { vi:'Giải Trí', en:'Entertainment' },
+  'Transport': { vi:'Di Chuyển', en:'Transport' },
+};
+
+function renderCats() {
+  const cats = ['All', ...new Set(S.appsData.map(a => a.category))];
+  const vi = isVI();
+  $('catsRow').innerHTML = cats.map(c => {
+    const lbl = catMap[c] ? (vi ? catMap[c].vi : catMap[c].en) : c;
+    return `<div class="cat ${S.cat === c ? 'active' : ''}" onclick="filterCat('${c}')">${lbl}</div>`;
+  }).join('');
+}
+
+function filterCat(cat) {
+  S.cat = cat;
+  renderCats();
+  const list = cat === 'All' ? S.appsData : S.appsData.filter(a => a.category === cat);
+  renderAppList('homeList', list.slice(0, 8));
+  renderAppGrid('homeGrid', list.filter(a => a.featured).slice(0, 8));
+}
+
+// ══════════════════════════════════════════════════
+// RENDER APPS
+// ══════════════════════════════════════════════════
+function iconImg(app, size = 52, r = 13) {
+  return `<div style="width:${size}px;height:${size}px;border-radius:${r}px;overflow:hidden;background:var(--surf2);box-shadow:0 2px 8px rgba(0,0,0,.1);flex-shrink:0">
+    <img src="${app.icon}" alt="${app.name}" class="loading" style="width:100%;height:100%;object-fit:cover"
+      onload="this.classList.remove('loading')"
+      onerror="this.parentNode.innerHTML='<div style=width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:${Math.floor(size*.4)}px;background:linear-gradient(135deg,#FF6B35,#FF9558);color:#fff;font-weight:900;font-family:Inter,sans-serif>${app.name.charAt(0)}</div>'">
   </div>`;
 }
 
-function starsHTML(rating){
-  const full=Math.floor(rating),half=rating%1>=.5?1:0;
-  let s='';
-  for(let i=0;i<full;i++)s+='<i class="fa fa-star" style="color:#FBBF24;font-size:11px"></i>';
-  if(half)s+='<i class="fa fa-star-half-alt" style="color:#FBBF24;font-size:11px"></i>';
-  return s+`<span class="star-num">${rating}</span>`;
+function starsHTML(r) {
+  const f = Math.floor(r), h = r % 1 >= .5 ? 1 : 0;
+  return '<span style="color:#FBBF24;font-size:11px">' + '★'.repeat(f) + (h ? '½' : '') + `</span><span style="font-size:11px;color:var(--txt3);font-weight:600;margin-left:3px">${r}</span>`;
 }
 
-function renderAppsList(containerId, apps){
-  document.getElementById(containerId).innerHTML=apps.map(a=>`
-    <div class="app-card" onclick="openAppDetail(${a.id})">
-      ${appIconHTML(a,56,14)}
-      <div class="app-card-info">
-        <div class="app-card-name">${a.name}</div>
-        <div class="app-card-cat">${a.dev}</div>
-        <div class="app-card-stars">${starsHTML(a.rating)}</div>
+function renderAppList(containerId, apps) {
+  const vi = isVI();
+  const viewTxt = vi ? 'Xem' : 'View';
+  $(containerId).innerHTML = apps.map(a => `
+    <div class="app-row" onclick="openAppDetail(${a.id})">
+      ${iconImg(a, 52, 13)}
+      <div class="ainfo">
+        <div class="aname">${a.name}</div>
+        <div class="adev">${a.developer}</div>
+        <div class="arating">${starsHTML(a.rating)}</div>
       </div>
-      <button class="btn-get" onclick="event.stopPropagation();openAppDetail(${a.id})">${T('btnGet')}</button>
+      <button class="abtn" onclick="event.stopPropagation();openAppDetail(${a.id})">${viewTxt}</button>
     </div>
   `).join('');
 }
 
-function renderAppsGrid(containerId, apps){
-  document.getElementById(containerId).innerHTML=apps.map(a=>`
-    <div class="app-grid-item" onclick="openAppDetail(${a.id})">
-      ${appIconHTML(a,52,14)}
-      <div class="app-grid-name">${a.name}</div>
+function renderAppGrid(containerId, apps) {
+  $(containerId).innerHTML = apps.map(a => `
+    <div class="ag-item" onclick="openAppDetail(${a.id})">
+      <div class="ag-ico">${iconImg(a, 50, 13).replace(/^<div[^>]*>/, '<div style="width:50px;height:50px;border-radius:13px;overflow:hidden;background:var(--surf2);box-shadow:0 2px 8px rgba(0,0,0,.1)">').slice(0,-6)}</div>
+      <div class="ag-name">${a.name}</div>
     </div>
   `).join('');
 }
 
-function renderAppsPage(){
-  renderAppsList('appsFullList', APPS_DATA);
+function renderHomeGrid() {
+  renderAppGrid('homeGrid', S.appsData.filter(a => a.featured).slice(0, 8));
+}
+function renderHomeList() {
+  renderAppList('homeList', S.appsData.slice(0, 8));
+}
+function renderAppsPage() {
+  renderAppList('appsFullList', S.appsData);
 }
 
-// ╔══════════════════════════════════════════╗
-// ║           APP DETAIL                     ║
-// ╚══════════════════════════════════════════╝
-function openAppDetail(id){
-  const app=APPS_DATA.find(a=>a.id===id);if(!app)return;
-  const l=getLang();
-  document.getElementById('appDetailContent').innerHTML=`
-    <div class="appd-top">
-      ${appIconHTML(app,76,18)}
-      <div class="appd-info">
-        <div class="appd-name">${app.name}</div>
-        <div class="appd-dev">${app.dev}</div>
-        <div class="appd-badges">
-          <span class="badge badge-free">🆓 ${l==='vi'?'Miễn Phí':'Free'}</span>
-          <span class="badge badge-cat">${app.cat}</span>
+// ══════════════════════════════════════════════════
+// APP DETAIL
+// ══════════════════════════════════════════════════
+function openAppDetail(id) {
+  const app = S.appsData.find(a => a.id === id);
+  if (!app) return;
+  const vi = isVI();
+  const freeTxt = vi ? 'Miễn Phí' : 'Free';
+  const paidTxt = vi ? 'Trả Phí' : 'Paid';
+  const installTxt = vi ? 'Tải Xuống' : 'Download';
+  const aboutTxt = vi ? 'Giới Thiệu' : 'About';
+  const platformTxt = vi ? 'Nền Tảng' : 'Platform';
+  const ssTxt = vi ? 'Màn Hình' : 'Screenshots';
+  const prevTxt = vi ? 'Xem trước' : 'Preview';
+  const dlTxt = vi ? 'Lượt tải' : 'Downloads';
+  const ratTxt = vi ? 'Đánh giá' : 'Rating';
+  const sizeTxt = vi ? 'Dung lượng' : 'Size';
+
+  $('modalContent').innerHTML = `
+    <div class="ad-wrap">
+      <div class="ad-hero">
+        ${iconImg(app, 72, 18)}
+        <div class="ad-info">
+          <div class="ad-name">${app.name}</div>
+          <div class="ad-dev">${app.developer}</div>
+          <div class="ad-tags">
+            <span class="tag tag-free">${app.free ? '🆓 ' + freeTxt : '💰 ' + paidTxt}</span>
+            <span class="tag tag-cat">${app.category}</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="appd-stats">
-      <div class="appd-stat">
-        <div class="appd-stat-val">${app.rating}★</div>
-        <div class="appd-stat-label">${T('rating')}</div>
+      <div class="ad-stats">
+        <div class="ads-cell"><div class="ads-val">${app.rating}⭐</div><div class="ads-lbl">${ratTxt}</div></div>
+        <div class="ads-cell"><div class="ads-val">${app.downloads}</div><div class="ads-lbl">${dlTxt}</div></div>
+        <div class="ads-cell"><div class="ads-val">${app.size}</div><div class="ads-lbl">${sizeTxt}</div></div>
       </div>
-      <div class="appd-stat">
-        <div class="appd-stat-val">${app.downloads}</div>
-        <div class="appd-stat-label">${T('downloads')}</div>
+      <div class="ad-btns">
+        <button class="btn-install" onclick="handleInstall('${app.downloadUrl}','${app.name}')">
+          <i class="fa fa-download"></i>${installTxt}
+        </button>
+        <button class="btn-share" onclick="handleFabShare('${app.name}')">
+          <i class="fa fa-share-alt"></i>
+        </button>
       </div>
-      <div class="appd-stat">
-        <div class="appd-stat-val">${app.cat}</div>
-        <div class="appd-stat-label">${T('category')}</div>
+      <div class="ad-section">
+        <div class="ad-sec-ttl">${aboutTxt}</div>
+        <div class="ad-desc">${app.description}</div>
       </div>
-    </div>
-    <div class="appd-actions">
-      <button class="btn-install" onclick="showToast('${T('dlSoon')}','info')">${T('btnInstall')}</button>
-      <button class="btn-share" onclick="showToast('${l==='vi'?'Đã sao chép liên kết!':'Link copied!'}','success')"><i class="fa fa-share-alt"></i></button>
+      <div class="ad-section">
+        <div class="ad-sec-ttl">${platformTxt}</div>
+        <div class="ad-platforms">
+          ${(app.platform || ['iOS','Android']).map(p =>
+            `<div class="pf-chip"><i class="fa fa-${p==='iOS'?'apple':p==='Android'?'android':'globe'}"></i>${p}</div>`
+          ).join('')}
+        </div>
+      </div>
+      <div class="ad-section">
+        <div class="ad-sec-ttl">${ssTxt}</div>
+        <div class="screenshots-row">
+          ${[1,2,3].map(i => `<div class="ss-ph"><i class="fa fa-image" style="font-size:22px"></i>${prevTxt} ${i}</div>`).join('')}
+        </div>
+      </div>
     </div>
   `;
-  document.getElementById('appDetailModal').innerHTML+=`
-    <div class="appd-section">
-      <div class="appd-sec-title">${T('aboutApp')}</div>
-      <div class="appd-desc">${app.desc}</div>
+  $('modalOverlay').classList.add('open');
+}
+
+function handleInstall(url, name) {
+  window.open(url, '_blank');
+  showToast(`⬇ ${isVI() ? 'Đang mở' : 'Opening'} ${name}...`, 'success');
+}
+
+function closeModal(e) {
+  if (e.target.id === 'modalOverlay') $('modalOverlay').classList.remove('open');
+}
+
+// ══════════════════════════════════════════════════
+// SEARCH
+// ══════════════════════════════════════════════════
+function handleSearch(q) {
+  const vi = isVI();
+  const clear = $('searchClear');
+  const empty = $('searchEmpty');
+  const secFeat = $('secFeatured');
+  const secTop = $('secTopApps');
+  const cats = $('catsRow');
+
+  clear.classList.toggle('show', q.length > 0);
+
+  if (!q.trim()) {
+    empty.style.display = 'none';
+    secFeat.style.display = '';
+    secTop.style.display = '';
+    cats.style.display = '';
+    renderHomeGrid();
+    renderHomeList();
+    return;
+  }
+
+  const filtered = S.appsData.filter(a =>
+    a.name.toLowerCase().includes(q.toLowerCase()) ||
+    a.category.toLowerCase().includes(q.toLowerCase()) ||
+    a.developer.toLowerCase().includes(q.toLowerCase())
+  );
+
+  secFeat.style.display = 'none';
+  cats.style.display = 'none';
+
+  if (filtered.length === 0) {
+    empty.style.display = 'block';
+    secTop.style.display = 'none';
+    $('searchUrlText').textContent = `NguyenHia.Dev/Home/${encodeURIComponent(q)}`;
+    $('seTitle').textContent = vi ? 'Không tìm thấy' : 'Not Found';
+    $('seDesc').textContent = vi ? `Không có ứng dụng nào khớp với "${q}".` : `No apps match "${q}".`;
+  } else {
+    empty.style.display = 'none';
+    secTop.style.display = '';
+    $('topTtl').textContent = vi ? `🔍 ${filtered.length} kết quả` : `🔍 ${filtered.length} results`;
+    renderAppList('homeList', filtered);
+  }
+}
+
+function clearSearch() {
+  $('searchInput').value = '';
+  handleSearch('');
+}
+
+// ══════════════════════════════════════════════════
+// NOTIFICATIONS
+// ══════════════════════════════════════════════════
+function openNotif() {
+  renderNotifList();
+  $('notifOverlay').classList.add('open');
+}
+function closeNotif(e) {
+  if (!e || e.target.id === 'notifOverlay') $('notifOverlay').classList.remove('open');
+}
+function renderNotifList() {
+  const vi = isVI();
+  $('notifTitle').textContent = vi ? 'Thông Báo' : 'Notifications';
+  $('notifClear').textContent = vi ? 'Xóa tất cả' : 'Clear all';
+  if (!S.notifications.length) {
+    $('notifList').innerHTML = `<div class="notif-empty"><i class="fa fa-bell-slash"></i><p>${vi ? 'Không có thông báo mới' : 'No notifications'}</p></div>`;
+    return;
+  }
+  $('notifList').innerHTML = S.notifications.map(n => `
+    <div class="notif-item ${n.unread ? 'unread' : ''}" onclick="readNotif(${n.id})">
+      <div class="ni-ico" style="background:${n.bg}">${n.icon}</div>
+      <div class="ni-body">
+        <div class="ni-msg">${vi ? n.msg_vi : n.msg_en}</div>
+        <div class="ni-time">${n.time}</div>
+      </div>
+      ${n.unread ? '<div class="ni-dot"></div>' : ''}
     </div>
-    <div class="appd-section">
-      <div class="appd-sec-title">${T('screenshots')}</div>
-      <div class="screenshots">
-        ${[1,2,3].map(i=>`<div class="screenshot"><i class="fa fa-image" style="font-size:24px;margin-bottom:8px;display:block"></i>${T('previewOnly')} ${i}</div>`).join('')}
+  `).join('');
+  const unread = S.notifications.filter(n => n.unread).length;
+  const btn = $('notifBtn');
+  unread > 0 ? btn.classList.add('nb') : btn.classList.remove('nb');
+}
+function readNotif(id) {
+  S.notifications = S.notifications.map(n => n.id === id ? { ...n, unread: false } : n);
+  renderNotifList();
+}
+function clearNotifs() {
+  S.notifications = [];
+  renderNotifList();
+  closeNotif();
+  showToast(isVI() ? '🗑 Đã xóa thông báo' : '🗑 Cleared', 'info');
+}
+
+// ══════════════════════════════════════════════════
+// VISITOR COUNT
+// ══════════════════════════════════════════════════
+function trackVisitor() {
+  S.visitors++;
+  localStorage.setItem('nhvn_visitors', S.visitors);
+}
+
+// ══════════════════════════════════════════════════
+// WEBCLIPPER DOWNLOAD
+// ══════════════════════════════════════════════════
+function downloadWebClipper() {
+  const vi = isVI();
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+  if (isIOS || isSafari) {
+    const a = document.createElement('a');
+    a.href = 'NguyenHia.mobileconfig';
+    a.download = 'NguyenHia.mobileconfig';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    showToast(vi ? '⬇ Đang tải WebClipper cho iOS...' : '⬇ Downloading iOS WebClipper...', 'success', 4000);
+  } else {
+    const instructions = vi
+      ? '📱 Mở trên Safari iOS để cài đặt WebClipper!\nHoặc: Menu > "Thêm vào Màn hình chính"'
+      : '📱 Open in Safari on iOS to install!\nOr: Menu > "Add to Home Screen"';
+    showToast(instructions, 'info', 5000);
+  }
+}
+
+// ══════════════════════════════════════════════════
+// PROFILE
+// ══════════════════════════════════════════════════
+function renderProfile() {
+  const u = S.session; const vi = isVI();
+  if (u) {
+    const firstChar = u.name.charAt(0).toUpperCase();
+    $('proAvaChar').textContent = firstChar;
+    $('proVBadge').style.display = 'flex';
+    $('proName').textContent = u.name;
+    $('proEmail').textContent = u.email;
+    $('proPill').style.display = 'inline-flex';
+    $('proPillTxt').textContent = 'FREE VERIFIED ✓';
+  } else {
+    $('proAvaChar').textContent = '👤';
+    $('proVBadge').style.display = 'none';
+    $('proName').textContent = vi ? 'Khách' : 'Guest';
+    $('proEmail').textContent = vi ? 'Chưa đăng nhập' : 'Not logged in';
+    $('proPill').style.display = 'none';
+  }
+
+  $('proCards').innerHTML = u ? `
+    <div class="pro-card">
+      <div class="pi"><div class="pi-ico" style="background:#FFF3E0;color:#FF6B35"><i class="fa fa-user"></i></div>
+        <div class="pi-body"><div class="pi-label">${vi?'Tên':'Name'}</div><div class="pi-sub">${u.name}</div></div></div>
+      <div class="pi"><div class="pi-ico" style="background:#E3F2FD;color:#2196F3"><i class="fa fa-envelope"></i></div>
+        <div class="pi-body"><div class="pi-label">Email</div><div class="pi-sub">${u.email}</div></div></div>
+      <div class="pi"><div class="pi-ico" style="background:#E8F5E9;color:#22C55E"><i class="fa fa-shield-alt"></i></div>
+        <div class="pi-body"><div class="pi-label">${vi?'Xác Minh':'Verified'}</div><div class="pi-sub" style="color:#22C55E;font-weight:700">FREE VERIFIED ✓</div></div></div>
+    </div>
+    <div class="pro-card">
+      <div class="pi" onclick="navTo('settings')"><div class="pi-ico" style="background:#F3E5F5;color:#9C27B0"><i class="fa fa-cog"></i></div>
+        <div class="pi-body"><div class="pi-label">${vi?'Cài Đặt':'Settings'}</div></div><i class="fa fa-chevron-right pi-arrow"></i></div>
+      <div class="pi" onclick="doLogout()"><div class="pi-ico" style="background:#FFEBEE;color:#EF4444"><i class="fa fa-sign-out-alt"></i></div>
+        <div class="pi-body"><div class="pi-label" style="color:#EF4444">${vi?'Đăng Xuất':'Logout'}</div></div></div>
+    </div>
+  ` : `
+    <div class="pro-card">
+      <div class="pi" onclick="window.location.href='login.html'">
+        <div class="pi-ico" style="background:#E3F2FD;color:#2196F3"><i class="fa fa-sign-in-alt"></i></div>
+        <div class="pi-body"><div class="pi-label">${vi?'Đăng Nhập':'Login'}</div></div>
+        <i class="fa fa-chevron-right pi-arrow"></i>
+      </div>
+      <div class="pi" onclick="window.location.href='register.html'">
+        <div class="pi-ico" style="background:#E8F5E9;color:#22C55E"><i class="fa fa-user-plus"></i></div>
+        <div class="pi-body"><div class="pi-label">${vi?'Đăng Ký':'Register'}</div></div>
+        <i class="fa fa-chevron-right pi-arrow"></i>
       </div>
     </div>
   `;
-  document.getElementById('appDetailOverlay').classList.add('open');
-}
-function overlayOutClick(e,id){if(e.target.id===id)document.getElementById(id).classList.remove('open')}
-
-// ╔══════════════════════════════════════════╗
-// ║           FEATURES                       ║
-// ╚══════════════════════════════════════════╝
-function renderFeatures(){
-  const l=getLang();
-  document.getElementById('featuresList').innerHTML=FEATURES_DATA.map(f=>`
-    <div class="feature-card">
-      <div class="feat-icon-box" style="background:${f.bg};color:${f.color}">${f.icon}</div>
-      <div class="feat-title">${l==='vi'?f.label_vi:f.label_en}</div>
-      <div class="feat-desc">${l==='vi'?f.desc_vi:f.desc_en}</div>
-      <button class="feat-view-btn" onclick="showToast('${l==='vi'?f.label_vi:f.label_en}','info')">${T('featViewBtn')}</button>
-    </div>
-  `).join('');
 }
 
-// ╔══════════════════════════════════════════╗
-// ║           SEARCH                         ║
-// ╚══════════════════════════════════════════╝
-function handleSearch(q){
-  const empty=document.getElementById('searchEmpty');
-  const grid=document.querySelector('.sec:has(#homeAppsGrid)');
-  const listSec=document.querySelector('.sec:has(#homeAppsList)');
-  if(!q){
-    renderAppsGrid('homeAppsGrid',APPS_DATA.slice(0,8));
-    renderAppsList('homeAppsList',APPS_DATA.slice(0,6));
-    empty.style.display='none';return;
-  }
-  const filtered=APPS_DATA.filter(a=>a.name.toLowerCase().includes(q.toLowerCase())||a.cat.toLowerCase().includes(q.toLowerCase()));
-  if(filtered.length===0){
-    renderAppsGrid('homeAppsGrid',[]);
-    renderAppsList('homeAppsList',[]);
-    document.getElementById('searchUrl').textContent=`NguyenHia.Dev/Home/${encodeURIComponent(q)}`;
-    document.getElementById('searchEmptyTitle').textContent=T('searchEmptyTitle');
-    document.getElementById('searchEmptyDesc').textContent=T('searchEmptyDesc');
-    empty.style.display='block';
-  }else{
-    empty.style.display='none';
-    renderAppsGrid('homeAppsGrid',filtered.slice(0,8));
-    renderAppsList('homeAppsList',filtered.slice(0,6));
-  }
+function doLogout() {
+  S.session = null;
+  localStorage.removeItem('nhvn_session');
+  renderProfile();
+  showToast(isVI() ? '👋 Đã đăng xuất' : '👋 Logged out', 'info');
 }
 
-// ╔══════════════════════════════════════════╗
-// ║           NOTIFICATIONS                  ║
-// ╚══════════════════════════════════════════╝
-function openNotif(){
-  renderNotifs();
-  document.getElementById('notifPanel').classList.add('open');
-  document.getElementById('notifBackdrop').classList.add('open');
-}
-function closeNotif(){
-  document.getElementById('notifPanel').classList.remove('open');
-  document.getElementById('notifBackdrop').classList.remove('open');
-}
-function renderNotifs(){
-  const l=getLang();
-  const list=document.getElementById('notifList');
-  if(S.notifications.length===0){
-    list.innerHTML=`<div class="notif-empty"><i class="fa fa-bell-slash"></i><p>${T('notifEmpty')}</p></div>`;
-    document.getElementById('notifBadge').style.display='none';return;
-  }
-  list.innerHTML=S.notifications.map(n=>`
-    <div class="notif-item ${n.unread?'unread':''}" onclick="readNotif(${n.id})">
-      <div class="notif-ico" style="background:${n.bg}">${n.icon}</div>
-      <div class="notif-body">
-        <div class="notif-msg">${l==='vi'?n.msg_vi:n.msg_en}</div>
-        <div class="notif-time">${n.time}</div>
-      </div>
-      ${n.unread?'<div class="notif-dot-live"></div>':''}
-    </div>
-  `).join('');
-  const unread=S.notifications.filter(n=>n.unread).length;
-  document.getElementById('notifBadge').style.display=unread>0?'block':'none';
-}
-function readNotif(id){S.notifications=S.notifications.map(n=>n.id===id?{...n,unread:false}:n);renderNotifs()}
-function clearNotifs(){S.notifications=[];renderNotifs();closeNotif();showToast(getLang()==='vi'?'Đã xóa tất cả thông báo':'All notifications cleared','info')}
-
-// ╔══════════════════════════════════════════╗
-// ║           PROFILE                        ║
-// ╚══════════════════════════════════════════╝
-function renderProfile(){
-  const u=S.session;const l=getLang();
-  if(u){
-    document.getElementById('profileName').textContent=u.name;
-    document.getElementById('profileEmail').textContent=u.email;
-    document.getElementById('profileAvatar').textContent=u.name.charAt(0).toUpperCase();
-    document.getElementById('verifiedBadge').style.display='flex';
-    document.getElementById('verifiedPill').style.display='inline-flex';
-    document.getElementById('verifiedPillText').textContent=T('verifiedPillText');
-  }else{
-    document.getElementById('profileName').textContent=T('profileGuest');
-    document.getElementById('profileEmail').textContent=T('profileNotLogged');
-    document.getElementById('profileAvatar').textContent='👤';
-    document.getElementById('verifiedBadge').style.display='none';
-    document.getElementById('verifiedPill').style.display='none';
-  }
-  const cards=document.getElementById('profileCards');
-  if(u){
-    cards.innerHTML=`
-      <div class="p-card">
-        <div class="p-item">
-          <div class="p-ico" style="background:#FFF3E0;color:#FF6B35"><i class="fa fa-user"></i></div>
-          <div class="p-body"><div class="p-label">${T('proName')}</div><div class="p-sub">${u.name}</div></div>
-        </div>
-        <div class="p-item">
-          <div class="p-ico" style="background:#E3F2FD;color:#2196F3"><i class="fa fa-envelope"></i></div>
-          <div class="p-body"><div class="p-label">${T('proEmailLabel')}</div><div class="p-sub">${u.email}</div></div>
-        </div>
-        <div class="p-item">
-          <div class="p-ico" style="background:#E8F5E9;color:#22C55E"><i class="fa fa-shield-check"></i></div>
-          <div class="p-body"><div class="p-label">${T('proVerify')}</div><div class="p-sub" style="color:#22C55E;font-weight:700">${T('proFreeVerified')}</div></div>
-        </div>
-      </div>
-      <div class="p-card">
-        <div class="p-item" onclick="navTo('settings')">
-          <div class="p-ico" style="background:#F3E5F5;color:#9C27B0"><i class="fa fa-cog"></i></div>
-          <div class="p-body"><div class="p-label">${T('proSettings')}</div></div>
-          <i class="fa fa-chevron-right p-arrow"></i>
-        </div>
-        <div class="p-item">
-          <div class="p-ico" style="background:#FFF8E1;color:#F59E0B"><i class="fa fa-star"></i></div>
-          <div class="p-body"><div class="p-label">${T('proRate')}</div></div>
-          <i class="fa fa-chevron-right p-arrow"></i>
-        </div>
-        <div class="p-item" onclick="doLogout()">
-          <div class="p-ico" style="background:#FFEBEE;color:#EF4444"><i class="fa fa-sign-out-alt"></i></div>
-          <div class="p-body"><div class="p-label" style="color:#EF4444">${T('proLogout')}</div></div>
-        </div>
-      </div>`;
-  }else{
-    cards.innerHTML=`
-      <div class="p-card">
-        <div class="p-item" onclick="goLogin()">
-          <div class="p-ico" style="background:#E3F2FD;color:#2196F3"><i class="fa fa-sign-in-alt"></i></div>
-          <div class="p-body"><div class="p-label">${T('siLogin')}</div></div>
-          <i class="fa fa-chevron-right p-arrow"></i>
-        </div>
-        <div class="p-item" onclick="goRegister()">
-          <div class="p-ico" style="background:#E8F5E9;color:#22C55E"><i class="fa fa-user-plus"></i></div>
-          <div class="p-body"><div class="p-label">${T('siRegister')}</div></div>
-          <i class="fa fa-chevron-right p-arrow"></i>
-        </div>
-      </div>`;
-  }
-}
-
-function doLogout(){
-  S.session=null;localStorage.removeItem('nhvn_session');
-  renderProfile();showToast(T('logoutMsg'),'info');
-}
-
-// ╔══════════════════════════════════════════╗
-// ║           SETTINGS                       ║
-// ╚══════════════════════════════════════════╝
-function renderSettings(){
-  const l=getLang();
-  document.getElementById('settingsContent').innerHTML=`
-    <div class="set-section-title">${T('sgAppearance')}</div>
+// ══════════════════════════════════════════════════
+// SETTINGS
+// ══════════════════════════════════════════════════
+function renderSettings() {
+  const vi = isVI();
+  $('setContent').innerHTML = `
+    <div class="set-sec-ttl">${vi?'Giao Diện':'Appearance'}</div>
     <div class="set-card">
-      <div class="set-item">
-        <div class="set-ico" style="background:#FFF3E0;color:#FF6B35"><i class="fa fa-palette"></i></div>
-        <div class="set-body"><div class="set-label">${T('siThemeLabel')}</div><div class="set-desc">${T('siThemeDesc')}</div></div>
+      <div class="si">
+        <div class="si-ico" style="background:#FFF3E0;color:#FF6B35"><i class="fa fa-palette"></i></div>
+        <div class="si-body"><div class="si-label">${vi?'Chủ Đề':'Theme'}</div>
+        <div class="si-sub">${vi?'Hệ thống / Sáng / Tối':'System / Light / Dark'}</div></div>
         <div class="theme-row">
-          <button class="theme-opt" id="thSys" onclick="applyTheme('system')" title="System">⚙️</button>
-          <button class="theme-opt" id="thLight" onclick="applyTheme('light')" title="Light">☀️</button>
-          <button class="theme-opt" id="thDark" onclick="applyTheme('dark')" title="Dark">🌙</button>
+          <button class="topt" id="thSys" onclick="applyTheme('system')" title="System">⚙️</button>
+          <button class="topt" id="thLight" onclick="applyTheme('light')" title="Light">☀️</button>
+          <button class="topt" id="thDark" onclick="applyTheme('dark')" title="Dark">🌙</button>
         </div>
       </div>
     </div>
-    <div class="set-section-title">${T('sgLang')}</div>
+
+    <div class="set-sec-ttl">${vi?'Ngôn Ngữ':'Language'}</div>
     <div class="set-card">
-      <div class="set-item">
-        <div class="set-ico" style="background:#E3F2FD;color:#2196F3"><i class="fa fa-globe"></i></div>
-        <div class="set-body"><div class="set-label">${T('siLangLabel')}</div><div class="set-desc">${T('siLangDesc')}</div></div>
-        <select class="lang-sel" id="langSelect" onchange="changeLang(this.value)">
+      <div class="si">
+        <div class="si-ico" style="background:#E3F2FD;color:#2196F3"><i class="fa fa-globe"></i></div>
+        <div class="si-body">
+          <div class="si-label">${vi?'Ngôn Ngữ':'Language'}</div>
+          <div class="si-sub">${vi?'Tự động từ hệ thống':'Auto from system'}</div>
+        </div>
+        <select class="lang-sel" id="langSel" onchange="changeLang(this.value)">
           <option value="auto">🌐 Auto</option>
           <option value="vi">🇻🇳 Tiếng Việt</option>
           <option value="en">🇬🇧 English</option>
         </select>
       </div>
     </div>
-    <div class="set-section-title">${T('sgAccount')}</div>
+
+    <div class="set-sec-ttl">${vi?'Ứng Dụng':'Application'}</div>
     <div class="set-card">
-      <div class="set-item" onclick="goLogin()">
-        <div class="set-ico" style="background:#E8F5E9;color:#22C55E"><i class="fa fa-sign-in-alt"></i></div>
-        <div class="set-body"><div class="set-label">${T('siLogin')}</div></div>
+      <div class="si" onclick="downloadWebClipper()" style="cursor:pointer">
+        <div class="si-ico" style="background:#E8F5E9;color:#22C55E"><i class="fa fa-download"></i></div>
+        <div class="si-body">
+          <div class="si-label">${vi?'Tải WebClipper':'Download WebClipper'}</div>
+          <div class="si-sub">${vi?'Cài đặt ứng dụng cho iOS':'Install app for iOS'}</div>
+        </div>
         <i class="fa fa-chevron-right" style="color:var(--txt3)"></i>
       </div>
-      <div class="set-item" onclick="goRegister()">
-        <div class="set-ico" style="background:#E3F2FD;color:#2196F3"><i class="fa fa-user-plus"></i></div>
-        <div class="set-body"><div class="set-label">${T('siRegister')}</div></div>
-        <i class="fa fa-chevron-right" style="color:var(--txt3)"></i>
-      </div>
-      <div class="set-item">
-        <div class="set-ico" style="background:#FFF3E0;color:#FF6B35"><i class="fa fa-bell"></i></div>
-        <div class="set-body"><div class="set-label">${T('siNotif')}</div></div>
-        <label class="toggle-sw"><input type="checkbox" checked><span></span></label>
+      <div class="si">
+        <div class="si-ico" style="background:#FFF3E0;color:#FF6B35"><i class="fa fa-bell"></i></div>
+        <div class="si-body"><div class="si-label">${vi?'Thông Báo':'Notifications'}</div></div>
+        <label class="tog"><input type="checkbox" checked><span></span></label>
       </div>
     </div>
-    <div class="set-section-title">${T('sgAbout')}</div>
+
+    <div class="set-sec-ttl">${vi?'Thống Kê':'Statistics'}</div>
     <div class="set-card">
-      <div class="set-item">
-        <div class="set-ico" style="background:#F3E5F5;color:#9C27B0"><i class="fa fa-info-circle"></i></div>
-        <div class="set-body"><div class="set-label">${T('siVersion')}</div></div>
-        <span style="color:var(--txt2);font-size:14px;font-weight:700">v1.0.1</span>
+      <div class="si">
+        <div class="si-ico" style="background:#F3E5F5;color:#9C27B0"><i class="fa fa-users"></i></div>
+        <div class="si-body">
+          <div class="si-label">${vi?'Lượt Truy Cập Của Bạn':'Your Visit Count'}</div>
+          <div class="si-sub">${vi?'Số lần bạn đã mở ứng dụng':'Times you opened the app'}</div>
+        </div>
+        <span class="visitor-count">${S.visitors}</span>
       </div>
-      <div class="set-item">
-        <div class="set-ico" style="background:#FFEBEE;color:#EF4444"><i class="fa fa-heart"></i></div>
-        <div class="set-body"><div class="set-label">${T('siMade')}</div></div>
-        <span style="color:var(--p);font-size:13px;font-weight:800">NguyenHia VN</span>
+    </div>
+
+    <div class="set-sec-ttl">${vi?'Về Ứng Dụng':'About'}</div>
+    <div class="set-card">
+      <div class="si">
+        <div class="si-ico" style="background:#E3F2FD;color:#2196F3"><i class="fa fa-code-branch"></i></div>
+        <div class="si-body"><div class="si-label">${vi?'Phiên Bản':'Version'}</div></div>
+        <span style="font-size:14px;font-weight:700;color:var(--txt2)">v1.0.4</span>
+      </div>
+      <div class="si">
+        <div class="si-ico" style="background:#FFEBEE;color:#EF4444">
+          <img src="https://i.postimg.cc/VvtqQ7bJ/Nguyen-Hia-VN.png" style="width:100%;height:100%;border-radius:6px;object-fit:cover">
+        </div>
+        <div class="si-body"><div class="si-label">${vi?'Được Tạo Bởi':'Made By'}</div></div>
+        <span style="font-size:13px;font-weight:800;color:var(--p);font-family:'MinecraftViet','Inter',sans-serif">NguyenHia VN</span>
       </div>
     </div>
   `;
-  // Restore theme buttons
-  const map={system:'thSys',light:'thLight',dark:'thDark'};
-  const btn=document.getElementById(map[S.theme]);if(btn)btn.classList.add('active');
-  document.getElementById('langSelect').value=S.lang;
+  // Restore theme
+  const m = {system:'thSys',light:'thLight',dark:'thDark'};
+  const b = $(m[S.theme]); if(b) b.classList.add('active');
+  const ls = $('langSel'); if(ls) ls.value = S.lang;
 }
 
-// ╔══════════════════════════════════════════╗
-// ║           LANGUAGE                       ║
-// ╚══════════════════════════════════════════╝
-function quickLang(){
-  const cur=getLang();
-  S.lang=cur==='vi'?'en':'vi';
-  localStorage.setItem('nhvn_lang',S.lang);
-  applyTranslations();
+function changeLang(v) {
+  S.lang = v; localStorage.setItem('nhvn_lang', v);
+  // Refresh current page content
+  renderSettings();
+  updateStaticText();
+  if (S.page === 'profile') renderProfile();
+  if (S.page === 'apps') renderAppsPage();
+  renderFAB();
+  renderCats();
+  renderHomeGrid();
+  renderHomeList();
 }
-function changeLang(v){
-  S.lang=v;localStorage.setItem('nhvn_lang',v);
-  applyTranslations();
-}
-function applyTranslations(){
-  const l=getLang();
-  document.getElementById('langLabel').textContent=TR[l].langLabel;
-  document.getElementById('topSub').textContent=T('topSub');
-  ['featAppsTitle','featAppsMore','featuresTitle','topAppsTitle','topAppsMore',
-   'appsPageTitle','appsPageSub','navHome','navApps','navProfile','navSettings',
-   'notifTitle','notifClear','bTag1','bBtn1','bBtn2','bTag2','bBtn3','bTag3','bBtn4'].forEach(id=>{
-    const el=document.getElementById(id);if(el)el.textContent=T(id);
+
+function updateStaticText() {
+  const vi = isVI();
+  const nb = ['nb0','nb1','nb2','nb3'];
+  const labels_vi = ['Trang Chủ','Ứng Dụng','Hồ Sơ','Cài Đặt'];
+  const labels_en = ['Home','Apps','Profile','Settings'];
+  nb.forEach((id, i) => {
+    const el = $(id); if(el) el.textContent = vi ? labels_vi[i] : labels_en[i];
   });
-  document.getElementById('searchInput').placeholder=T('searchPH');
-  renderCats();renderFeatures();
-  renderAppsList('homeAppsList',APPS_DATA.slice(0,6));
-  renderAppsGrid('homeAppsGrid',APPS_DATA.slice(0,8));
-  renderNotifs();
+  const el = $('wcTitle'); if(el) el.textContent = vi ? 'Thêm Vào Home Screen' : 'Add to Home Screen';
+  const es = $('wcSub'); if(es) es.textContent = vi ? 'Cài đặt WebClipper · Không có UI Safari' : 'Install WebClipper · No Safari UI';
+  const eb = $('wcBtnTxt'); if(eb) eb.textContent = vi ? 'Cài Đặt' : 'Install';
+  const ft = $('featTtl'); if(ft) ft.textContent = vi ? '🔥 Nổi Bật' : '🔥 Featured';
+  const fm = $('featMore'); if(fm) fm.textContent = vi ? 'Tất cả' : 'All';
+  const tt = $('topTtl'); if(tt) tt.textContent = vi ? '📱 Top Ứng Dụng' : '📱 Top Apps';
+  const tm = $('topMore'); if(tm) tm.textContent = vi ? 'Xem thêm' : 'View more';
+  const apt = $('appsPageTtl'); if(apt) apt.textContent = vi ? '📦 Tất Cả Ứng Dụng' : '📦 All Apps';
+  const aps = $('appsPageSub'); if(aps) aps.textContent = vi ? 'Tải về và khám phá' : 'Download and explore';
 }
 
-// ╔══════════════════════════════════════════╗
-// ║           AUTH REDIRECT                  ║
-// ╚══════════════════════════════════════════╝
-function goLogin(){window.location.href='login.html'}
-function goRegister(){window.location.href='register.html'}
-
-// Check if redirected from login/register
-function checkAuthReturn(){
-  const sess=localStorage.getItem('nhvn_session');
-  if(sess){S.session=JSON.parse(sess)}
+// ══════════════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════════════
+let _tt = null;
+function showToast(msg, type = 'info', dur = 3000) {
+  const el = $('toast');
+  el.textContent = msg;
+  el.className = `toast ${type} show`;
+  clearTimeout(_tt);
+  _tt = setTimeout(() => el.classList.remove('show'), dur);
 }
 
-// ╔══════════════════════════════════════════╗
-// ║           TOAST                          ║
-// ╚══════════════════════════════════════════╝
-let _toastT=null;
-function showToast(msg,type='info',dur=3000){
-  const el=document.getElementById('toast');
-  el.textContent=msg;el.className=`toast ${type} show`;
-  clearTimeout(_toastT);
-  _toastT=setTimeout(()=>el.classList.remove('show'),dur);
-}
-
-// ╔══════════════════════════════════════════╗
-// ║           INIT                           ║
-// ╚══════════════════════════════════════════╝
-(function init(){
-  checkAuthReturn();
+// ══════════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════════
+(async function init() {
+  trackVisitor();
   applyTheme(S.theme);
-  applyTranslations();
-  initBanner();
-  renderNotifs();
-  // Check unread
-  const unread=S.notifications.filter(n=>n.unread).length;
-  document.getElementById('notifBadge').style.display=unread>0?'block':'none';
+  S.session = JSON.parse(localStorage.getItem('nhvn_session') || 'null');
+
+  // Load data concurrently
+  await Promise.all([loadApps(), loadBanners(), loadNotifications()]);
+
+  // Swipe support for banner
+  let startX = 0;
+  const track = $('fabTrack');
+  if (track) {
+    track.addEventListener('touchstart', e => startX = e.touches[0].clientX, { passive: true });
+    track.addEventListener('touchend', e => {
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) gotoFAB(dx > 0 ? Math.max(0, S.fabIdx-1) : Math.min(S.bannerData.length-1, S.fabIdx+1));
+    });
+  }
 })();
 </script>
 </body>
