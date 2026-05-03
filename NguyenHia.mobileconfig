@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>PayloadContent</key>
+  <array>
+    <dict>
+      <key>PayloadType</key>
+      <string>com.apple.webClip.managed</string>
+      <key>PayloadVersion</key>
+      <integer>1</integer>
+      <key>PayloadIdentifier</key>
+      <string>com.nguyenhiavn.webclipper.webclip</string>
+      <key>PayloadUUID</key>
+      <string>B3C4D5E6-F7A8-9012-BCDE-F12345678901</string>
+      <key>PayloadDisplayName</key>
+      <string>NguyenHia VN App</string>
+      <key>Label</key>
+      <string>NguyenHia VN</string>
+      <key>URL</key>
+      <string>https://nguyenhia.dev</string>
+      <key>Icon</key>
+      <data>
+        <!-- Base64 icon data would go here in production -->
+      </data>
+      <key>IsRemovable</key>
+      <true/>
+      <key>FullScreen</key>
+      <true/>
+      <key>IgnoreManifestScope</key>
+      <true/>
+      <key>Precomposed</key>
+      <true/>
+      <key>PayloadOrganization</key>
+      <string>NguyenHia VN</string>
+    </dict>
+  </array>
+  <key>PayloadDisplayName</key>
+  <string>NguyenHia VN WebClipper</string>
+  <key>PayloadIdentifier</key>
+  <string>com.nguyenhiavn.webclipper</string>
+  <key>PayloadOrganization</key>
+  <string>NguyenHia VN</string>
+  <key>PayloadRemovalDisallowed</key>
+  <false/>
+  <key>PayloadType</key>
+  <string>Configuration</string>
+  <key>PayloadUUID</key>
+  <string>A1B2C3D4-E5F6-7890-ABCD-EF1234567890</string>
+  <key>PayloadVersion</key>
+  <integer>1</integer>
+  <key>PayloadDescription</key>
+  <string>Installs NguyenHia VN as a fullscreen web app on your Home Screen. No Safari UI.</string>
+</dict>
+</plist>
