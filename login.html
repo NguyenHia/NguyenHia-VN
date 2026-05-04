@@ -2,52 +2,63 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Đăng Nhập — NguyenHia VN</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-@font-face{font-family:'MinecraftViet';src:url('fonts/minecraft-Viet.ttf') format('truetype');font-display:swap}
-:root{--p:#FF6B35;--pd:#CC4E1F;--bg:#F1F2F7;--surf:#fff;--surf2:#F5F6FA;--surf3:#ECEDF4;--txt:#0F1117;--txt2:#5C6070;--txt3:#9CA3AF;--border:#E2E4EE;--r:14px;--t:all .22s cubic-bezier(.4,0,.2,1)}
-[data-theme=dark]{--bg:#0A0A12;--surf:#121220;--surf2:#1A1A2A;--surf3:#222235;--txt:#F0F1FF;--txt2:#8B8FA8;--txt3:#555670;--border:#252540}
+@font-face{font-family:'MCViet';src:url('fonts/minecraft-Viet.ttf') format('truetype');font-display:swap}
+:root{--p:#DA251D;--pd:#B01D16;--bg:#F5F5F7;--surf:#fff;--surf2:#F2F2F4;--surf3:#E8E8EC;--txt:#0F0F0F;--txt2:#555560;--txt3:#9B9BA8;--border:#E0E0E8;--rad:14px}
+[data-theme="minecraft"]{--p:#5C8A2E;--pd:#3D5E1E;--bg:#1C1C1C;--surf:#2A2A2A;--surf2:#333;--surf3:#3D3D3D;--txt:#E8E8E8;--txt2:#A0A0A0;--txt3:#686868;--border:#404040;--rad:4px}
+[data-theme="glass"]{--p:#6C63FF;--pd:#5046E5;--bg:#667eea;--surf:rgba(255,255,255,0.82);--surf2:rgba(255,255,255,0.55);--surf3:rgba(255,255,255,0.35);--txt:#1A1A2E;--txt2:#44445A;--txt3:#8888A8;--border:rgba(255,255,255,0.45);--rad:18px}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;transition:background .3s,color .3s}
-.back{position:fixed;top:16px;left:16px;width:38px;height:38px;border-radius:50%;background:var(--surf);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--txt2);font-size:15px;text-decoration:none;transition:var(--t);box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.back:active{background:var(--p);color:#fff}
-.card{background:var(--surf);border-radius:20px;border:1px solid var(--border);padding:26px 22px;width:100%;max-width:400px;box-shadow:0 4px 24px rgba(0,0,0,.05)}
-.brand{text-align:center;margin-bottom:26px}
-.brand-ico{width:62px;height:62px;border-radius:16px;overflow:hidden;margin:0 auto 12px;box-shadow:0 6px 20px rgba(255,107,53,.3)}
+[data-theme="glass"] body{background:linear-gradient(135deg,#667eea,#764ba2) fixed;min-height:100vh}
+.back{position:fixed;top:16px;left:16px;width:38px;height:38px;border-radius:50%;background:var(--surf);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--txt2);font-size:15px;text-decoration:none;transition:all .2s;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+[data-theme="minecraft"] .back{border-radius:2px;border:2px solid var(--border)}
+.back:active{background:var(--p);color:#fff;border-color:var(--p)}
+.card{background:var(--surf);border-radius:var(--rad);border:1px solid var(--border);padding:26px 22px;width:100%;max-width:400px;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+[data-theme="minecraft"] .card{border:2px solid var(--border);border-radius:4px}
+[data-theme="glass"] .card{-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.brand{text-align:center;margin-bottom:24px}
+.brand-ico{width:62px;height:62px;border-radius:16px;overflow:hidden;margin:0 auto 11px;box-shadow:0 4px 16px rgba(218,37,29,.25)}
+[data-theme="minecraft"] .brand-ico{border-radius:4px;border:2px solid var(--border)}
 .brand-ico img{width:100%;height:100%;object-fit:cover}
-.brand-ttl{font-family:'MinecraftViet','Inter',sans-serif;font-size:20px;font-weight:700;margin-bottom:3px}
+.brand-ttl{font-family:'MCViet','Inter',sans-serif;font-size:20px;font-weight:700;margin-bottom:4px}
 .brand-sub{font-size:13px;color:var(--txt2)}
 .fg{margin-bottom:15px}
-.fl{display:block;font-size:13px;font-weight:700;margin-bottom:5px;color:var(--txt)}
+.fl{display:block;font-family:'MCViet','Inter',sans-serif;font-size:13px;font-weight:700;margin-bottom:5px;color:var(--txt)}
 .iw{position:relative}
-.fi{width:100%;padding:12px 42px;background:var(--surf2);border:2px solid var(--border);border-radius:11px;font-size:15px;color:var(--txt);outline:none;transition:var(--t);font-family:inherit}
-.fi:focus{border-color:var(--p);background:var(--surf);box-shadow:0 0 0 3px rgba(255,107,53,.09)}
+.fi{width:100%;padding:12px 42px;background:var(--surf2);border:2px solid var(--border);border-radius:11px;font-size:15px;color:var(--txt);outline:none;transition:border-color .2s,box-shadow .2s;font-family:'Inter',sans-serif}
+[data-theme="minecraft"] .fi{border-radius:3px;border:2px solid var(--border)}
+.fi:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(218,37,29,.09)}
+[data-theme="minecraft"] .fi:focus{box-shadow:none}
+[data-theme="glass"] .fi:focus{box-shadow:0 0 0 3px rgba(108,99,255,.15)}
 .fi.err{border-color:#EF4444}
 .fi::placeholder{color:var(--txt3)}
-.il{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:13px;pointer-events:none;transition:var(--t)}
+.il{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:13px;pointer-events:none}
 .fi:focus~.il{color:var(--p)}
-.ir{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:13px;cursor:pointer;transition:var(--t)}
+.ir{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:13px;cursor:pointer;transition:color .2s}
+.ir:active{color:var(--p)}
 .em{font-size:12px;color:#EF4444;margin-top:4px;display:none}
 .em.show{display:block}
-.btn-p{width:100%;padding:13px;border-radius:12px;background:var(--p);color:#fff;font-size:15px;font-weight:800;border:none;cursor:pointer;font-family:inherit;transition:var(--t);margin-top:4px;display:flex;align-items:center;justify-content:center;gap:8px}
-.btn-p:active{background:var(--pd);transform:scale(.97)}
-.divider{display:flex;align-items:center;gap:10px;margin:15px 0}
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
-.divider span{font-size:11px;color:var(--txt3);font-weight:600}
-.btn-s{width:100%;padding:12px;border-radius:11px;border:1.5px solid var(--border);background:var(--surf2);color:var(--txt2);font-size:14px;font-weight:700;cursor:pointer;font-family:inherit;transition:var(--t)}
-.btn-s:active{border-color:var(--p);color:var(--p)}
-.footer{text-align:center;margin-top:16px;font-size:13px;color:var(--txt2)}
+.btn-main{width:100%;padding:13px;border-radius:12px;background:var(--p);color:#fff;font-family:'MCViet','Inter',sans-serif;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:background .2s,transform .1s;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:8px}
+[data-theme="minecraft"] .btn-main{border-radius:3px;border-bottom:3px solid var(--pd)}
+.btn-main:active{background:var(--pd);transform:scale(.97)}
+.or{display:flex;align-items:center;gap:10px;margin:14px 0}
+.or::before,.or::after{content:'';flex:1;height:1px;background:var(--border)}
+.or span{font-size:11px;color:var(--txt3);font-weight:600}
+.btn-sec{width:100%;padding:12px;border-radius:11px;border:2px solid var(--border);background:var(--surf2);color:var(--txt2);font-family:'MCViet','Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+[data-theme="minecraft"] .btn-sec{border-radius:3px}
+.btn-sec:active{border-color:var(--p);color:var(--p)}
+.footer{text-align:center;margin-top:14px;font-size:13px;color:var(--txt2)}
 .footer a{color:var(--p);font-weight:700;text-decoration:none}
-.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--surf);color:var(--txt);padding:11px 18px;border-radius:12px;box-shadow:0 8px 28px rgba(0,0,0,.12);z-index:999;font-size:13px;font-weight:600;max-width:88vw;text-align:center;opacity:0;transition:all .38s cubic-bezier(.34,1.56,.64,1);border-left:4px solid var(--p);pointer-events:none}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--surf);color:var(--txt);padding:11px 18px;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.12);z-index:999;font-family:'MCViet','Inter',sans-serif;font-size:13px;font-weight:600;max-width:88vw;text-align:center;opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);border-left:4px solid var(--p);pointer-events:none}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.toast.success{border-left-color:#22C55E}
-.toast.error{border-left-color:#EF4444}
+.toast.ok{border-left-color:#22C55E}
+.toast.err{border-left-color:#EF4444}
 </style>
 </head>
 <body>
@@ -57,15 +68,15 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);min-he
 <div class="card">
   <div class="brand">
     <div class="brand-ico">
-      <img src="https://i.postimg.cc/VvtqQ7bJ/Nguyen-Hia-VN.png" alt="NguyenHia VN"
-        onerror="this.parentNode.style.background='linear-gradient(135deg,#FF6B35,#FF9558)';this.style.display='none'">
+      <img src="https://i.postimg.cc/VvtqQ7bJ/Nguyen-Hia-VN.png" alt="NH"
+        onerror="this.parentNode.style.background='linear-gradient(135deg,var(--p),#E8453D)';this.style.display='none'">
     </div>
     <div class="brand-ttl">NguyenHia VN</div>
-    <div class="brand-sub" id="loginSub">Đăng nhập tài khoản của bạn</div>
+    <div class="brand-sub" id="sub">Đăng nhập tài khoản của bạn</div>
   </div>
 
   <div class="fg">
-    <label class="fl" id="lblEmail">Email</label>
+    <label class="fl" id="lbEmail">Email</label>
     <div class="iw">
       <input type="email" class="fi" id="fEmail" placeholder="example@gmail.com" autocomplete="email">
       <i class="fa fa-envelope il"></i>
@@ -74,7 +85,7 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);min-he
   </div>
 
   <div class="fg">
-    <label class="fl" id="lblPass">Mật Khẩu</label>
+    <label class="fl" id="lbPass">Mật Khẩu</label>
     <div class="iw">
       <input type="password" class="fi" id="fPass" placeholder="••••••••" autocomplete="current-password">
       <i class="fa fa-lock il"></i>
@@ -83,95 +94,95 @@ body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);min-he
     <div class="em" id="ePass"></div>
   </div>
 
-  <button class="btn-p" id="btnLogin" onclick="doLogin()">
-    <i class="fa fa-sign-in-alt"></i><span id="btnLoginTxt">Đăng Nhập</span>
+  <button class="btn-main" onclick="doLogin()">
+    <i class="fa fa-sign-in-alt"></i><span id="btnTxt">Đăng Nhập</span>
   </button>
 
-  <div class="divider"><span id="orTxt">hoặc</span></div>
+  <div class="or"><span id="orTxt">hoặc</span></div>
 
-  <button class="btn-s" onclick="window.location.href='register.html'">
-    <i class="fa fa-user-plus"></i> <span id="goRegTxt">Chưa có tài khoản? Đăng Ký</span>
+  <button class="btn-sec" onclick="location.href='register.html'">
+    <i class="fa fa-user-plus"></i> <span id="regLink">Chưa có tài khoản? Đăng Ký</span>
   </button>
 
-  <div class="footer"><a href="index.html" id="backHomeTxt">← Về Trang Chủ</a></div>
+  <div class="footer"><a href="index.html" id="homeLink">← Về Trang Chủ</a></div>
 </div>
 
 <script>
-const vi = (localStorage.getItem('nhvn_lang')||'auto') === 'auto'
-  ? (navigator.language||'vi').toLowerCase().startsWith('vi')
-  : localStorage.getItem('nhvn_lang') === 'vi';
-
 // Theme
-const t = localStorage.getItem('nhvn_theme')||'system';
-if(t==='dark') document.body.setAttribute('data-theme','dark');
-else if(t==='system' && window.matchMedia('(prefers-color-scheme: dark)').matches) document.body.setAttribute('data-theme','dark');
+const th = localStorage.getItem('nhvn_theme') || 'vietnam';
+document.body.setAttribute('data-theme', th);
 
-// Translate
-if (!vi) {
-  document.getElementById('loginSub').textContent = 'Sign in to your account';
-  document.getElementById('lblEmail').textContent = 'Email';
-  document.getElementById('lblPass').textContent = 'Password';
-  document.getElementById('btnLoginTxt').textContent = 'Login';
-  document.getElementById('orTxt').textContent = 'or';
-  document.getElementById('goRegTxt').textContent = 'No account? Register';
-  document.getElementById('backHomeTxt').textContent = '← Back to Home';
-  document.getElementById('fPass').placeholder = '••••••••';
-}
+// Language
+const lang = (() => {
+  const s = localStorage.getItem('nhvn_lang') || 'auto';
+  if (s === 'auto') return (navigator.language || 'vi').toLowerCase().startsWith('vi') ? 'vi' : 'en';
+  return s;
+})();
 
-function toggleEye(i,e) {
+const TR = {
+  vi: { sub:'Đăng nhập tài khoản của bạn', lbEmail:'Email', lbPass:'Mật Khẩu', btn:'Đăng Nhập', or:'hoặc', reg:'Chưa có tài khoản? Đăng Ký', home:'← Về Trang Chủ', errEmail:'Vui lòng nhập email', errEmailInv:'Email không hợp lệ', errEmailNF:'❌ Email chưa đăng ký. Hãy đăng ký trước!', errPass:'Vui lòng nhập mật khẩu', errPassWrong:'❌ Mật khẩu không đúng', ok:'🎉 Chào mừng trở lại, ' },
+  en: { sub:'Sign in to your account', lbEmail:'Email', lbPass:'Password', btn:'Login', or:'or', reg:'No account? Register', home:'← Back to Home', errEmail:'Please enter email', errEmailInv:'Invalid email', errEmailNF:'❌ Email not registered. Please register!', errPass:'Please enter password', errPassWrong:'❌ Wrong password', ok:'🎉 Welcome back, ' }
+};
+const T = k => TR[lang][k] || k;
+
+// Apply translations
+document.getElementById('sub').textContent = T('sub');
+document.getElementById('lbEmail').textContent = T('lbEmail');
+document.getElementById('lbPass').textContent = T('lbPass');
+document.getElementById('btnTxt').textContent = T('btn');
+document.getElementById('orTxt').textContent = T('or');
+document.getElementById('regLink').textContent = T('reg');
+document.getElementById('homeLink').textContent = T('home');
+
+function toggleEye(i, e) {
   const inp = document.getElementById(i), ico = document.getElementById(e);
-  inp.type = inp.type==='password'?'text':'password';
-  ico.className = inp.type==='text'?'fa fa-eye-slash ir':'fa fa-eye ir';
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  ico.className = inp.type === 'text' ? 'fa fa-eye-slash ir' : 'fa fa-eye ir';
 }
-
-function setErr(f,e,msg) {
+function setErr(f, e, msg) {
   document.getElementById(f).classList.add('err');
-  const el=document.getElementById(e); el.textContent=msg; el.classList.add('show');
+  const el = document.getElementById(e); el.textContent = msg; el.classList.add('show');
 }
-function clrErr(f,e) {
+function clr(f, e) {
   document.getElementById(f).classList.remove('err');
   document.getElementById(e).classList.remove('show');
 }
 
-let tt=null;
-function showToast(msg,type='info',dur=3000) {
-  const el=document.getElementById('toast');
-  el.textContent=msg; el.className=`toast ${type} show`;
-  clearTimeout(tt); tt=setTimeout(()=>el.classList.remove('show'),dur);
+let tt = null;
+function showToast(msg, type = 'info', dur = 3000) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.className = `toast ${type} show`;
+  clearTimeout(tt); tt = setTimeout(() => el.classList.remove('show'), dur);
+}
+
+// Safe user storage
+function getUsers() {
+  try { return JSON.parse(localStorage.getItem('nhvn_users') || '[]') || []; }
+  catch { return []; }
 }
 
 function doLogin() {
-  clrErr('fEmail','eEmail'); clrErr('fPass','ePass');
+  clr('fEmail','eEmail'); clr('fPass','ePass');
   const email = document.getElementById('fEmail').value.trim();
   const pass = document.getElementById('fPass').value;
   let ok = true;
-
-  if (!email) { setErr('fEmail','eEmail', vi?'Vui lòng nhập email':'Please enter email'); ok=false; }
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setErr('fEmail','eEmail', vi?'Email không hợp lệ':'Invalid email'); ok=false; }
-  if (!pass) { setErr('fPass','ePass', vi?'Vui lòng nhập mật khẩu':'Please enter password'); ok=false; }
+  if (!email) { setErr('fEmail','eEmail', T('errEmail')); ok = false; }
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setErr('fEmail','eEmail', T('errEmailInv')); ok = false; }
+  if (!pass) { setErr('fPass','ePass', T('errPass')); ok = false; }
   if (!ok) return;
 
-  const users = JSON.parse(localStorage.getItem('nhvn_users')||'[]');
-  const user = users.find(u => u.email.toLowerCase()===email.toLowerCase());
+  const users = getUsers();
+  const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+  if (!user) { setErr('fEmail','eEmail', T('errEmailNF')); return; }
+  if (user.password !== pass) { setErr('fPass','ePass', T('errPassWrong')); return; }
 
-  if (!user) {
-    setErr('fEmail','eEmail', vi
-      ? '❌ Email chưa được đăng ký. Vui lòng đăng ký trước!'
-      : '❌ Email not registered. Please register first!');
-    return;
-  }
-  if (user.password !== pass) {
-    setErr('fPass','ePass', vi?'❌ Mật khẩu không đúng':'❌ Wrong password');
-    return;
-  }
-
-  localStorage.setItem('nhvn_session', JSON.stringify({name:user.name,email:user.email,verified:true}));
-  showToast(`🎉 ${vi?'Chào mừng trở lại,':'Welcome back,'} ${user.name}!`, 'success');
-  setTimeout(()=>window.location.href='index.html', 1200);
+  localStorage.setItem('nhvn_session', JSON.stringify({ name: user.name, email: user.email, verified: true }));
+  showToast(T('ok') + user.name + '!', 'ok');
+  setTimeout(() => location.href = 'index.html', 1100);
 }
 
-document.getElementById('fEmail').addEventListener('keydown', e=>{if(e.key==='Enter') document.getElementById('fPass').focus()});
-document.getElementById('fPass').addEventListener('keydown', e=>{if(e.key==='Enter') doLogin()});
+document.getElementById('fEmail').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('fPass').focus(); });
+document.getElementById('fPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
 </script>
 </body>
 </html>
