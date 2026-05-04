@@ -1,0 +1,2110 @@
+# NguyenHia VN — V1.1.0
+
+---
+
+## `index.html`
+```html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="NguyenHia VN">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" id="themeColor" content="#FF6B35">
+<link rel="apple-touch-icon" href="https://i.postimg.cc/VvtqQ7bJ/Nguyen-Hia-VN.png">
+<title>NguyenHia VN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+/* ─── FONTS ─── */
+@font-face {
+  font-family: 'MCViet';
+  src: url('fonts/minecraft-Viet.ttf') format('truetype');
+  font-display: swap;
+}
+
+/* ─── THEME: VIETNAM (default) ─── */
+[data-theme="vietnam"] {
+  --p: #DA251D;
+  --p2: #E8453D;
+  --pa: #FFCD00;
+  --pd: #B01D16;
+  --bg: #F5F5F7;
+  --surf: #FFFFFF;
+  --surf2: #F2F2F4;
+  --surf3: #E8E8EC;
+  --txt: #0F0F0F;
+  --txt2: #555560;
+  --txt3: #9B9BA8;
+  --border: #E0E0E8;
+  --div: #EBEBF0;
+  --rad: 14px;
+  --font-head: 'MCViet', 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* ─── THEME: MINECRAFT ─── */
+[data-theme="minecraft"] {
+  --p: #5C8A2E;
+  --p2: #6FAF38;
+  --pa: #FFCD00;
+  --pd: #3D5E1E;
+  --bg: #1C1C1C;
+  --surf: #2A2A2A;
+  --surf2: #333333;
+  --surf3: #3D3D3D;
+  --txt: #E8E8E8;
+  --txt2: #A0A0A0;
+  --txt3: #686868;
+  --border: #404040;
+  --div: #383838;
+  --rad: 4px;
+  --font-head: 'MCViet', 'Inter', sans-serif;
+  --font-body: 'MCViet', 'Inter', sans-serif;
+}
+
+/* ─── THEME: GLASS ─── */
+[data-theme="glass"] {
+  --p: #6C63FF;
+  --p2: #8B85FF;
+  --pa: #FF6B9D;
+  --pd: #5046E5;
+  --bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --bg-solid: #667eea;
+  --surf: rgba(255,255,255,0.82);
+  --surf2: rgba(255,255,255,0.55);
+  --surf3: rgba(255,255,255,0.35);
+  --txt: #1A1A2E;
+  --txt2: #44445A;
+  --txt3: #8888A8;
+  --border: rgba(255,255,255,0.45);
+  --div: rgba(255,255,255,0.3);
+  --rad: 18px;
+  --font-head: 'MCViet', 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --glass-blur: blur(16px);
+}
+
+/* ─── BASE ─── */
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { height:100%; scroll-behavior:smooth; }
+body {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  color: var(--txt);
+  min-height:100%;
+  transition: background 0.3s ease, color 0.3s ease;
+  padding-bottom: calc(62px + env(safe-area-inset-bottom));
+  overscroll-behavior-y: none;
+}
+[data-theme="vietnam"] body, body[data-theme="vietnam"] { background: var(--bg); }
+[data-theme="minecraft"] body, body[data-theme="minecraft"] { background: var(--bg); }
+[data-theme="glass"] body, body[data-theme="glass"] {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) fixed;
+  min-height: 100vh;
+}
+body { background: var(--bg); }
+img { display:block; user-select:none; }
+button { font-family: var(--font-body, 'Inter', sans-serif); cursor:pointer; border:none; background:none; }
+input, select { font-family: var(--font-body, 'Inter', sans-serif); }
+h1,h2,h3,h4 { font-family: var(--font-head, 'MCViet', 'Inter', sans-serif); }
+
+/* ─── TOPBAR ─── */
+.topbar {
+  position: sticky; top:0; z-index:500;
+  height: 56px;
+  background: var(--surf);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items:center;
+  padding: 0 14px; gap: 10px;
+  transition: background 0.3s;
+}
+[data-theme="glass"] .topbar {
+  background: var(--surf);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+[data-theme="minecraft"] .topbar {
+  border-bottom: 3px solid var(--border);
+  image-rendering: pixelated;
+}
+.tb-brand { display:flex; align-items:center; gap:9px; flex:1; min-width:0; }
+.tb-logo {
+  width:34px; height:34px; border-radius:9px;
+  overflow:hidden; flex-shrink:0;
+}
+.tb-logo img { width:100%; height:100%; object-fit:cover; }
+[data-theme="minecraft"] .tb-logo { border-radius: 2px; border: 2px solid var(--border); }
+.tb-title {
+  font-family: var(--font-head);
+  font-size: 16px; font-weight:700;
+  color: var(--txt); white-space:nowrap;
+  letter-spacing: -0.3px;
+}
+.tb-ver { font-size:10px; color:var(--txt3); margin-top:1px; }
+.tb-right { display:flex; align-items:center; gap:7px; }
+.ib {
+  width:34px; height:34px; border-radius:50%;
+  background:var(--surf2); color:var(--txt2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; transition: background 0.2s, color 0.2s;
+  flex-shrink:0;
+}
+[data-theme="minecraft"] .ib { border-radius: 2px; border: 2px solid var(--border); }
+.ib:active { background:var(--p); color:#fff; }
+
+/* ─── PAGES ─── */
+.page { display:none; }
+.page.active { display:block; animation: pgFade 0.25s ease; }
+@keyframes pgFade { from{opacity:0;transform:translateY(4px)} to{opacity:1;transform:translateY(0)} }
+
+/* ─── BOTTOM NAV ─── */
+.bnav {
+  position:fixed; bottom:0; left:0; right:0; z-index:500;
+  height: 62px;
+  background: var(--surf);
+  border-top: 1px solid var(--border);
+  display:flex;
+  padding-bottom: env(safe-area-inset-bottom);
+  transition: background 0.3s;
+}
+[data-theme="glass"] .bnav {
+  background: var(--surf);
+  -webkit-backdrop-filter: var(--glass-blur);
+  backdrop-filter: var(--glass-blur);
+}
+[data-theme="minecraft"] .bnav { border-top: 3px solid var(--border); }
+.nb-btn {
+  flex:1; display:flex; flex-direction:column;
+  align-items:center; justify-content:center;
+  gap: 3px; color:var(--txt3);
+  font-size: 10px; font-weight:600;
+  border:none; background:none;
+  transition: color 0.2s;
+}
+.nb-btn i { font-size:20px; transition: transform 0.2s; }
+.nb-btn.active { color:var(--p); }
+.nb-btn.active i { transform:translateY(-2px); }
+
+/* ─── HERO BANNER ─── */
+.hero {
+  padding: 22px 16px 20px;
+  background: linear-gradient(135deg, var(--p) 0%, var(--p2) 100%);
+  position: relative; overflow:hidden;
+}
+.hero::before {
+  content:''; position:absolute;
+  top:-60px; right:-60px;
+  width:220px; height:220px; border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  pointer-events:none;
+}
+.hero::after {
+  content:''; position:absolute;
+  bottom:-40px; left:-30px;
+  width:160px; height:160px; border-radius:50%;
+  background:rgba(255,255,255,0.05);
+  pointer-events:none;
+}
+[data-theme="minecraft"] .hero {
+  background: linear-gradient(180deg, #3D5E1E 0%, #5C8A2E 100%);
+  border-bottom: 4px solid #2A3E0F;
+}
+[data-theme="glass"] .hero {
+  background: rgba(108,99,255,0.85);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(255,255,255,0.3);
+}
+.hero-inner { position:relative; z-index:1; }
+.hero-tag {
+  display:inline-flex; align-items:center; gap:5px;
+  background:rgba(255,255,255,0.2); border:1px solid rgba(255,255,255,0.35);
+  color:#fff; padding:4px 11px; border-radius:20px;
+  font-size:11px; font-weight:700; margin-bottom:10px;
+}
+[data-theme="minecraft"] .hero-tag { border-radius:2px; }
+.hero-title {
+  font-family: var(--font-head);
+  font-size:26px; font-weight:700;
+  color:#fff; line-height:1.15; margin-bottom:7px;
+}
+.hero-sub {
+  font-size:13px; color:rgba(255,255,255,0.85);
+  line-height:1.55; margin-bottom:18px; max-width:280px;
+}
+.hero-btns { display:flex; gap:9px; flex-wrap:wrap; }
+.hero-btn-w {
+  display:inline-flex; align-items:center; gap:7px;
+  background:#fff; color:var(--p); border:none;
+  padding:10px 20px; border-radius:22px;
+  font-size:13px; font-weight:800;
+  box-shadow:0 4px 14px rgba(0,0,0,0.15);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.hero-btn-w:active { transform:scale(0.95); }
+[data-theme="minecraft"] .hero-btn-w { border-radius:3px; border:2px solid rgba(0,0,0,0.3); }
+.hero-btn-g {
+  display:inline-flex; align-items:center; gap:7px;
+  background:rgba(255,255,255,0.18); color:#fff;
+  border:1.5px solid rgba(255,255,255,0.5);
+  padding:10px 18px; border-radius:22px;
+  font-size:13px; font-weight:700;
+  transition: background 0.15s;
+}
+.hero-btn-g:active { background:rgba(255,255,255,0.28); }
+[data-theme="minecraft"] .hero-btn-g { border-radius:3px; }
+
+/* ─── SEARCH ─── */
+.search-wrap { padding:12px 14px 0; position:relative; }
+.search-wrap input {
+  width:100%; padding:11px 40px 11px 40px;
+  background:var(--surf); border:1.5px solid var(--border);
+  border-radius:12px; font-size:14px; color:var(--txt);
+  outline:none; transition:border-color 0.2s, box-shadow 0.2s;
+}
+[data-theme="minecraft"] .search-wrap input { border-radius:3px; border:2px solid var(--border); }
+.search-wrap input:focus {
+  border-color:var(--p);
+  box-shadow:0 0 0 3px rgba(var(--p-rgb,218,37,29),0.1);
+}
+.search-wrap input::placeholder { color:var(--txt3); }
+.search-ico { position:absolute; left:27px; top:50%; transform:translateY(-27%); color:var(--txt3); font-size:13px; pointer-events:none; }
+.search-x {
+  position:absolute; right:22px; top:50%; transform:translateY(-27%);
+  width:20px; height:20px; border-radius:50%;
+  background:var(--surf3); color:var(--txt3);
+  font-size:10px; border:none;
+  display:none; align-items:center; justify-content:center;
+  cursor:pointer;
+}
+.search-x.show { display:flex; }
+
+/* ─── CATEGORIES ─── */
+.cats-row {
+  display:flex; gap:7px; overflow-x:auto;
+  padding:11px 14px 0; scrollbar-width:none;
+}
+.cats-row::-webkit-scrollbar { display:none; }
+.cat-btn {
+  flex-shrink:0; padding:7px 14px; border-radius:20px;
+  background:var(--surf); border:1.5px solid var(--border);
+  font-size:12px; font-weight:600; color:var(--txt2);
+  cursor:pointer; white-space:nowrap;
+  transition:background 0.15s, color 0.15s, border-color 0.15s;
+}
+[data-theme="minecraft"] .cat-btn { border-radius:2px; border:2px solid var(--border); }
+.cat-btn.active, .cat-btn:active { background:var(--p); color:#fff; border-color:var(--p); }
+
+/* ─── SECTION ─── */
+.sec { padding:14px 14px 2px; }
+.sec-hd { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.sec-ttl { font-family:var(--font-head); font-size:16px; font-weight:700; color:var(--txt); }
+.sec-more { font-size:13px; font-weight:600; color:var(--p); cursor:pointer; }
+
+/* ─── APP LIST (App Store Style) ─── */
+.app-store-list {
+  background:var(--surf);
+  border-radius:var(--rad);
+  border:1px solid var(--border);
+  overflow:hidden;
+}
+[data-theme="minecraft"] .app-store-list { border:2px solid var(--border); border-radius:3px; }
+[data-theme="glass"] .app-store-list {
+  background:var(--surf);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border:1px solid var(--border);
+}
+.app-row {
+  display:flex; align-items:center; gap:12px;
+  padding:11px 13px;
+  border-bottom:1px solid var(--div);
+  cursor:pointer; transition:background 0.15s;
+}
+.app-row:last-child { border-bottom:none; }
+.app-row:active { background:var(--surf2); }
+.ar-rank {
+  font-family:var(--font-head);
+  font-size:14px; font-weight:700;
+  color:var(--txt3); width:18px;
+  text-align:center; flex-shrink:0;
+}
+.ar-ico {
+  width:56px; height:56px; border-radius:14px;
+  overflow:hidden; flex-shrink:0;
+  background:var(--surf2);
+  box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+[data-theme="minecraft"] .ar-ico { border-radius:3px; border:2px solid var(--border); }
+.ar-ico img {
+  width:100%; height:100%; object-fit:cover;
+  opacity:0; transition:opacity 0.3s;
+}
+.ar-ico img.loaded { opacity:1; }
+.ar-info { flex:1; min-width:0; }
+.ar-name {
+  font-family:var(--font-head);
+  font-size:15px; font-weight:700; color:var(--txt);
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.ar-dev { font-size:11px; color:var(--txt2); margin-top:1px; }
+.ar-stars { display:flex; align-items:center; gap:2px; margin-top:4px; }
+.ar-stars span { color:#FBBF24; font-size:11px; }
+.ar-stars em { font-style:normal; font-size:11px; color:var(--txt3); font-weight:600; margin-left:3px; }
+.ar-get {
+  padding:7px 16px; border-radius:20px;
+  background:var(--surf2); border:1.5px solid var(--border);
+  color:var(--p); font-size:13px; font-weight:800;
+  flex-shrink:0; transition:background 0.15s, color 0.15s;
+  font-family:var(--font-head);
+}
+[data-theme="minecraft"] .ar-get { border-radius:3px; border:2px solid var(--p); }
+.ar-get:active { background:var(--p); color:#fff; border-color:var(--p); transform:scale(0.94); }
+
+/* ─── SEARCH EMPTY ─── */
+.search-empty { display:none; text-align:center; padding:32px 20px; }
+.se-urlbar {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--surf); border:1px solid var(--border);
+  border-radius:9px; padding:7px 14px;
+  font-size:11px; color:var(--txt2); font-family:'Courier New',monospace;
+  margin-bottom:14px; max-width:100%; word-break:break-all;
+}
+.se-catimg {
+  width:140px; height:140px; border-radius:18px;
+  overflow:hidden; margin:0 auto 14px;
+  box-shadow:0 8px 28px rgba(0,0,0,0.15);
+}
+.se-catimg img { width:100%; height:100%; object-fit:cover; }
+.se-title { font-family:var(--font-head); font-size:19px; font-weight:700; margin-bottom:6px; }
+.se-sub { font-size:13px; color:var(--txt2); line-height:1.5; }
+
+/* ─── APP DETAIL MODAL ─── */
+.modal-ov {
+  position:fixed; inset:0; z-index:700;
+  background:rgba(0,0,0,0); pointer-events:none;
+  display:flex; align-items:flex-end; justify-content:center;
+  transition:background 0.25s;
+}
+.modal-ov.open { background:rgba(0,0,0,0.55); pointer-events:all; }
+.modal-sheet {
+  background:var(--surf);
+  width:100%; max-width:520px;
+  border-radius:22px 22px 0 0;
+  max-height:88vh; overflow-y:auto;
+  transform:translateY(105%);
+  transition:transform 0.36s cubic-bezier(0.4,0,0.2,1);
+  padding-bottom:env(safe-area-inset-bottom);
+}
+[data-theme="minecraft"] .modal-sheet { border-radius:4px 4px 0 0; border:2px solid var(--border); }
+[data-theme="glass"] .modal-sheet {
+  background:var(--surf);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+.modal-ov.open .modal-sheet { transform:translateY(0); }
+.modal-drag {
+  width:38px; height:4px; border-radius:2px;
+  background:var(--surf3); margin:13px auto;
+}
+.md-wrap { padding:0 18px 22px; }
+.md-hero { display:flex; gap:14px; margin-bottom:16px; }
+.md-ico {
+  width:76px; height:76px; border-radius:18px;
+  overflow:hidden; flex-shrink:0;
+  background:var(--surf2);
+  box-shadow:0 4px 16px rgba(0,0,0,0.12);
+}
+[data-theme="minecraft"] .md-ico { border-radius:4px; border:2px solid var(--border); }
+.md-ico img { width:100%; height:100%; object-fit:cover; }
+.md-meta { flex:1; }
+.md-name { font-family:var(--font-head); font-size:20px; font-weight:700; margin-bottom:3px; }
+.md-dev { font-size:13px; color:var(--txt2); margin-bottom:8px; }
+.md-tags { display:flex; gap:6px; flex-wrap:wrap; }
+.md-tag {
+  padding:3px 9px; border-radius:6px;
+  font-size:11px; font-weight:700;
+}
+[data-theme="minecraft"] .md-tag { border-radius:2px; }
+.tag-free { background:#DCFCE7; color:#15803D; }
+.tag-paid { background:#FEE2E2; color:#DC2626; }
+.tag-cat { background:var(--surf2); color:var(--txt2); border:1px solid var(--border); }
+[data-theme="minecraft"] .tag-free { background:#2D5A1E; color:#7CCC4A; }
+[data-theme="minecraft"] .tag-paid { background:#5A1E1E; color:#CC4A4A; }
+.md-stats {
+  display:flex; border:1px solid var(--border);
+  border-radius:12px; overflow:hidden; margin-bottom:14px;
+}
+[data-theme="minecraft"] .md-stats { border-radius:3px; border:2px solid var(--border); }
+.md-stat { flex:1; text-align:center; padding:10px 6px; border-right:1px solid var(--border); }
+.md-stat:last-child { border-right:none; }
+.md-sv { font-family:var(--font-head); font-size:15px; font-weight:700; color:var(--txt); }
+.md-sl { font-size:10px; color:var(--txt2); margin-top:2px; }
+.md-btns { display:flex; gap:9px; margin-bottom:18px; }
+.btn-install {
+  flex:1; padding:13px; border-radius:13px;
+  background:var(--p); color:#fff;
+  font-family:var(--font-head); font-size:15px; font-weight:700;
+  border:none; cursor:pointer;
+  transition:background 0.15s, transform 0.1s;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+}
+[data-theme="minecraft"] .btn-install { border-radius:3px; border-bottom:3px solid var(--pd); }
+.btn-install:active { background:var(--pd); transform:scale(0.97); }
+.btn-shr {
+  width:46px; height:46px; border-radius:13px;
+  background:var(--surf2); border:1px solid var(--border);
+  color:var(--txt2); display:flex; align-items:center; justify-content:center;
+  font-size:16px; flex-shrink:0; cursor:pointer;
+  transition:color 0.15s;
+}
+[data-theme="minecraft"] .btn-shr { border-radius:3px; border:2px solid var(--border); }
+.btn-shr:active { color:var(--p); }
+.md-sec { margin-bottom:16px; }
+.md-sec-ttl {
+  font-family:var(--font-head);
+  font-size:11px; font-weight:700; color:var(--txt2);
+  text-transform:uppercase; letter-spacing:0.7px; margin-bottom:9px;
+}
+.md-desc { font-size:14px; line-height:1.65; color:var(--txt2); }
+.md-platforms { display:flex; gap:8px; flex-wrap:wrap; }
+.pf-chip {
+  padding:6px 12px; border-radius:8px;
+  background:var(--surf2); border:1px solid var(--border);
+  font-size:12px; font-weight:700; color:var(--txt2);
+  display:flex; align-items:center; gap:5px;
+}
+[data-theme="minecraft"] .pf-chip { border-radius:2px; border:2px solid var(--border); }
+
+/* ─── PROFILE ─── */
+.pro-hero {
+  background:linear-gradient(145deg, var(--p) 0%, var(--p2) 100%);
+  padding:30px 18px 26px; color:#fff; text-align:center;
+}
+[data-theme="minecraft"] .pro-hero {
+  background:linear-gradient(180deg, #2A3E0F 0%, #5C8A2E 100%);
+  border-bottom:4px solid #1E2D08;
+}
+.pro-ava-wrap { position:relative; display:inline-block; margin-bottom:13px; }
+.pro-ava {
+  width:80px; height:80px; border-radius:50%;
+  background:rgba(255,255,255,0.22);
+  border:3px solid rgba(255,255,255,0.55);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-head); font-size:32px; font-weight:700; color:#fff;
+  overflow:hidden;
+}
+[data-theme="minecraft"] .pro-ava { border-radius:6px; }
+.pro-verified-ico {
+  position:absolute; bottom:-2px; right:-4px;
+  width:26px; height:26px;
+}
+.pro-verified-ico img { width:100%; height:100%; }
+.pro-name { font-family:var(--font-head); font-size:21px; font-weight:700; margin-bottom:3px; }
+.pro-email { font-size:13px; opacity:0.82; margin-bottom:10px; }
+.pro-badge {
+  display:inline-flex; align-items:center; gap:6px;
+  background:rgba(255,255,255,0.2); border:1.5px solid rgba(255,255,255,0.45);
+  color:#fff; padding:5px 14px; border-radius:20px;
+  font-family:var(--font-head); font-size:11px; font-weight:700;
+}
+[data-theme="minecraft"] .pro-badge { border-radius:3px; }
+.pro-badge img { width:16px; height:16px; }
+.pro-cards { padding:12px 14px; display:flex; flex-direction:column; gap:10px; }
+.pro-card {
+  background:var(--surf); border-radius:var(--rad);
+  border:1px solid var(--border); overflow:hidden;
+}
+[data-theme="minecraft"] .pro-card { border:2px solid var(--border); border-radius:3px; }
+[data-theme="glass"] .pro-card {
+  background:var(--surf);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+.pi {
+  display:flex; align-items:center; gap:12px;
+  padding:13px 14px; border-bottom:1px solid var(--div);
+  cursor:pointer; transition:background 0.15s;
+}
+.pi:last-child { border-bottom:none; }
+.pi:active { background:var(--surf2); }
+.pi-ico {
+  width:34px; height:34px; border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; flex-shrink:0;
+}
+[data-theme="minecraft"] .pi-ico { border-radius:2px; }
+.pi-body { flex:1; }
+.pi-lbl { font-family:var(--font-head); font-size:14px; font-weight:700; color:var(--txt); }
+.pi-sub { font-size:11px; color:var(--txt2); margin-top:2px; }
+.pi-arrow { color:var(--txt3); font-size:11px; }
+
+/* ─── SETTINGS ─── */
+.set-page { padding:12px 14px; display:flex; flex-direction:column; gap:10px; }
+.set-ttl {
+  font-family:var(--font-head);
+  font-size:10px; font-weight:700; color:var(--p);
+  text-transform:uppercase; letter-spacing:0.9px; padding:2px 2px;
+}
+.set-card {
+  background:var(--surf); border-radius:var(--rad);
+  border:1px solid var(--border); overflow:hidden;
+}
+[data-theme="minecraft"] .set-card { border:2px solid var(--border); border-radius:3px; }
+[data-theme="glass"] .set-card {
+  background:var(--surf);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+.si {
+  display:flex; align-items:center; gap:11px;
+  padding:13px 14px; border-bottom:1px solid var(--div);
+  transition:background 0.15s;
+}
+.si:last-child { border-bottom:none; }
+.si:active { background:var(--surf2); }
+.si-ico {
+  width:32px; height:32px; border-radius:8px;
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; flex-shrink:0;
+}
+[data-theme="minecraft"] .si-ico { border-radius:2px; }
+.si-body { flex:1; }
+.si-lbl { font-family:var(--font-head); font-size:14px; font-weight:700; color:var(--txt); }
+.si-sub { font-size:11px; color:var(--txt2); margin-top:1px; }
+.theme-btns { display:flex; gap:5px; }
+.th-btn {
+  padding:7px 11px; border-radius:9px;
+  border:2px solid var(--border);
+  background:var(--surf2); color:var(--txt2);
+  font-family:var(--font-head); font-size:11px; font-weight:700;
+  cursor:pointer; transition:all 0.15s; white-space:nowrap;
+}
+[data-theme="minecraft"] .th-btn { border-radius:2px; }
+.th-btn.active { border-color:var(--p); color:var(--p); background:rgba(0,0,0,0.05); }
+[data-theme="minecraft"] .th-btn.active { background:rgba(92,138,46,0.2); }
+[data-theme="glass"] .th-btn.active { background:rgba(108,99,255,0.15); }
+.lang-sel {
+  background:var(--surf2); border:1.5px solid var(--border);
+  border-radius:9px; padding:7px 11px;
+  font-size:13px; font-weight:600; color:var(--txt);
+  outline:none;
+}
+[data-theme="minecraft"] .lang-sel { border-radius:2px; border:2px solid var(--border); }
+.tog { position:relative; width:42px; height:24px; flex-shrink:0; }
+.tog input { opacity:0; width:0; height:0; }
+.tog span {
+  position:absolute; inset:0; border-radius:24px;
+  background:var(--border); cursor:pointer; transition:background 0.2s;
+}
+.tog span::before {
+  content:''; position:absolute;
+  width:18px; height:18px; border-radius:50%;
+  top:3px; left:3px; background:#fff; transition:transform 0.2s;
+}
+.tog input:checked + span { background:var(--p); }
+.tog input:checked + span::before { transform:translateX(18px); }
+.visitor-num {
+  font-family:var(--font-head);
+  font-size:18px; font-weight:700; color:var(--p);
+}
+
+/* ─── WEBCLIPPER CARD ─── */
+.wc-card {
+  margin:13px 14px 0;
+  background:linear-gradient(135deg, #1E1E3F, #2D1B69);
+  border-radius:var(--rad); padding:16px;
+  display:flex; align-items:center; gap:13px;
+  border:1px solid rgba(108,99,255,0.4);
+}
+[data-theme="vietnam"] .wc-card {
+  background:linear-gradient(135deg, #1A0505, #3D0A08);
+  border-color:rgba(218,37,29,0.4);
+}
+[data-theme="minecraft"] .wc-card {
+  background:linear-gradient(180deg, #1A1A1A, #2A2A2A);
+  border:2px solid var(--border); border-radius:3px;
+}
+.wc-ico {
+  width:48px; height:48px; border-radius:13px;
+  overflow:hidden; flex-shrink:0;
+}
+[data-theme="minecraft"] .wc-ico { border-radius:3px; border:2px solid var(--border); }
+.wc-ico img { width:100%; height:100%; object-fit:cover; }
+.wc-body { flex:1; }
+.wc-ttl { font-family:var(--font-head); font-size:14px; font-weight:700; color:#fff; margin-bottom:3px; }
+.wc-sub { font-size:11px; color:rgba(255,255,255,0.6); line-height:1.4; }
+.wc-btn {
+  padding:9px 13px; border-radius:11px;
+  background:var(--p); border:none; color:#fff;
+  font-family:var(--font-head); font-size:12px; font-weight:700;
+  cursor:pointer; white-space:nowrap; flex-shrink:0;
+  display:flex; align-items:center; gap:5px;
+  transition:background 0.15s, transform 0.1s;
+}
+[data-theme="minecraft"] .wc-btn { border-radius:2px; border-bottom:3px solid var(--pd); }
+.wc-btn:active { background:var(--pd); transform:scale(0.94); }
+
+/* ─── TOAST ─── */
+.toast {
+  position:fixed; top:68px; left:50%;
+  transform:translateX(-50%) translateY(-20px);
+  background:var(--surf); color:var(--txt);
+  padding:11px 18px; border-radius:12px;
+  box-shadow:0 8px 28px rgba(0,0,0,0.12); z-index:999;
+  font-family:var(--font-head); font-size:13px; font-weight:600;
+  max-width:88vw; text-align:center;
+  opacity:0; transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1);
+  border-left:4px solid var(--p); pointer-events:none; line-height:1.4;
+}
+.toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+.toast.ok { border-left-color:#22C55E; }
+.toast.err { border-left-color:#EF4444; }
+.toast.info { border-left-color:#3B82F6; }
+
+/* ─── SKELETON ─── */
+.skel {
+  background:linear-gradient(90deg, var(--surf2) 25%, var(--surf3) 50%, var(--surf2) 75%);
+  background-size:200% 100%; animation:sk 1s ease infinite; border-radius:8px;
+}
+@keyframes sk { from{background-position:200% 0} to{background-position:-200% 0} }
+.skel-row {
+  display:flex; align-items:center; gap:12px;
+  padding:11px 13px; border-bottom:1px solid var(--div);
+}
+</style>
+</head>
+<body data-theme="vietnam">
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- APP DETAIL MODAL -->
+<div class="modal-ov" id="modalOv" onclick="closeModalOv(event)">
+  <div class="modal-sheet">
+    <div class="modal-drag"></div>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="tb-brand">
+    <div class="tb-logo">
+      <img src="https://i.postimg.cc/VvtqQ7bJ/Nguyen-Hia-VN.png" alt="NH"
+        onerror="this.parentNode.style.background='linear-gradient(135deg,var(--p),var(--p2))';this.style.display='none'">
+    </div>
+    <div>
+      <div class="tb-title">NguyenHia VN</div>
+      <div class="tb-ver">v1.1.0</div>
+    </div>
+  </div>
+  <div class="tb-right">
+    <button class="ib" onclick="window.location.href='login.html'" aria-label="login">
+      <i class="fa fa-sign-in-alt"></i>
+    </button>
+    <button class="ib" onclick="navTo('profile')" aria-label="profile">
+      <i class="fa fa-user-circle"></i>
+    </button>
+  </div>
+</header>
+
+<!-- ══ HOME PAGE ══ -->
+<div class="page active" id="page-home">
+
+  <!-- Hero Banner -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-tag">🇻🇳 <span data-i18n="heroTag">Thư Viện Ứng Dụng #1</span></div>
+      <h1 class="hero-title">NguyenHia VN<br><span style="font-size:0.72em;opacity:0.92" data-i18n="heroSub2">App Store</span></h1>
+      <p class="hero-sub" data-i18n="heroSub">Khám phá các ứng dụng hàng đầu Việt Nam. Tải xuống dễ dàng, nhanh chóng.</p>
+      <div class="hero-btns">
+        <button class="hero-btn-w" onclick="window.location.href='register.html'">
+          <i class="fa fa-rocket"></i><span data-i18n="heroBtnStart">Bắt Đầu</span>
+        </button>
+        <button class="hero-btn-g" onclick="downloadWC()">
+          <i class="fa fa-download"></i><span data-i18n="heroBtnDl">Tải App</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- WebClipper Card -->
+  <div class="wc-card">
+    <div class="wc-ico">
+      <img src="https://i.postimg.cc/VvtqQ7bJ/Nguyen-Hia-VN.png" alt="App">
+    </div>
+    <div class="wc-body">
+      <div class="wc-ttl" data-i18n="wcTitle">📱 Thêm Vào Home Screen</div>
+      <div class="wc-sub" data-i18n="wcSub">WebClipper iOS · Không có UI Safari · Fullscreen</div>
+    </div>
+    <button class="wc-btn" onclick="downloadWC()">
+      <i class="fa fa-download"></i><span data-i18n="wcBtn">Cài</span>
+    </button>
+  </div>
+
+  <!-- Search -->
+  <div class="search-wrap">
+    <input type="search" id="searchInp" autocomplete="off" spellcheck="false"
+      oninput="doSearch(this.value)">
+    <i class="fa fa-search search-ico"></i>
+    <button class="search-x" id="searchX" onclick="clearSearch()"><i class="fa fa-times"></i></button>
+  </div>
+
+  <!-- Search Empty -->
+  <div class="search-empty" id="searchEmpty">
+    <div class="se-urlbar"><i class="fa fa-exclamation-circle" style="color:#EF4444"></i><span id="seUrl">NguyenHia.Dev/search</span></div>
+    <div class="se-catimg">
+      <img src="https://http.cat/images/404.jpg" alt="404"
+        onerror="this.src='https://cataas.com/cat/angry?width=280';this.onerror=null">
+    </div>
+    <div class="se-title" data-i18n="seTitle">Không tìm thấy</div>
+    <div class="se-sub" data-i18n="seSub">Không có ứng dụng nào khớp với tìm kiếm của bạn.</div>
+  </div>
+
+  <!-- Categories -->
+  <div class="cats-row" id="catsRow"></div>
+
+  <!-- App List -->
+  <div class="sec">
+    <div class="sec-hd">
+      <span class="sec-ttl" data-i18n="topAppsTtl">📱 Ứng Dụng Hàng Đầu</span>
+      <span class="sec-more" onclick="navTo('apps')" data-i18n="seeAll">Xem tất cả</span>
+    </div>
+    <div class="app-store-list" id="homeList">
+      <div class="skel-row">
+        <div class="skel" style="width:56px;height:56px;border-radius:14px;flex-shrink:0"></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:7px">
+          <div class="skel" style="height:14px;width:58%"></div>
+          <div class="skel" style="height:11px;width:40%"></div>
+        </div>
+      </div>
+      <div class="skel-row">
+        <div class="skel" style="width:56px;height:56px;border-radius:14px;flex-shrink:0"></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:7px">
+          <div class="skel" style="height:14px;width:50%"></div>
+          <div class="skel" style="height:11px;width:35%"></div>
+        </div>
+      </div>
+      <div class="skel-row">
+        <div class="skel" style="width:56px;height:56px;border-radius:14px;flex-shrink:0"></div>
+        <div style="flex:1;display:flex;flex-direction:column;gap:7px">
+          <div class="skel" style="height:14px;width:55%"></div>
+          <div class="skel" style="height:11px;width:38%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ APPS PAGE ══ -->
+<div class="page" id="page-apps">
+  <div style="padding:14px 14px 10px">
+    <h2 style="font-family:var(--font-head);font-size:21px;font-weight:700;margin-bottom:3px" data-i18n="allAppsTtl">📦 Tất Cả Ứng Dụng</h2>
+    <p style="font-size:13px;color:var(--txt2)" data-i18n="allAppsSub">Khám phá và tải xuống</p>
+  </div>
+  <!-- Search for Apps page -->
+  <div class="search-wrap" style="padding-bottom:10px">
+    <input type="search" id="searchApps" autocomplete="off" spellcheck="false"
+      oninput="doSearchApps(this.value)">
+    <i class="fa fa-search search-ico"></i>
+    <button class="search-x" id="searchAppsX" onclick="clearSearchApps()"><i class="fa fa-times"></i></button>
+  </div>
+  <div style="padding:0 14px 16px">
+    <div class="app-store-list" id="appsFullList"></div>
+  </div>
+</div>
+
+<!-- ══ PROFILE PAGE ══ -->
+<div class="page" id="page-profile">
+  <div class="pro-hero" id="proHero">
+    <div class="pro-ava-wrap">
+      <div class="pro-ava" id="proAva">👤</div>
+      <div class="pro-verified-ico" id="proVerIco" style="display:none">
+        <img src="https://i.postimg.cc/524KSbn2/Verified.png" alt="Verified">
+      </div>
+    </div>
+    <div class="pro-name" id="proName" data-i18n="guest">Khách</div>
+    <div class="pro-email" id="proEmail" data-i18n="notLoggedIn">Chưa đăng nhập</div>
+    <div class="pro-badge" id="proBadge" style="display:none">
+      <img src="https://i.postimg.cc/524KSbn2/Verified.png" alt="v">
+      <span data-i18n="verified">Verified</span>
+    </div>
+  </div>
+  <div class="pro-cards" id="proCards"></div>
+</div>
+
+<!-- ══ SETTINGS PAGE ══ -->
+<div class="page" id="page-settings">
+  <div class="set-page" id="setContent"></div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bnav">
+  <button class="nb-btn active" id="nav-home" onclick="navTo('home')">
+    <i class="fa fa-home"></i><span data-i18n="navHome">Trang Chủ</span>
+  </button>
+  <button class="nb-btn" id="nav-apps" onclick="navTo('apps')">
+    <i class="fa fa-th-large"></i><span data-i18n="navApps">Ứng Dụng</span>
+  </button>
+  <button class="nb-btn" id="nav-profile" onclick="navTo('profile')">
+    <i class="fa fa-user-circle"></i><span data-i18n="navProfile">Hồ Sơ</span>
+  </button>
+  <button class="nb-btn" id="nav-settings" onclick="navTo('settings')">
+    <i class="fa fa-sliders-h"></i><span data-i18n="navSettings">Cài Đặt</span>
+  </button>
+</nav>
+
+<script>
+'use strict';
+// ══════════════════════════════════════════
+// TRANSLATIONS — Complete, no missing keys
+// ══════════════════════════════════════════
+const I18N = {
+  vi: {
+    heroTag:'Thư Viện Ứng Dụng #1', heroSub2:'App Store',
+    heroSub:'Khám phá các ứng dụng hàng đầu Việt Nam. Tải xuống dễ dàng, nhanh chóng.',
+    heroBtnStart:'Bắt Đầu', heroBtnDl:'Tải App',
+    wcTitle:'📱 Thêm Vào Home Screen', wcSub:'WebClipper iOS · Không có UI Safari · Fullscreen', wcBtn:'Cài',
+    topAppsTtl:'📱 Ứng Dụng Hàng Đầu', seeAll:'Xem tất cả',
+    allAppsTtl:'📦 Tất Cả Ứng Dụng', allAppsSub:'Khám phá và tải xuống',
+    navHome:'Trang Chủ', navApps:'Ứng Dụng', navProfile:'Hồ Sơ', navSettings:'Cài Đặt',
+    seTitle:'Không tìm thấy', seSub:'Không có ứng dụng nào khớp với tìm kiếm của bạn.',
+    guest:'Khách', notLoggedIn:'Chưa đăng nhập', verified:'Verified',
+    searchPH:'Tìm kiếm ứng dụng...',
+    btnGet:'Xem', btnInstall:'Tải Xuống',
+    free:'Miễn Phí', paid:'Trả Phí',
+    rating:'Đánh giá', downloads:'Lượt tải', size:'Dung lượng',
+    about:'Giới thiệu', platform:'Nền tảng', screenshots:'Màn hình',
+    previewTxt:'Xem trước',
+    dlMsg:'Đang mở trang tải xuống...', shareMsg:'Đã sao chép liên kết!',
+    proLogin:'Đăng Nhập', proRegister:'Đăng Ký',
+    proName:'Tên', proEmailLbl:'Email', proVerifyLbl:'Xác minh',
+    proSettings:'Cài Đặt', proRate:'Đánh Giá Ứng Dụng', proLogout:'Đăng Xuất',
+    logoutMsg:'👋 Đã đăng xuất', setThemeLbl:'Chủ Đề',
+    setThemeSub:'Vietnam / Minecraft / Glass', setLangLbl:'Ngôn Ngữ',
+    setLangSub:'Tự động từ hệ thống', setAccountLbl:'Tài Khoản',
+    setLoginBtn:'Đăng Nhập', setRegBtn:'Đăng Ký',
+    setWCLbl:'Tải WebClipper', setWCSub:'Cài đặt ứng dụng cho iOS (Mediafire)',
+    setNotifLbl:'Thông Báo', setVisitLbl:'Lượt Xem Của Bạn',
+    setVisitSub:'Số lần đã mở ứng dụng', setVerLbl:'Phiên Bản', setMadeLbl:'Được Tạo Bởi',
+    thVietnm:'🇻🇳', thMinecraft:'⛏', thGlass:'🔮',
+    allCat:'Tất Cả',
+    wcDlTitle:'Tải WebClipper Thành Công!',
+    wcDlSub:'Mở file .mobileconfig từ Files để cài đặt.',
+    wcNonIOS:'📱 Mở trên Safari iOS để cài đặt WebClipper qua Mediafire.',
+    catLabels:{ All:'Tất Cả', Social:'Xã Hội', Video:'Video', Shopping:'Mua Sắm',
+      Finance:'Tài Chính', Music:'Âm Nhạc', Navigation:'Bản Đồ',
+      Productivity:'Năng Suất', Entertainment:'Giải Trí', Transport:'Di Chuyển' },
+  },
+  en: {
+    heroTag:'App Library #1', heroSub2:'App Store',
+    heroSub:'Discover top Vietnamese apps. Easy and fast download.',
+    heroBtnStart:'Get Started', heroBtnDl:'Download',
+    wcTitle:'📱 Add to Home Screen', wcSub:'iOS WebClipper · No Safari UI · Fullscreen', wcBtn:'Install',
+    topAppsTtl:'📱 Top Apps', seeAll:'See all',
+    allAppsTtl:'📦 All Applications', allAppsSub:'Discover and download',
+    navHome:'Home', navApps:'Apps', navProfile:'Profile', navSettings:'Settings',
+    seTitle:'Not Found', seSub:'No apps match your search query.',
+    guest:'Guest', notLoggedIn:'Not logged in', verified:'Verified',
+    searchPH:'Search apps...',
+    btnGet:'View', btnInstall:'Download',
+    free:'Free', paid:'Paid',
+    rating:'Rating', downloads:'Downloads', size:'Size',
+    about:'About', platform:'Platform', screenshots:'Screenshots',
+    previewTxt:'Preview',
+    dlMsg:'Opening download page...', shareMsg:'Link copied!',
+    proLogin:'Login', proRegister:'Register',
+    proName:'Name', proEmailLbl:'Email', proVerifyLbl:'Verification',
+    proSettings:'Settings', proRate:'Rate App', proLogout:'Logout',
+    logoutMsg:'👋 Logged out', setThemeLbl:'Theme',
+    setThemeSub:'Vietnam / Minecraft / Glass', setLangLbl:'Language',
+    setLangSub:'Auto from system', setAccountLbl:'Account',
+    setLoginBtn:'Login', setRegBtn:'Register',
+    setWCLbl:'Download WebClipper', setWCSub:'Install app for iOS (Mediafire)',
+    setNotifLbl:'Notifications', setVisitLbl:'Your Visit Count',
+    setVisitSub:'Times you opened the app', setVerLbl:'Version', setMadeLbl:'Made By',
+    thVietnm:'🇻🇳', thMinecraft:'⛏', thGlass:'🔮',
+    allCat:'All',
+    wcDlTitle:'WebClipper Downloaded!',
+    wcDlSub:'Open the .mobileconfig file from Files to install.',
+    wcNonIOS:'📱 Open in Safari on iOS to install WebClipper via Mediafire.',
+    catLabels:{ All:'All', Social:'Social', Video:'Video', Shopping:'Shopping',
+      Finance:'Finance', Music:'Music', Navigation:'Maps',
+      Productivity:'Productivity', Entertainment:'Entertainment', Transport:'Transport' },
+  }
+};
+
+// ══════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════
+const ST = {
+  lang: localStorage.getItem('nhvn_lang') || 'auto',
+  theme: localStorage.getItem('nhvn_theme') || 'vietnam',
+  page: 'home',
+  cat: 'All',
+  apps: [],
+  filtered: [],
+};
+
+// ══════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════
+const el = id => document.getElementById(id);
+const getLang = () => ST.lang === 'auto'
+  ? ((navigator.language || 'vi').toLowerCase().startsWith('vi') ? 'vi' : 'en')
+  : ST.lang;
+const t = key => {
+  const l = getLang();
+  return (I18N[l] && I18N[l][key]) || (I18N['vi'][key]) || key;
+};
+const getUsers = () => { try { return JSON.parse(localStorage.getItem('nhvn_users') || '[]') || []; } catch { return []; } };
+const getSession = () => { try { return JSON.parse(localStorage.getItem('nhvn_session') || 'null'); } catch { return null; } };
+const saveSession = u => localStorage.setItem('nhvn_session', JSON.stringify(u));
+
+// ══════════════════════════════════════════
+// APPLY ALL TRANSLATIONS
+// ══════════════════════════════════════════
+function applyLang() {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    const v = t(k);
+    if (v) el.textContent = v;
+  });
+  // Placeholders
+  const si = el('searchInp'); if (si) si.placeholder = t('searchPH');
+  const sa = el('searchApps'); if (sa) sa.placeholder = t('searchPH');
+  // Rebuild dynamic elements
+  renderCats();
+  if (ST.page === 'profile') renderProfile();
+  if (ST.page === 'settings') renderSettings();
+}
+
+// ══════════════════════════════════════════
+// THEME
+// ══════════════════════════════════════════
+function applyTheme(th) {
+  ST.theme = th;
+  localStorage.setItem('nhvn_theme', th);
+  document.body.setAttribute('data-theme', th);
+  // Theme color meta
+  const colors = { vietnam:'#DA251D', minecraft:'#5C8A2E', glass:'#6C63FF' };
+  el('themeColor').content = colors[th] || '#DA251D';
+  // Rebuild settings buttons if on settings page
+  if (ST.page === 'settings') renderSettings();
+}
+
+// ══════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════
+function navTo(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nb-btn').forEach(b => b.classList.remove('active'));
+  el('page-' + page).classList.add('active');
+  el('nav-' + page).classList.add('active');
+  ST.page = page;
+  window.scrollTo({ top:0, behavior:'smooth' });
+  if (page === 'profile') renderProfile();
+  if (page === 'settings') renderSettings();
+  if (page === 'apps') renderAppsPage();
+}
+
+// ══════════════════════════════════════════
+// LOAD APPS FROM GITHUB JSON
+// ══════════════════════════════════════════
+const GITHUB_JSON = 'https://raw.githubusercontent.com/NguyenHiaVN/nguyen-hia-vn/main/AppList.json';
+
+async function loadApps() {
+  try {
+    const res = await fetch(GITHUB_JSON, { cache: 'no-cache' });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    ST.apps = await res.json();
+  } catch {
+    ST.apps = getFallbackApps();
+  }
+  ST.filtered = [...ST.apps];
+  renderCats();
+  renderList('homeList', ST.apps.slice(0, 10), true);
+}
+
+function getFallbackApps() {
+  return [
+    { id:1, name:'Zalo', developer:'VNG Corporation', category:'Social', rating:4.8, size:'112 MB', downloads:'50M+', icon:'https://img.icons8.com/color/96/zalo.png', downloadUrl:'https://zalo.me/download', description:'Nhắn tin, gọi video hàng đầu VN với 74 triệu người dùng.', free:true, platform:['iOS','Android','Web'] },
+    { id:2, name:'Facebook', developer:'Meta Platforms', category:'Social', rating:4.5, size:'78 MB', downloads:'5B+', icon:'https://img.icons8.com/color/96/facebook-new.png', downloadUrl:'https://facebook.com/mobile', description:'Kết nối với bạn bè và chia sẻ khoảnh khắc.', free:true, platform:['iOS','Android','Web'] },
+    { id:3, name:'YouTube', developer:'Google LLC', category:'Video', rating:4.7, size:'95 MB', downloads:'10B+', icon:'https://img.icons8.com/color/96/youtube-play.png', downloadUrl:'https://youtube.com', description:'Xem video, nghe nhạc không giới hạn.', free:true, platform:['iOS','Android','Web'] },
+    { id:4, name:'TikTok', developer:'ByteDance Ltd', category:'Video', rating:4.6, size:'88 MB', downloads:'3B+', icon:'https://img.icons8.com/color/96/tiktok.png', downloadUrl:'https://tiktok.com/download', description:'Video ngắn trending toàn cầu.', free:true, platform:['iOS','Android'] },
+    { id:5, name:'Gmail', developer:'Google LLC', category:'Productivity', rating:4.6, size:'55 MB', downloads:'10B+', icon:'https://img.icons8.com/color/96/gmail-new.png', downloadUrl:'https://mail.google.com', description:'Email thông minh từ Google.', free:true, platform:['iOS','Android','Web'] },
+    { id:6, name:'Google Maps', developer:'Google LLC', category:'Navigation', rating:4.7, size:'130 MB', downloads:'10B+', icon:'https://img.icons8.com/color/96/google-maps-new.png', downloadUrl:'https://maps.google.com', description:'Bản đồ & dẫn đường chính xác.', free:true, platform:['iOS','Android','Web'] },
+    { id:7, name:'Shopee', developer:'Sea Limited', category:'Shopping', rating:4.6, size:'105 MB', downloads:'500M+', icon:'https://img.icons8.com/color/96/shopee.png', downloadUrl:'https://shopee.vn', description:'Sàn TMĐT hàng đầu Đông Nam Á.', free:true, platform:['iOS','Android','Web'] },
+    { id:8, name:'Grab', developer:'Grab Holdings', category:'Transport', rating:4.5, size:'92 MB', downloads:'200M+', icon:'https://img.icons8.com/color/96/grab.png', downloadUrl:'https://grab.com/vn', description:'Đặt xe, giao đồ ăn tiện lợi.', free:true, platform:['iOS','Android'] },
+    { id:9, name:'MoMo', developer:'M_Service JSC', category:'Finance', rating:4.7, size:'68 MB', downloads:'50M+', icon:'https://img.icons8.com/color/96/momo-payment.png', downloadUrl:'https://momo.vn', description:'Ví điện tử số 1 Việt Nam.', free:true, platform:['iOS','Android'] },
+    { id:10, name:'Instagram', developer:'Meta Platforms', category:'Social', rating:4.5, size:'72 MB', downloads:'5B+', icon:'https://img.icons8.com/color/96/instagram-new.png', downloadUrl:'https://instagram.com', description:'Chia sẻ ảnh, Reels và kết nối.', free:true, platform:['iOS','Android','Web'] },
+    { id:11, name:'Telegram', developer:'Telegram FZ-LLC', category:'Social', rating:4.8, size:'60 MB', downloads:'1B+', icon:'https://img.icons8.com/color/96/telegram-app.png', downloadUrl:'https://telegram.org', description:'Nhắn tin bảo mật, nhóm lớn.', free:true, platform:['iOS','Android','Web'] },
+    { id:12, name:'Spotify', developer:'Spotify AB', category:'Music', rating:4.6, size:'80 MB', downloads:'1B+', icon:'https://img.icons8.com/color/96/spotify.png', downloadUrl:'https://spotify.com/download', description:'Nghe nhạc, podcast yêu thích.', free:true, platform:['iOS','Android','Web'] },
+    { id:13, name:'Netflix', developer:'Netflix Inc', category:'Entertainment', rating:4.5, size:'115 MB', downloads:'1B+', icon:'https://img.icons8.com/color/96/netflix.png', downloadUrl:'https://netflix.com', description:'Phim, series hay nhất thế giới.', free:false, platform:['iOS','Android','Web'] },
+    { id:14, name:'Discord', developer:'Discord Inc', category:'Social', rating:4.6, size:'65 MB', downloads:'500M+', icon:'https://img.icons8.com/color/96/discord-logo.png', downloadUrl:'https://discord.com/download', description:'Chat voice, video cho cộng đồng.', free:true, platform:['iOS','Android','Web'] },
+    { id:15, name:'Tiki', developer:'Tiki Corporation', category:'Shopping', rating:4.4, size:'85 MB', downloads:'20M+', icon:'https://img.icons8.com/color/96/tiki.png', downloadUrl:'https://tiki.vn', description:'Mua sắm nhanh, giao hàng tốc độ.', free:true, platform:['iOS','Android','Web'] },
+    { id:16, name:'Lazada', developer:'Lazada Group', category:'Shopping', rating:4.3, size:'98 MB', downloads:'200M+', icon:'https://img.icons8.com/color/96/lazada.png', downloadUrl:'https://lazada.vn', description:'Mua sắm online deal hàng ngày.', free:true, platform:['iOS','Android','Web'] },
+  ];
+}
+
+// ══════════════════════════════════════════
+// RENDER — App List (App Store Style)
+// ══════════════════════════════════════════
+function renderList(containerId, apps, showRank = false) {
+  const btn = t('btnGet');
+  if (!apps.length) {
+    el(containerId).innerHTML = '';
+    return;
+  }
+  el(containerId).innerHTML = apps.map((a, i) => `
+    <div class="app-row" onclick="openDetail(${a.id})">
+      ${showRank ? `<div class="ar-rank">${i + 1}</div>` : ''}
+      <div class="ar-ico" id="ico-${a.id}">
+        <img src="${a.icon}" alt="${a.name}"
+          onload="this.classList.add('loaded')"
+          onerror="this.parentNode.innerHTML='<div style=width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;font-family:var(--font-head);font-size:22px;font-weight:700>${a.name.charAt(0)}</div>'">
+      </div>
+      <div class="ar-info">
+        <div class="ar-name">${a.name}</div>
+        <div class="ar-dev">${a.developer}</div>
+        <div class="ar-stars">
+          <span>${'★'.repeat(Math.floor(a.rating))}${a.rating % 1 >= .5 ? '½' : ''}</span>
+          <em>${a.rating}</em>
+        </div>
+      </div>
+      <button class="ar-get" onclick="event.stopPropagation();openDetail(${a.id})">${btn}</button>
+    </div>
+  `).join('');
+}
+
+// ══════════════════════════════════════════
+// CATEGORIES
+// ══════════════════════════════════════════
+function renderCats() {
+  const cats = ['All', ...new Set(ST.apps.map(a => a.category))];
+  const labels = t('catLabels');
+  el('catsRow').innerHTML = cats.map(c =>
+    `<button class="cat-btn ${ST.cat === c ? 'active' : ''}" onclick="filterCat('${c}')">${labels[c] || c}</button>`
+  ).join('');
+}
+
+function filterCat(cat) {
+  ST.cat = cat;
+  renderCats();
+  const list = cat === 'All' ? ST.apps : ST.apps.filter(a => a.category === cat);
+  renderList('homeList', list.slice(0, 12), true);
+  el('searchEmpty').style.display = 'none';
+}
+
+// ══════════════════════════════════════════
+// SEARCH
+// ══════════════════════════════════════════
+function doSearch(q) {
+  el('searchX').classList.toggle('show', q.length > 0);
+  const empty = el('searchEmpty');
+  const listSec = el('homeList');
+
+  if (!q.trim()) {
+    empty.style.display = 'none';
+    renderList('homeList', ST.apps.slice(0, 10), true);
+    return;
+  }
+
+  const r = ST.apps.filter(a =>
+    a.name.toLowerCase().includes(q.toLowerCase()) ||
+    a.developer.toLowerCase().includes(q.toLowerCase()) ||
+    a.category.toLowerCase().includes(q.toLowerCase())
+  );
+
+  if (!r.length) {
+    listSec.innerHTML = '';
+    el('seUrl').textContent = 'NguyenHia.Dev/Home/' + encodeURIComponent(q);
+    empty.style.display = 'block';
+  } else {
+    empty.style.display = 'none';
+    renderList('homeList', r, false);
+  }
+}
+
+function clearSearch() {
+  el('searchInp').value = '';
+  doSearch('');
+}
+
+function doSearchApps(q) {
+  el('searchAppsX').classList.toggle('show', q.length > 0);
+  if (!q.trim()) {
+    renderList('appsFullList', ST.apps, true);
+    return;
+  }
+  const r = ST.apps.filter(a =>
+    a.name.toLowerCase().includes(q.toLowerCase()) ||
+    a.developer.toLowerCase().includes(q.toLowerCase()) ||
+    a.category.toLowerCase().includes(q.toLowerCase())
+  );
+  renderList('appsFullList', r, false);
+}
+
+function clearSearchApps() {
+  el('searchApps').value = '';
+  doSearchApps('');
+}
+
+function renderAppsPage() {
+  renderList('appsFullList', ST.apps, true);
+}
+
+// ══════════════════════════════════════════
+// APP DETAIL
+// ══════════════════════════════════════════
+function openDetail(id) {
+  const a = ST.apps.find(x => x.id === id);
+  if (!a) return;
+  const vi = getLang() === 'vi';
+
+  el('modalContent').innerHTML = `
+    <div class="md-wrap">
+      <div class="md-hero">
+        <div class="md-ico">
+          <img src="${a.icon}" alt="${a.name}"
+            onerror="this.parentNode.innerHTML='<div style=width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--p),var(--p2));color:#fff;font-family:var(--font-head);font-size:30px;font-weight:700>${a.name.charAt(0)}</div>'">
+        </div>
+        <div class="md-meta">
+          <div class="md-name">${a.name}</div>
+          <div class="md-dev">${a.developer}</div>
+          <div class="md-tags">
+            <span class="md-tag ${a.free ? 'tag-free' : 'tag-paid'}">${a.free ? t('free') : t('paid')}</span>
+            <span class="md-tag tag-cat">${a.category}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="md-stats">
+        <div class="md-stat">
+          <div class="md-sv">${a.rating}⭐</div>
+          <div class="md-sl">${t('rating')}</div>
+        </div>
+        <div class="md-stat">
+          <div class="md-sv">${a.downloads}</div>
+          <div class="md-sl">${t('downloads')}</div>
+        </div>
+        <div class="md-stat">
+          <div class="md-sv">${a.size}</div>
+          <div class="md-sl">${t('size')}</div>
+        </div>
+      </div>
+
+      <div class="md-btns">
+        <button class="btn-install" onclick="doInstall('${a.downloadUrl}','${a.name}')">
+          <i class="fa fa-download"></i>${t('btnInstall')}
+        </button>
+        <button class="btn-shr" onclick="doShare('${a.name}')">
+          <i class="fa fa-share-alt"></i>
+        </button>
+      </div>
+
+      <div class="md-sec">
+        <div class="md-sec-ttl">${t('about')}</div>
+        <div class="md-desc">${a.description}</div>
+      </div>
+
+      <div class="md-sec">
+        <div class="md-sec-ttl">${t('platform')}</div>
+        <div class="md-platforms">
+          ${(a.platform || ['iOS','Android']).map(p =>
+            `<div class="pf-chip"><i class="fa fa-${p === 'iOS' ? 'apple' : p === 'Android' ? 'android' : 'globe'}"></i>${p}</div>`
+          ).join('')}
+        </div>
+      </div>
+
+      <div class="md-sec">
+        <div class="md-sec-ttl">${t('screenshots')}</div>
+        <div style="display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px">
+          ${[1,2,3].map(i => `
+            <div style="min-width:120px;height:210px;border-radius:12px;background:var(--surf2);border:1px solid var(--border);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--txt3);font-size:11px;flex-shrink:0">
+              <i class="fa fa-image" style="font-size:22px"></i>${t('previewTxt')} ${i}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+  `;
+  el('modalOv').classList.add('open');
+}
+
+function closeModalOv(e) {
+  if (e.target.id === 'modalOv') el('modalOv').classList.remove('open');
+}
+
+function doInstall(url, name) {
+  window.open(url, '_blank');
+  showToast('⬇ ' + t('dlMsg'), 'ok');
+}
+function doShare(name) {
+  const url = window.location.href;
+  if (navigator.share) {
+    navigator.share({ title: name, url }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(url).catch(() => {});
+    showToast(t('shareMsg'), 'ok');
+  }
+}
+
+// ══════════════════════════════════════════
+// WEBCLIPPER DOWNLOAD (Mediafire)
+// ══════════════════════════════════════════
+const MEDIAFIRE_URL = 'https://www.mediafire.com/file/nguyenhiavn/NguyenHia.mobileconfig/file';
+
+function downloadWC() {
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+  if (isIOS && isSafari) {
+    // Direct download on iOS Safari
+    const a = document.createElement('a');
+    a.href = 'NguyenHia.mobileconfig';
+    a.download = 'NguyenHia.mobileconfig';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    showToast('✅ ' + t('wcDlTitle'), 'ok', 4000);
+  } else if (isIOS) {
+    // iOS but not Safari — open Mediafire
+    window.open(MEDIAFIRE_URL, '_blank');
+    showToast('📱 ' + t('wcDlSub'), 'info', 4000);
+  } else {
+    // Desktop / Android — open Mediafire
+    window.open(MEDIAFIRE_URL, '_blank');
+    showToast(t('wcNonIOS'), 'info', 5000);
+  }
+}
+
+// ══════════════════════════════════════════
+// PROFILE
+// ══════════════════════════════════════════
+function renderProfile() {
+  const u = getSession();
+  if (u) {
+    el('proAva').textContent = u.name.charAt(0).toUpperCase();
+    el('proName').textContent = u.name;
+    el('proEmail').textContent = u.email;
+    el('proVerIco').style.display = 'block';
+    el('proBadge').style.display = 'inline-flex';
+  } else {
+    el('proAva').textContent = '👤';
+    el('proName').textContent = t('guest');
+    el('proEmail').textContent = t('notLoggedIn');
+    el('proVerIco').style.display = 'none';
+    el('proBadge').style.display = 'none';
+  }
+
+  el('proCards').innerHTML = u ? `
+    <div class="pro-card">
+      <div class="pi">
+        <div class="pi-ico" style="background:#FFF3E0;color:var(--p)"><i class="fa fa-user"></i></div>
+        <div class="pi-body">
+          <div class="pi-lbl">${t('proName')}</div>
+          <div class="pi-sub">${u.name}</div>
+        </div>
+      </div>
+      <div class="pi">
+        <div class="pi-ico" style="background:#E3F2FD;color:#2196F3"><i class="fa fa-envelope"></i></div>
+        <div class="pi-body">
+          <div class="pi-lbl">${t('proEmailLbl')}</div>
+          <div class="pi-sub">${u.email}</div>
+        </div>
+      </div>
+      <div class="pi">
+        <div class="pi-ico" style="background:#E8F5E9;color:#22C55E">
+          <img src="https://i.postimg.cc/524KSbn2/Verified.png" style="width:20px;height:20px">
+        </div>
+        <div class="pi-body">
+          <div class="pi-lbl">${t('proVerifyLbl')}</div>
+          <div class="pi-sub" style="color:#22C55E;font-weight:700">✅ ${t('verified')}</div>
+        </div>
+      </div>
+    </div>
+    <div class="pro-card">
+      <div class="pi" onclick="navTo('settings')">
+        <div class="pi-ico" style="background:#F3E5F5;color:#9C27B0"><i class="fa fa-cog"></i></div>
+        <div class="pi-body"><div class="pi-lbl">${t('proSettings')}</div></div>
+        <i class="fa fa-chevron-right pi-arrow"></i>
+      </div>
+      <div class="pi">
+        <div class="pi-ico" style="background:#FFF8E1;color:#F59E0B"><i class="fa fa-star"></i></div>
+        <div class="pi-body"><div class="pi-lbl">${t('proRate')}</div></div>
+        <i class="fa fa-chevron-right pi-arrow"></i>
+      </div>
+      <div class="pi" onclick="doLogout()">
+        <div class="pi-ico" style="background:#FFEBEE;color:#EF4444"><i class="fa fa-sign-out-alt"></i></div>
+        <div class="pi-body"><div class="pi-lbl" style="color:#EF4444">${t('proLogout')}</div></div>
+      </div>
+    </div>
+  ` : `
+    <div class="pro-card">
+      <div class="pi" onclick="window.location.href='login.html'">
+        <div class="pi-ico" style="background:#E3F2FD;color:#2196F3"><i class="fa fa-sign-in-alt"></i></div>
+        <div class="pi-body"><div class="pi-lbl">${t('proLogin')}</div></div>
+        <i class="fa fa-chevron-right pi-arrow"></i>
+      </div>
+      <div class="pi" onclick="window.location.href='register.html'">
+        <div class="pi-ico" style="background:#E8F5E9;color:#22C55E"><i class="fa fa-user-plus"></i></div>
+        <div class="pi-body"><div class="pi-lbl">${t('proRegister')}</div></div>
+        <i class="fa fa-chevron-right pi-arrow"></i>
+      </div>
+    </div>
+  `;
+}
+
+function doLogout() {
+  localStorage.removeItem('nhvn_session');
+  renderProfile();
+  showToast(t('logoutMsg'), 'info');
+}
+
+// ══════════════════════════════════════════
+// SETTINGS
+// ══════════════════════════════════════════
+function renderSettings() {
+  const vis = parseInt(localStorage.getItem('nhvn_visitors') || '0');
+  el('setContent').innerHTML = `
+    <div class="set-ttl">${t('setThemeLbl')}</div>
+    <div class="set-card">
+      <div class="si">
+        <div class="si-ico" style="background:var(--surf2)"><i class="fa fa-palette" style="color:var(--p)"></i></div>
+        <div class="si-body">
+          <div class="si-lbl">${t('setThemeLbl')}</div>
+          <div class="si-sub">${t('setThemeSub')}</div>
+        </div>
+        <div class="theme-btns">
+          <button class="th-btn ${ST.theme==='vietnam'?'active':''}" onclick="applyTheme('vietnam')">${t('thVietnm')} VN</button>
+          <button class="th-btn ${ST.theme==='minecraft'?'active':''}" onclick="applyTheme('minecraft')">${t('thMinecraft')} MC</button>
+          <button class="th-btn ${ST.theme==='glass'?'active':''}" onclick="applyTheme('glass')">${t('thGlass')} GL</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="set-ttl">${t('setLangLbl')}</div>
+    <div class="set-card">
+      <div class="si">
+        <div class="si-ico" style="background:#E3F2FD"><i class="fa fa-globe" style="color:#2196F3"></i></div>
+        <div class="si-body">
+          <div class="si-lbl">${t('setLangLbl')}</div>
+          <div class="si-sub">${t('setLangSub')}</div>
+        </div>
+        <select class="lang-sel" id="langSel" onchange="changeLang(this.value)">
+          <option value="auto">🌐 Auto</option>
+          <option value="vi">🇻🇳 Tiếng Việt</option>
+          <option value="en">🇬🇧 English</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="set-ttl">${t('setAccountLbl')}</div>
+    <div class="set-card">
+      <div class="si" onclick="window.location.href='login.html'" style="cursor:pointer">
+        <div class="si-ico" style="background:#E8F5E9"><i class="fa fa-sign-in-alt" style="color:#22C55E"></i></div>
+        <div class="si-body"><div class="si-lbl">${t('setLoginBtn')}</div></div>
+        <i class="fa fa-chevron-right" style="color:var(--txt3)"></i>
+      </div>
+      <div class="si" onclick="window.location.href='register.html'" style="cursor:pointer">
+        <div class="si-ico" style="background:#E3F2FD"><i class="fa fa-user-plus" style="color:#2196F3"></i></div>
+        <div class="si-body"><div class="si-lbl">${t('setRegBtn')}</div></div>
+        <i class="fa fa-chevron-right" style="color:var(--txt3)"></i>
+      </div>
+      <div class="si" onclick="downloadWC()" style="cursor:pointer">
+        <div class="si-ico" style="background:#FFF3E0"><i class="fa fa-download" style="color:var(--p)"></i></div>
+        <div class="si-body">
+          <div class="si-lbl">${t('setWCLbl')}</div>
+          <div class="si-sub">${t('setWCSub')}</div>
+        </div>
+        <i class="fa fa-chevron-right" style="color:var(--txt3)"></i>
+      </div>
+    </div>
+
+    <div class="set-ttl">${t('setVisitLbl')}</div>
+    <div class="set-card">
+      <div class="si">
+        <div class="si-ico" style="background:#F3E5F5"><i class="fa fa-eye" style="color:#9C27B0"></i></div>
+        <div class="si-body">
+          <div class="si-lbl">${t('setVisitLbl')}</div>
+          <div class="si-sub">${t('setVisitSub')}</div>
+        </div>
+        <span class="visitor-num">${vis}</span>
+      </div>
+    </div>
+
+    <div class="set-ttl">${t('setVerLbl')}</div>
+    <div class="set-card">
+      <div class="si">
+        <div class="si-ico" style="background:#E3F2FD"><i class="fa fa-code-branch" style="color:#2196F3"></i></div>
+        <div class="si-body"><div class="si-lbl">${t('setVerLbl')}</div></div>
+        <span style="font-family:var(--font-head);font-size:14px;font-weight:700;color:var(--txt2)">v1.1.0</span>
+      </div>
+      <div class="si">
+        <div class="si-ico" style="overflow:hidden;border-radius:8px;padding:0">
+          <img src="https://i.postimg.cc/VvtqQ7bJ/Nguyen-Hia-VN.png" style="width:32px;height:32px;object-fit:cover">
+        </div>
+        <div class="si-body"><div class="si-lbl">${t('setMadeLbl')}</div></div>
+        <span style="font-family:var(--font-head);font-size:13px;font-weight:700;color:var(--p)">NguyenHia VN</span>
+      </div>
+    </div>
+  `;
+  const ls = el('langSel');
+  if (ls) ls.value = ST.lang;
+}
+
+function changeLang(v) {
+  ST.lang = v;
+  localStorage.setItem('nhvn_lang', v);
+  applyLang();
+  renderSettings();
+  if (ST.page === 'apps') renderAppsPage();
+}
+
+// ══════════════════════════════════════════
+// TOAST
+// ══════════════════════════════════════════
+let _tt = null;
+function showToast(msg, type = 'info', dur = 3000) {
+  const e = el('toast');
+  e.textContent = msg;
+  e.className = `toast ${type} show`;
+  clearTimeout(_tt);
+  _tt = setTimeout(() => e.classList.remove('show'), dur);
+}
+
+// ══════════════════════════════════════════
+// VISITOR TRACK
+// ══════════════════════════════════════════
+function trackVisit() {
+  const v = parseInt(localStorage.getItem('nhvn_visitors') || '0') + 1;
+  localStorage.setItem('nhvn_visitors', v);
+}
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+(async function init() {
+  trackVisit();
+  applyTheme(ST.theme);
+  // Check session from login/register redirect
+  const s = getSession();
+  if (s) {
+    // Topbar profile icon active indicator
+    el('nav-profile') && el('nav-profile').querySelector('i').style.setProperty('color', 'var(--p)');
+  }
+  applyLang();
+  await loadApps();
+  // Apply translations again after apps loaded
+  applyLang();
+})();
+</script>
+</body>
+</html>
+```
+
+---
+
+## `login.html`
+```html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Đăng Nhập — NguyenHia VN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+@font-face{font-family:'MCViet';src:url('fonts/minecraft-Viet.ttf') format('truetype');font-display:swap}
+:root{--p:#DA251D;--pd:#B01D16;--bg:#F5F5F7;--surf:#fff;--surf2:#F2F2F4;--surf3:#E8E8EC;--txt:#0F0F0F;--txt2:#555560;--txt3:#9B9BA8;--border:#E0E0E8;--rad:14px}
+[data-theme="minecraft"]{--p:#5C8A2E;--pd:#3D5E1E;--bg:#1C1C1C;--surf:#2A2A2A;--surf2:#333;--surf3:#3D3D3D;--txt:#E8E8E8;--txt2:#A0A0A0;--txt3:#686868;--border:#404040;--rad:4px}
+[data-theme="glass"]{--p:#6C63FF;--pd:#5046E5;--bg:#667eea;--surf:rgba(255,255,255,0.82);--surf2:rgba(255,255,255,0.55);--surf3:rgba(255,255,255,0.35);--txt:#1A1A2E;--txt2:#44445A;--txt3:#8888A8;--border:rgba(255,255,255,0.45);--rad:18px}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;transition:background .3s,color .3s}
+[data-theme="glass"] body{background:linear-gradient(135deg,#667eea,#764ba2) fixed;min-height:100vh}
+.back{position:fixed;top:16px;left:16px;width:38px;height:38px;border-radius:50%;background:var(--surf);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--txt2);font-size:15px;text-decoration:none;transition:all .2s;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+[data-theme="minecraft"] .back{border-radius:2px;border:2px solid var(--border)}
+.back:active{background:var(--p);color:#fff;border-color:var(--p)}
+.card{background:var(--surf);border-radius:var(--rad);border:1px solid var(--border);padding:26px 22px;width:100%;max-width:400px;box-shadow:0 4px 24px rgba(0,0,0,.07)}
+[data-theme="minecraft"] .card{border:2px solid var(--border);border-radius:4px}
+[data-theme="glass"] .card{-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.brand{text-align:center;margin-bottom:24px}
+.brand-ico{width:62px;height:62px;border-radius:16px;overflow:hidden;margin:0 auto 11px;box-shadow:0 4px 16px rgba(218,37,29,.25)}
+[data-theme="minecraft"] .brand-ico{border-radius:4px;border:2px solid var(--border)}
+.brand-ico img{width:100%;height:100%;object-fit:cover}
+.brand-ttl{font-family:'MCViet','Inter',sans-serif;font-size:20px;font-weight:700;margin-bottom:4px}
+.brand-sub{font-size:13px;color:var(--txt2)}
+.fg{margin-bottom:15px}
+.fl{display:block;font-family:'MCViet','Inter',sans-serif;font-size:13px;font-weight:700;margin-bottom:5px;color:var(--txt)}
+.iw{position:relative}
+.fi{width:100%;padding:12px 42px;background:var(--surf2);border:2px solid var(--border);border-radius:11px;font-size:15px;color:var(--txt);outline:none;transition:border-color .2s,box-shadow .2s;font-family:'Inter',sans-serif}
+[data-theme="minecraft"] .fi{border-radius:3px;border:2px solid var(--border)}
+.fi:focus{border-color:var(--p);box-shadow:0 0 0 3px rgba(218,37,29,.09)}
+[data-theme="minecraft"] .fi:focus{box-shadow:none}
+[data-theme="glass"] .fi:focus{box-shadow:0 0 0 3px rgba(108,99,255,.15)}
+.fi.err{border-color:#EF4444}
+.fi::placeholder{color:var(--txt3)}
+.il{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:13px;pointer-events:none}
+.fi:focus~.il{color:var(--p)}
+.ir{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:13px;cursor:pointer;transition:color .2s}
+.ir:active{color:var(--p)}
+.em{font-size:12px;color:#EF4444;margin-top:4px;display:none}
+.em.show{display:block}
+.btn-main{width:100%;padding:13px;border-radius:12px;background:var(--p);color:#fff;font-family:'MCViet','Inter',sans-serif;font-size:15px;font-weight:700;border:none;cursor:pointer;transition:background .2s,transform .1s;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:8px}
+[data-theme="minecraft"] .btn-main{border-radius:3px;border-bottom:3px solid var(--pd)}
+.btn-main:active{background:var(--pd);transform:scale(.97)}
+.or{display:flex;align-items:center;gap:10px;margin:14px 0}
+.or::before,.or::after{content:'';flex:1;height:1px;background:var(--border)}
+.or span{font-size:11px;color:var(--txt3);font-weight:600}
+.btn-sec{width:100%;padding:12px;border-radius:11px;border:2px solid var(--border);background:var(--surf2);color:var(--txt2);font-family:'MCViet','Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+[data-theme="minecraft"] .btn-sec{border-radius:3px}
+.btn-sec:active{border-color:var(--p);color:var(--p)}
+.footer{text-align:center;margin-top:14px;font-size:13px;color:var(--txt2)}
+.footer a{color:var(--p);font-weight:700;text-decoration:none}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--surf);color:var(--txt);padding:11px 18px;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.12);z-index:999;font-family:'MCViet','Inter',sans-serif;font-size:13px;font-weight:600;max-width:88vw;text-align:center;opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);border-left:4px solid var(--p);pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{border-left-color:#22C55E}
+.toast.err{border-left-color:#EF4444}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<a href="index.html" class="back"><i class="fa fa-arrow-left"></i></a>
+
+<div class="card">
+  <div class="brand">
+    <div class="brand-ico">
+      <img src="https://i.postimg.cc/VvtqQ7bJ/Nguyen-Hia-VN.png" alt="NH"
+        onerror="this.parentNode.style.background='linear-gradient(135deg,var(--p),#E8453D)';this.style.display='none'">
+    </div>
+    <div class="brand-ttl">NguyenHia VN</div>
+    <div class="brand-sub" id="sub">Đăng nhập tài khoản của bạn</div>
+  </div>
+
+  <div class="fg">
+    <label class="fl" id="lbEmail">Email</label>
+    <div class="iw">
+      <input type="email" class="fi" id="fEmail" placeholder="example@gmail.com" autocomplete="email">
+      <i class="fa fa-envelope il"></i>
+    </div>
+    <div class="em" id="eEmail"></div>
+  </div>
+
+  <div class="fg">
+    <label class="fl" id="lbPass">Mật Khẩu</label>
+    <div class="iw">
+      <input type="password" class="fi" id="fPass" placeholder="••••••••" autocomplete="current-password">
+      <i class="fa fa-lock il"></i>
+      <i class="fa fa-eye ir" id="eyeP" onclick="toggleEye('fPass','eyeP')"></i>
+    </div>
+    <div class="em" id="ePass"></div>
+  </div>
+
+  <button class="btn-main" onclick="doLogin()">
+    <i class="fa fa-sign-in-alt"></i><span id="btnTxt">Đăng Nhập</span>
+  </button>
+
+  <div class="or"><span id="orTxt">hoặc</span></div>
+
+  <button class="btn-sec" onclick="location.href='register.html'">
+    <i class="fa fa-user-plus"></i> <span id="regLink">Chưa có tài khoản? Đăng Ký</span>
+  </button>
+
+  <div class="footer"><a href="index.html" id="homeLink">← Về Trang Chủ</a></div>
+</div>
+
+<script>
+// Theme
+const th = localStorage.getItem('nhvn_theme') || 'vietnam';
+document.body.setAttribute('data-theme', th);
+
+// Language
+const lang = (() => {
+  const s = localStorage.getItem('nhvn_lang') || 'auto';
+  if (s === 'auto') return (navigator.language || 'vi').toLowerCase().startsWith('vi') ? 'vi' : 'en';
+  return s;
+})();
+
+const TR = {
+  vi: { sub:'Đăng nhập tài khoản của bạn', lbEmail:'Email', lbPass:'Mật Khẩu', btn:'Đăng Nhập', or:'hoặc', reg:'Chưa có tài khoản? Đăng Ký', home:'← Về Trang Chủ', errEmail:'Vui lòng nhập email', errEmailInv:'Email không hợp lệ', errEmailNF:'❌ Email chưa đăng ký. Hãy đăng ký trước!', errPass:'Vui lòng nhập mật khẩu', errPassWrong:'❌ Mật khẩu không đúng', ok:'🎉 Chào mừng trở lại, ' },
+  en: { sub:'Sign in to your account', lbEmail:'Email', lbPass:'Password', btn:'Login', or:'or', reg:'No account? Register', home:'← Back to Home', errEmail:'Please enter email', errEmailInv:'Invalid email', errEmailNF:'❌ Email not registered. Please register!', errPass:'Please enter password', errPassWrong:'❌ Wrong password', ok:'🎉 Welcome back, ' }
+};
+const T = k => TR[lang][k] || k;
+
+// Apply translations
+document.getElementById('sub').textContent = T('sub');
+document.getElementById('lbEmail').textContent = T('lbEmail');
+document.getElementById('lbPass').textContent = T('lbPass');
+document.getElementById('btnTxt').textContent = T('btn');
+document.getElementById('orTxt').textContent = T('or');
+document.getElementById('regLink').textContent = T('reg');
+document.getElementById('homeLink').textContent = T('home');
+
+function toggleEye(i, e) {
+  const inp = document.getElementById(i), ico = document.getElementById(e);
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  ico.className = inp.type === 'text' ? 'fa fa-eye-slash ir' : 'fa fa-eye ir';
+}
+function setErr(f, e, msg) {
+  document.getElementById(f).classList.add('err');
+  const el = document.getElementById(e); el.textContent = msg; el.classList.add('show');
+}
+function clr(f, e) {
+  document.getElementById(f).classList.remove('err');
+  document.getElementById(e).classList.remove('show');
+}
+
+let tt = null;
+function showToast(msg, type = 'info', dur = 3000) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.className = `toast ${type} show`;
+  clearTimeout(tt); tt = setTimeout(() => el.classList.remove('show'), dur);
+}
+
+// Safe user storage
+function getUsers() {
+  try { return JSON.parse(localStorage.getItem('nhvn_users') || '[]') || []; }
+  catch { return []; }
+}
+
+function doLogin() {
+  clr('fEmail','eEmail'); clr('fPass','ePass');
+  const email = document.getElementById('fEmail').value.trim();
+  const pass = document.getElementById('fPass').value;
+  let ok = true;
+  if (!email) { setErr('fEmail','eEmail', T('errEmail')); ok = false; }
+  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { setErr('fEmail','eEmail', T('errEmailInv')); ok = false; }
+  if (!pass) { setErr('fPass','ePass', T('errPass')); ok = false; }
+  if (!ok) return;
+
+  const users = getUsers();
+  const user = users.find(u => u.email.toLowerCase() === email.toLowerCase());
+  if (!user) { setErr('fEmail','eEmail', T('errEmailNF')); return; }
+  if (user.password !== pass) { setErr('fPass','ePass', T('errPassWrong')); return; }
+
+  localStorage.setItem('nhvn_session', JSON.stringify({ name: user.name, email: user.email, verified: true }));
+  showToast(T('ok') + user.name + '!', 'ok');
+  setTimeout(() => location.href = 'index.html', 1100);
+}
+
+document.getElementById('fEmail').addEventListener('keydown', e => { if (e.key === 'Enter') document.getElementById('fPass').focus(); });
+document.getElementById('fPass').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+</script>
+</body>
+</html>
+```
+
+---
+
+## `register.html`
+```html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Đăng Ký — NguyenHia VN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+@font-face{font-family:'MCViet';src:url('fonts/minecraft-Viet.ttf') format('truetype');font-display:swap}
+:root{--p:#DA251D;--pd:#B01D16;--bg:#F5F5F7;--surf:#fff;--surf2:#F2F2F4;--surf3:#E8E8EC;--txt:#0F0F0F;--txt2:#555560;--txt3:#9B9BA8;--border:#E0E0E8;--rad:14px}
+[data-theme="minecraft"]{--p:#5C8A2E;--pd:#3D5E1E;--bg:#1C1C1C;--surf:#2A2A2A;--surf2:#333;--surf3:#3D3D3D;--txt:#E8E8E8;--txt2:#A0A0A0;--txt3:#686868;--border:#404040;--rad:4px}
+[data-theme="glass"]{--p:#6C63FF;--pd:#5046E5;--bg:#667eea;--surf:rgba(255,255,255,0.82);--surf2:rgba(255,255,255,0.55);--surf3:rgba(255,255,255,0.35);--txt:#1A1A2E;--txt2:#44445A;--txt3:#8888A8;--border:rgba(255,255,255,0.45);--rad:18px}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:68px 20px 40px;transition:background .3s,color .3s}
+[data-theme="glass"] body{background:linear-gradient(135deg,#667eea,#764ba2) fixed}
+.back{position:fixed;top:16px;left:16px;width:38px;height:38px;border-radius:50%;background:var(--surf);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--txt2);font-size:15px;text-decoration:none;transition:all .2s;box-shadow:0 1px 6px rgba(0,0,0,.07)}
+[data-theme="minecraft"] .back{border-radius:2px;border:2px solid var(--border)}
+.back:active{background:var(--p);color:#fff;border-color:var(--p)}
+.card{background:var(--surf);border-radius:var(--rad);border:1px solid var(--border);padding:24px 20px;width:100%;max-width:400px;box-shadow:0 4px 24px rgba(0,0,0,.07);margin-bottom:20px}
+[data-theme="minecraft"] .card{border:2px solid var(--border);border-radius:4px}
+[data-theme="glass"] .card{-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px)}
+.brand{text-align:center;margin-bottom:20px}
+.brand-ico{width:58px;height:58px;border-radius:15px;overflow:hidden;margin:0 auto 10px;box-shadow:0 4px 16px rgba(218,37,29,.2)}
+[data-theme="minecraft"] .brand-ico{border-radius:4px;border:2px solid var(--border)}
+.brand-ico img{width:100%;height:100%;object-fit:cover}
+.brand-ttl{font-family:'MCViet','Inter',sans-serif;font-size:19px;font-weight:700;margin-bottom:4px}
+.free-b{display:inline-flex;align-items:center;gap:5px;background:rgba(34,197,94,.1);border:1.5px solid rgba(34,197,94,.3);color:#16A34A;padding:4px 12px;border-radius:20px;font-family:'MCViet','Inter',sans-serif;font-size:11px;font-weight:700;margin-top:7px}
+[data-theme="minecraft"] .free-b{border-radius:3px;background:rgba(92,138,46,.2);border-color:rgba(92,138,46,.5);color:#7CCC4A}
+.fg{margin-bottom:13px}
+.fl{display:block;font-family:'MCViet','Inter',sans-serif;font-size:13px;font-weight:700;margin-bottom:5px;color:var(--txt)}
+.iw{position:relative}
+.fi{width:100%;padding:12px 42px;background:var(--surf2);border:2px solid var(--border);border-radius:11px;font-size:15px;color:var(--txt);outline:none;transition:border-color .2s;font-family:'Inter',sans-serif}
+[data-theme="minecraft"] .fi{border-radius:3px}
+.fi:focus{border-color:var(--p)}
+.fi.err{border-color:#EF4444}
+.fi.ok{border-color:#22C55E}
+.fi::placeholder{color:var(--txt3)}
+.il{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:13px;pointer-events:none}
+.fi:focus~.il{color:var(--p)}
+.ir{position:absolute;right:13px;top:50%;transform:translateY(-50%);color:var(--txt3);font-size:13px;cursor:pointer}
+.em{font-size:12px;color:#EF4444;margin-top:4px;display:none}
+.em.show{display:block}
+.sm{font-size:12px;color:#22C55E;margin-top:4px;display:none;align-items:center;gap:4px}
+.sm.show{display:flex}
+.pw-wrap{height:3px;background:var(--border);border-radius:2px;margin-top:5px;overflow:hidden}
+.pw-bar{height:100%;border-radius:2px;transition:all .25s;width:0}
+.pw-w{background:#EF4444;width:33%}.pw-m{background:#F59E0B;width:66%}.pw-s{background:#22C55E;width:100%}
+.btn-main{width:100%;padding:13px;border-radius:12px;background:var(--p);color:#fff;font-family:'MCViet','Inter',sans-serif;font-size:14px;font-weight:700;border:none;cursor:pointer;transition:background .2s,transform .1s;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:8px}
+[data-theme="minecraft"] .btn-main{border-radius:3px;border-bottom:3px solid var(--pd)}
+.btn-main:active{background:var(--pd);transform:scale(.97)}
+.or{display:flex;align-items:center;gap:10px;margin:13px 0}
+.or::before,.or::after{content:'';flex:1;height:1px;background:var(--border)}
+.or span{font-size:11px;color:var(--txt3);font-weight:600}
+.btn-sec{width:100%;padding:12px;border-radius:11px;border:2px solid var(--border);background:var(--surf2);color:var(--txt2);font-family:'MCViet','Inter',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s}
+[data-theme="minecraft"] .btn-sec{border-radius:3px}
+.btn-sec:active{border-color:var(--p);color:var(--p)}
+.footer{text-align:center;margin-top:14px;font-size:13px;color:var(--txt2)}
+.footer a{color:var(--p);font-weight:700;text-decoration:none}
+/* Success */
+.suc{display:none;text-align:center;padding:8px 0;animation:fin .4s ease}
+@keyframes fin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.suc-ico{font-size:52px;margin-bottom:14px}
+.suc-ttl{font-family:'MCViet','Inter',sans-serif;font-size:22px;font-weight:700;margin-bottom:6px}
+.suc-sub{font-size:13px;color:var(--txt2);line-height:1.55;margin-bottom:16px}
+.ver-box{background:rgba(34,197,94,.08);border:2px solid rgba(34,197,94,.22);border-radius:13px;padding:14px;margin-bottom:16px;text-align:left;display:flex;align-items:flex-start;gap:10px}
+[data-theme="minecraft"] .ver-box{border-radius:3px}
+.ver-box img{width:28px;height:28px;flex-shrink:0;margin-top:1px}
+.ver-ttl{font-family:'MCViet','Inter',sans-serif;font-size:15px;font-weight:700;color:#16A34A;margin-bottom:3px}
+[data-theme="minecraft"] .ver-ttl{color:#7CCC4A}
+.ver-sub{font-size:12px;color:var(--txt2);line-height:1.4}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--surf);color:var(--txt);padding:11px 18px;border-radius:12px;box-shadow:0 6px 24px rgba(0,0,0,.12);z-index:999;font-family:'MCViet','Inter',sans-serif;font-size:13px;font-weight:600;max-width:88vw;text-align:center;opacity:0;transition:all .35s cubic-bezier(.34,1.56,.64,1);border-left:4px solid var(--p);pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.ok{border-left-color:#22C55E}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+<a href="index.html" class="back"><i class="fa fa-arrow-left"></i></a>
+
+<div class="card">
+  <div class="brand">
+    <div class="brand-ico">
+      <img src="https://i.postimg.cc/VvtqQ7bJ/Nguyen-Hia-VN.png" alt="NH"
+        onerror="this.parentNode.style.background='linear-gradient(135deg,var(--p),#E8453D)';this.style.display='none'">
+    </div>
+    <div class="brand-ttl">NguyenHia VN</div>
+    <div class="free-b">
+      <img src="https://i.postimg.cc/524KSbn2/Verified.png" style="width:14px;height:14px">
+      <span id="badgeTxt">Đăng ký = Verified ngay!</span>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div id="formView">
+    <div class="fg">
+      <label class="fl" id="lbName">Họ và Tên</label>
+      <div class="iw">
+        <input type="text" class="fi" id="fName" placeholder="Nguyễn Văn A" autocomplete="name" oninput="vName(this)">
+        <i class="fa fa-user il"></i>
+      </div>
+      <div class="em" id="eName"></div>
+      <div class="sm" id="sName"><i class="fa fa-check-circle"></i><span id="nameOk">Tên hợp lệ</span></div>
+    </div>
+
+    <div class="fg">
+      <label class="fl" id="lbEmail">Email</label>
+      <div class="iw">
+        <input type="email" class="fi" id="fEmail" placeholder="example@gmail.com" autocomplete="email" oninput="vEmail(this)">
+        <i class="fa fa-envelope il"></i>
+      </div>
+      <div class="em" id="eEmail"></div>
+      <div class="sm" id="sEmail"><i class="fa fa-check-circle"></i><span id="emailOk">Email hợp lệ</span></div>
+    </div>
+
+    <div class="fg">
+      <label class="fl" id="lbPass">Mật Khẩu</label>
+      <div class="iw">
+        <input type="password" class="fi" id="fPass" placeholder="••••••••" autocomplete="new-password" oninput="vPass(this)">
+        <i class="fa fa-lock il"></i>
+        <i class="fa fa-eye ir" id="eyeP" onclick="toggleEye('fPass','eyeP')"></i>
+      </div>
+      <div class="pw-wrap"><div class="pw-bar" id="pwBar"></div></div>
+      <div class="em" id="ePass"></div>
+      <div class="sm" id="sPass"><i class="fa fa-check-circle"></i><span id="passOk">Mật khẩu mạnh</span></div>
+    </div>
+
+    <div class="fg">
+      <label class="fl" id="lbCfm">Xác Nhận Mật Khẩu</label>
+      <div class="iw">
+        <input type="password" class="fi" id="fCfm" placeholder="••••••••" autocomplete="new-password" oninput="vCfm(this)">
+        <i class="fa fa-lock il"></i>
+        <i class="fa fa-eye ir" id="eyeC" onclick="toggleEye('fCfm','eyeC')"></i>
+      </div>
+      <div class="em" id="eCfm"></div>
+      <div class="sm" id="sCfm"><i class="fa fa-check-circle"></i><span id="cfmOk">Khớp</span></div>
+    </div>
+
+    <button class="btn-main" onclick="doReg()">
+      <i class="fa fa-rocket"></i><span id="btnTxt">Đăng Ký & Verified Miễn Phí</span>
+    </button>
+    <div class="or"><span id="orTxt">hoặc</span></div>
+    <button class="btn-sec" onclick="location.href='login.html'">
+      <i class="fa fa-sign-in-alt"></i> <span id="loginLink">Đã có tài khoản? Đăng Nhập</span>
+    </button>
+    <div class="footer"><a href="index.html" id="homeLink">← Về Trang Chủ</a></div>
+  </div>
+
+  <!-- Success -->
+  <div class="suc" id="sucView">
+    <div class="suc-ico">🎉</div>
+    <div class="suc-ttl" id="sucName">Chào mừng!</div>
+    <div class="suc-sub" id="sucSub">Tài khoản đã được tạo thành công.</div>
+    <div class="ver-box">
+      <img src="https://i.postimg.cc/524KSbn2/Verified.png" alt="Verified">
+      <div>
+        <div class="ver-ttl" id="verTtl">✅ Verified!</div>
+        <div class="ver-sub" id="verSub">Bạn đã được xác minh miễn phí ngay lập tức. Không cần xác nhận email!</div>
+      </div>
+    </div>
+    <button class="btn-main" onclick="location.href='index.html'">
+      <i class="fa fa-home"></i><span id="goHome">Về Trang Chủ</span>
+    </button>
+  </div>
+</div>
+
+<script>
+// Theme
+const th = localStorage.getItem('nhvn_theme') || 'vietnam';
+document.body.setAttribute('data-theme', th);
+
+// Language
+const lang = (() => {
+  const s = localStorage.getItem('nhvn_lang') || 'auto';
+  if (s === 'auto') return (navigator.language || 'vi').toLowerCase().startsWith('vi') ? 'vi' : 'en';
+  return s;
+})();
+
+const TR = {
+  vi: { badge:'Đăng ký = Verified ngay!', lbName:'Họ và Tên', lbEmail:'Email', lbPass:'Mật Khẩu', lbCfm:'Xác Nhận Mật Khẩu', nameOk:'Tên hợp lệ', emailOk:'Email hợp lệ', passOk:'Mật khẩu mạnh', cfmOk:'Khớp', btn:'Đăng Ký & Verified Miễn Phí', or:'hoặc', login:'Đã có tài khoản? Đăng Nhập', home:'← Về Trang Chủ', sucSub:'Tài khoản đã được tạo thành công.', verTtl:'✅ Verified!', verSub:'Xác minh miễn phí ngay lập tức. Không cần xác nhận email!', goHome:'Về Trang Chủ', errNameR:'Vui lòng nhập tên', errName2:'Tên phải có ít nhất 2 ký tự', errEmailR:'Vui lòng nhập email', errEmailI:'Email không hợp lệ', errEmailD:'❌ Email đã đăng ký! Hãy đăng nhập.', errPassR:'Vui lòng nhập mật khẩu', errPass8:'Mật khẩu phải có ít nhất 8 ký tự', errCfmR:'Vui lòng xác nhận mật khẩu', errCfmM:'Mật khẩu không khớp', phName:'Nguyễn Văn A' },
+  en: { badge:'Register = Verified instantly!', lbName:'Full Name', lbEmail:'Email', lbPass:'Password', lbCfm:'Confirm Password', nameOk:'Valid name', emailOk:'Valid email', passOk:'Strong password', cfmOk:'Matches', btn:'Register & Get Verified Free', or:'or', login:'Have account? Login', home:'← Back to Home', sucSub:'Your account was created successfully.', verTtl:'✅ Verified!', verSub:'Instantly verified for free. No email confirmation needed!', goHome:'Go to Home', errNameR:'Please enter name', errName2:'Name needs 2+ characters', errEmailR:'Please enter email', errEmailI:'Invalid email', errEmailD:'❌ Email already registered! Please login.', errPassR:'Please enter password', errPass8:'Password needs 8+ characters', errCfmR:'Please confirm password', errCfmM:'Passwords do not match', phName:'John Doe' }
+};
+const T = k => TR[lang][k] || k;
+
+// Apply all translations
+const ids = ['badge','lbName','lbEmail','lbPass','lbCfm','nameOk','emailOk','passOk','cfmOk','orTxt','verTtl','verSub','goHome'];
+ids.forEach(id => {
+  const el = document.getElementById(id); if (el) el.textContent = T(id === 'orTxt' ? 'or' : id === 'verTtl' ? 'verTtl' : id === 'verSub' ? 'verSub' : id === 'goHome' ? 'goHome' : id);
+});
+// Fix specific IDs
+[['badgeTxt','badge'],['lbName','lbName'],['lbEmail','lbEmail'],['lbPass','lbPass'],['lbCfm','lbCfm'],['nameOk','nameOk'],['emailOk','emailOk'],['passOk','passOk'],['cfmOk','cfmOk'],['btnTxt','btn'],['orTxt','or'],['loginLink','login'],['homeLink','home'],['sucSub','sucSub'],['verTtl','verTtl'],['verSub','verSub'],['goHome','goHome']].forEach(([id, key]) => {
+  const el = document.getElementById(id); if (el) el.textContent = T(key);
+});
+document.getElementById('fName').placeholder = T('phName');
+
+function toggleEye(i, e) {
+  const inp = document.getElementById(i), ico = document.getElementById(e);
+  inp.type = inp.type === 'password' ? 'text' : 'password';
+  ico.className = inp.type === 'text' ? 'fa fa-eye-slash ir' : 'fa fa-eye ir';
+}
+function setOk(f, e, s) { const fi=document.getElementById(f); fi.classList.remove('err'); fi.classList.add('ok'); document.getElementById(e).classList.remove('show'); document.getElementById(s).classList.add('show'); }
+function setErr(f, e, s, msg) { const fi=document.getElementById(f); fi.classList.add('err'); fi.classList.remove('ok'); document.getElementById(e).textContent=msg; document.getElementById(e).classList.add('show'); document.getElementById(s).classList.remove('show'); }
+function clr(f, e, s) { const fi=document.getElementById(f); fi.classList.remove('err','ok'); document.getElementById(e).classList.remove('show'); document.getElementById(s).classList.remove('show'); }
+
+function getUsers() { try { return JSON.parse(localStorage.getItem('nhvn_users') || '[]') || []; } catch { return []; } }
+function saveUsers(u) { localStorage.setItem('nhvn_users', JSON.stringify(u)); }
+
+function vName(el) {
+  const v = el.value.trim();
+  if (!v) { clr('fName','eName','sName'); return false; }
+  if (v.length < 2) { setErr('fName','eName','sName', T('errName2')); return false; }
+  setOk('fName','eName','sName'); return true;
+}
+function vEmail(el) {
+  const v = el.value.trim();
+  if (!v) { clr('fEmail','eEmail','sEmail'); return false; }
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) { setErr('fEmail','eEmail','sEmail', T('errEmailI')); return false; }
+  const users = getUsers();
+  if (users.find(u => u.email.toLowerCase() === v.toLowerCase())) { setErr('fEmail','eEmail','sEmail', T('errEmailD')); return false; }
+  setOk('fEmail','eEmail','sEmail'); return true;
+}
+function vPass(el) {
+  const v = el.value, bar = document.getElementById('pwBar');
+  if (!v) { bar.className = 'pw-bar'; clr('fPass','ePass','sPass'); return false; }
+  if (v.length < 8) { bar.className = 'pw-bar pw-w'; setErr('fPass','ePass','sPass', T('errPass8')); return false; }
+  bar.className = 'pw-bar ' + (/(?=.*[A-Z])(?=.*\d)/.test(v) ? 'pw-s' : 'pw-m');
+  setOk('fPass','ePass','sPass');
+  const cf = document.getElementById('fCfm'); if (cf.value) vCfm(cf);
+  return true;
+}
+function vCfm(el) {
+  const v = el.value, p = document.getElementById('fPass').value;
+  if (!v) { clr('fCfm','eCfm','sCfm'); return false; }
+  if (v !== p) { setErr('fCfm','eCfm','sCfm', T('errCfmM')); return false; }
+  setOk('fCfm','eCfm','sCfm'); return true;
+}
+
+let tt = null;
+function showToast(msg, type = 'info', dur = 3000) {
+  const el = document.getElementById('toast'); el.textContent = msg; el.className = `toast ${type} show`;
+  clearTimeout(tt); tt = setTimeout(() => el.classList.remove('show'), dur);
+}
+
+function doReg() {
+  const ok = [
+    vName(document.getElementById('fName')),
+    vEmail(document.getElementById('fEmail')),
+    vPass(document.getElementById('fPass')),
+    vCfm(document.getElementById('fCfm'))
+  ];
+  if (ok.includes(false)) return;
+
+  const name = document.getElementById('fName').value.trim();
+  const email = document.getElementById('fEmail').value.trim();
+  const pass = document.getElementById('fPass').value;
+
+  // Save user — with try/catch for safety
+  try {
+    const users = getUsers();
+    // Double-check duplicate
+    if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+      setErr('fEmail','eEmail','sEmail', T('errEmailD')); return;
+    }
+    users.push({ name, email, password: pass, verified: true, joinedAt: Date.now() });
+    saveUsers(users);
+    localStorage.setItem('nhvn_session', JSON.stringify({ name, email, verified: true }));
+  } catch (e) {
+    showToast('❌ Error saving data. Please try again.', 'err'); return;
+  }
+
+  document.getElementById('sucName').textContent = (lang === 'vi' ? 'Chào mừng, ' : 'Welcome, ') + name + '! 👋';
+  document.getElementById('formView').style.display = 'none';
+  document.getElementById('sucView').style.display = 'block';
+}
+</script>
+</body>
+</html>
+```
+
+---
+
+## `404.html`
+```html
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>404 — NguyenHia VN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+@font-face{font-family:'MCViet';src:url('fonts/minecraft-Viet.ttf') format('truetype');font-display:swap}
+:root{--p:#DA251D;--bg:#F5F5F7;--surf:#fff;--surf2:#F2F2F4;--txt:#0F0F0F;--txt2:#555560;--border:#E0E0E8}
+[data-theme="minecraft"]{--p:#5C8A2E;--bg:#1C1C1C;--surf:#2A2A2A;--surf2:#333;--txt:#E8E8E8;--txt2:#A0A0A0;--border:#404040}
+[data-theme="glass"]{--p:#6C63FF;--bg:#667eea;--surf:rgba(255,255,255,0.82);--surf2:rgba(255,255,255,0.55);--txt:#1A1A2E;--txt2:#44445A;--border:rgba(255,255,255,0.45)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;transition:background .3s,color .3s;text-align:center}
+[data-theme="glass"] body{background:linear-gradient(135deg,#667eea,#764ba2) fixed}
+.logo-row{display:flex;align-items:center;gap:9px;justify-content:center;margin-bottom:26px}
+.logo-ico{width:34px;height:34px;border-radius:9px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+[data-theme="minecraft"] .logo-ico{border-radius:3px;border:2px solid var(--border)}
+.logo-ico img{width:100%;height:100%;object-fit:cover}
+.logo-ttl{font-family:'MCViet','Inter',sans-serif;font-size:17px;font-weight:700}
+.cat-wrap{width:180px;height:180px;border-radius:22px;overflow:hidden;margin:0 auto 22px;box-shadow:0 10px 34px rgba(0,0,0,.14);position:relative}
+[data-theme="minecraft"] .cat-wrap{border-radius:4px;border:3px solid var(--border)}
+.cat-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.cat-lbl{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.65);color:#fff;padding:3px 10px;border-radius:20px;font-family:'MCViet','Inter',sans-serif;font-size:11px;font-weight:700;white-space:nowrap}
+.num{font-family:'MCViet','Inter',sans-serif;font-size:74px;font-weight:700;background:linear-gradient(135deg,var(--p),#E8453D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:8px}
+[data-theme="minecraft"] .num{background:linear-gradient(135deg,#5C8A2E,#7CCC4A);-webkit-background-clip:text}
+[data-theme="glass"] .num{background:linear-gradient(135deg,#6C63FF,#FF6B9D);-webkit-background-clip:text}
+.ttl{font-family:'MCViet','Inter',sans-serif;font-size:22px;font-weight:700;margin-bottom:7px}
+.sub{font-size:13px;color:var(--txt2);line-height:1.55;margin-bottom:18px;max-width:310px}
+.url{display:inline-flex;align-items:center;gap:7px;background:var(--surf);border:1.5px solid var(--border);border-radius:9px;padding:8px 14px;font-size:12px;color:var(--txt2);font-family:'Courier New',monospace;margin-bottom:22px;max-width:96vw;word-break:break-all;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+[data-theme="minecraft"] .url{border-radius:3px;border:2px solid var(--border)}
+[data-theme="glass"] .url{background:var(--surf);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.url i{color:#EF4444;flex-shrink:0}
+.acts{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.btn-h{display:inline-flex;align-items:center;gap:7px;background:var(--p);color:#fff;padding:12px 24px;border-radius:12px;font-family:'MCViet','Inter',sans-serif;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.15);transition:transform .15s}
+[data-theme="minecraft"] .btn-h{border-radius:3px;border-bottom:3px solid rgba(0,0,0,.3)}
+.btn-h:active{transform:scale(.95)}
+.btn-b{display:inline-flex;align-items:center;gap:7px;background:var(--surf);color:var(--txt2);padding:12px 20px;border-radius:12px;font-family:'MCViet','Inter',sans-serif;font-size:14px;font-weight:700;text-decoration:none;border:1.5px solid var(--border);transition:all .15s}
+[data-theme="minecraft"] .btn-b{border-radius:3px;border:2px solid var(--border)}
+.btn-b:active{border-color:var(--p);color:var(--p)}
+</style>
+</head>
+<body>
+<div class="logo-row">
+  <div class="logo-ico">
+    <img src="https://i.postimg.cc/VvtqQ7bJ/Nguyen-Hia-VN.png" alt="NH"
+      onerror="this.parentNode.style.background='linear-gradient(135deg,var(--p),#E8453D)';this.style.display='none'">
+  </div>
+  <span class="logo-ttl">NguyenHia VN</span>
+</div>
+
+<div class="cat-wrap">
+  <img src="https://http.cat/images/404.jpg" alt="404 Angry Cat"
+    onerror="this.src='https://cataas.com/cat/angry?width=360&height=360';this.onerror=null">
+  <div class="cat-lbl">😾 404 Not Found</div>
+</div>
+
+<div class="num">404</div>
+<div class="ttl" id="ttl">Trang Không Tồn Tại</div>
+<div class="sub" id="sub">Trang bạn đang tìm kiếm không tồn tại, đã bị xóa hoặc URL sai.</div>
+
+<div class="url">
+  <i class="fa fa-times-circle"></i>
+  <span id="urlTxt">NguyenHia.Dev/Home/test82837</span>
+</div>
+
+<div class="acts">
+  <a href="index.html" class="btn-h"><i class="fa fa-home"></i><span id="btnHome">Về Trang Chủ</span></a>
+  <a href="javascript:history.back()" class="btn-b"><i class="fa fa-arrow-left"></i><span id="btnBack">Quay Lại</span></a>
+</div>
+
+<script>
+const th = localStorage.getItem('nhvn_theme') || 'vietnam';
+document.body.setAttribute('data-theme', th);
+const lang = (() => {
+  const s = localStorage.getItem('nhvn_lang') || 'auto';
+  if (s === 'auto') return (navigator.language || 'vi').toLowerCase().startsWith('vi') ? 'vi' : 'en';
+  return s;
+})();
+if (lang === 'en') {
+  document.getElementById('ttl').textContent = 'Page Not Found';
+  document.getElementById('sub').textContent = 'The page you are looking for does not exist, was removed, or the URL is wrong.';
+  document.getElementById('btnHome').textContent = 'Go Home';
+  document.getElementById('btnBack').textContent = 'Go Back';
+}
+document.getElementById('urlTxt').textContent = 'NguyenHia.Dev' + (window.location.pathname || '/Home/test82837');
+</script>
+</body>
+</html>
+```
+
+---
+
+## ✅ V1.1.0 Full Changelog
+
+| # | Feature | Detail |
+|---|---|---|
+| 1 | **GitHub App JSON** | `fetch()` from GitHub raw URL with fallback |
+| 2 | **All Apps Search** | Both Home + Apps page have live search |
+| 3 | **Removed Feature Banner** | Replaced with clean Hero banner |
+| 4 | **Fixed Mobileconfig** | iOS Safari = direct download, other = Mediafire link |
+| 5 | **New UI Rework** | App Store-style rows, ranked list |
+| 6 | **MCViet Font** | `minecraft-Viet.ttf` on ALL headings across themes |
+| 7 | **Auth Fixed** | `try/catch` on all localStorage ops, no reset bug |
+| 8 | **Verified (not "Free Verified")** | Renamed + `https://i.postimg.cc/524KSbn2/Verified.png` |
+| 9 | **Language Fixed** | `data-i18n` system — ALL text updates on switch |
+| 10 | **No Notifications** | Removed completely |
+| 11 | **3 Themes** | 🇻🇳 Vietnam / ⛏ Minecraft / 🔮 Glass (no lag) |
+| 12 | **Mediafire Download** | WebClipper download via Mediafire URL |
+| 13 | **App Store View** | Ranked rows, icons, stars, GET button |
+| 14 | **Visitor Counter** | localStorage count shown in Settings |
+| 15 | **404 Cat Meme** | `http.cat/images/404.jpg` angry cat |
