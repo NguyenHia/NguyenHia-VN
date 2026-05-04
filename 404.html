@@ -9,77 +9,84 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-@font-face{font-family:'MinecraftViet';src:url('fonts/minecraft-Viet.ttf') format('truetype');font-display:swap}
-:root{--p:#FF6B35;--bg:#F1F2F7;--surf:#fff;--surf2:#F5F6FA;--txt:#0F1117;--txt2:#5C6070;--txt3:#9CA3AF;--border:#E2E4EE}
-[data-theme=dark]{--bg:#0A0A12;--surf:#121220;--surf2:#1A1A2A;--txt:#F0F1FF;--txt2:#8B8FA8;--txt3:#555670;--border:#252540}
+@font-face{font-family:'MCViet';src:url('fonts/minecraft-Viet.ttf') format('truetype');font-display:swap}
+:root{--p:#DA251D;--bg:#F5F5F7;--surf:#fff;--surf2:#F2F2F4;--txt:#0F0F0F;--txt2:#555560;--border:#E0E0E8}
+[data-theme="minecraft"]{--p:#5C8A2E;--bg:#1C1C1C;--surf:#2A2A2A;--surf2:#333;--txt:#E8E8E8;--txt2:#A0A0A0;--border:#404040}
+[data-theme="glass"]{--p:#6C63FF;--bg:#667eea;--surf:rgba(255,255,255,0.82);--surf2:rgba(255,255,255,0.55);--txt:#1A1A2E;--txt2:#44445A;--border:rgba(255,255,255,0.45)}
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;transition:background .3s,color .3s;text-align:center}
-.logo-bar{display:flex;align-items:center;gap:9px;justify-content:center;margin-bottom:28px}
-.logo-ico{width:32px;height:32px;border-radius:9px;overflow:hidden;box-shadow:0 2px 8px rgba(255,107,53,.3)}
+[data-theme="glass"] body{background:linear-gradient(135deg,#667eea,#764ba2) fixed}
+.logo-row{display:flex;align-items:center;gap:9px;justify-content:center;margin-bottom:26px}
+.logo-ico{width:34px;height:34px;border-radius:9px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+[data-theme="minecraft"] .logo-ico{border-radius:3px;border:2px solid var(--border)}
 .logo-ico img{width:100%;height:100%;object-fit:cover}
-.logo-ttl{font-family:'MinecraftViet','Inter',sans-serif;font-size:16px;font-weight:700}
-.cat-box{width:190px;height:190px;border-radius:22px;overflow:hidden;margin:0 auto 22px;box-shadow:0 10px 36px rgba(0,0,0,.13);position:relative}
-.cat-box img{width:100%;height:100%;object-fit:cover;display:block}
-.cat-badge{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.65);color:#fff;padding:3px 10px;border-radius:20px;font-size:11px;font-weight:700;white-space:nowrap}
-.err-num{font-family:'MinecraftViet','Inter',sans-serif;font-size:76px;font-weight:900;background:linear-gradient(135deg,#FF6B35,#FF9558);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:7px}
-.err-ttl{font-family:'MinecraftViet','Inter',sans-serif;font-size:22px;font-weight:700;margin-bottom:7px}
-.err-sub{font-size:13px;color:var(--txt2);line-height:1.55;margin-bottom:18px;max-width:320px}
-.url-bar{display:inline-flex;align-items:center;gap:7px;background:var(--surf);border:1.5px solid var(--border);border-radius:9px;padding:8px 14px;font-size:12px;color:var(--txt2);font-family:'Courier New',monospace;margin-bottom:22px;max-width:94vw;word-break:break-all;box-shadow:0 1px 4px rgba(0,0,0,.05)}
-.url-bar i{color:#EF4444;flex-shrink:0}
+.logo-ttl{font-family:'MCViet','Inter',sans-serif;font-size:17px;font-weight:700}
+.cat-wrap{width:180px;height:180px;border-radius:22px;overflow:hidden;margin:0 auto 22px;box-shadow:0 10px 34px rgba(0,0,0,.14);position:relative}
+[data-theme="minecraft"] .cat-wrap{border-radius:4px;border:3px solid var(--border)}
+.cat-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.cat-lbl{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.65);color:#fff;padding:3px 10px;border-radius:20px;font-family:'MCViet','Inter',sans-serif;font-size:11px;font-weight:700;white-space:nowrap}
+.num{font-family:'MCViet','Inter',sans-serif;font-size:74px;font-weight:700;background:linear-gradient(135deg,var(--p),#E8453D);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:8px}
+[data-theme="minecraft"] .num{background:linear-gradient(135deg,#5C8A2E,#7CCC4A);-webkit-background-clip:text}
+[data-theme="glass"] .num{background:linear-gradient(135deg,#6C63FF,#FF6B9D);-webkit-background-clip:text}
+.ttl{font-family:'MCViet','Inter',sans-serif;font-size:22px;font-weight:700;margin-bottom:7px}
+.sub{font-size:13px;color:var(--txt2);line-height:1.55;margin-bottom:18px;max-width:310px}
+.url{display:inline-flex;align-items:center;gap:7px;background:var(--surf);border:1.5px solid var(--border);border-radius:9px;padding:8px 14px;font-size:12px;color:var(--txt2);font-family:'Courier New',monospace;margin-bottom:22px;max-width:96vw;word-break:break-all;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+[data-theme="minecraft"] .url{border-radius:3px;border:2px solid var(--border)}
+[data-theme="glass"] .url{background:var(--surf);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.url i{color:#EF4444;flex-shrink:0}
 .acts{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
-.btn-home{display:inline-flex;align-items:center;gap:7px;background:var(--p);color:#fff;padding:12px 24px;border-radius:12px;font-size:14px;font-weight:800;text-decoration:none;box-shadow:0 4px 14px rgba(255,107,53,.3);transition:all .22s}
-.btn-home:active{transform:scale(.96)}
-.btn-back{display:inline-flex;align-items:center;gap:7px;background:var(--surf);color:var(--txt2);padding:12px 20px;border-radius:12px;font-size:14px;font-weight:700;text-decoration:none;border:1.5px solid var(--border);transition:all .22s}
-.btn-back:active{border-color:var(--p);color:var(--p)}
+.btn-h{display:inline-flex;align-items:center;gap:7px;background:var(--p);color:#fff;padding:12px 24px;border-radius:12px;font-family:'MCViet','Inter',sans-serif;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.15);transition:transform .15s}
+[data-theme="minecraft"] .btn-h{border-radius:3px;border-bottom:3px solid rgba(0,0,0,.3)}
+.btn-h:active{transform:scale(.95)}
+.btn-b{display:inline-flex;align-items:center;gap:7px;background:var(--surf);color:var(--txt2);padding:12px 20px;border-radius:12px;font-family:'MCViet','Inter',sans-serif;font-size:14px;font-weight:700;text-decoration:none;border:1.5px solid var(--border);transition:all .15s}
+[data-theme="minecraft"] .btn-b{border-radius:3px;border:2px solid var(--border)}
+.btn-b:active{border-color:var(--p);color:var(--p)}
 </style>
 </head>
 <body>
-<div class="logo-bar">
+<div class="logo-row">
   <div class="logo-ico">
     <img src="https://i.postimg.cc/VvtqQ7bJ/Nguyen-Hia-VN.png" alt="NH"
-      onerror="this.parentNode.style.background='linear-gradient(135deg,#FF6B35,#FF9558)';this.style.display='none'">
+      onerror="this.parentNode.style.background='linear-gradient(135deg,var(--p),#E8453D)';this.style.display='none'">
   </div>
   <span class="logo-ttl">NguyenHia VN</span>
 </div>
 
-<div class="cat-box">
-  <img src="https://http.cat/images/404.jpg" alt="Angry Cat 404"
-    onerror="this.src='https://cataas.com/cat?width=380&height=380';this.onerror=null">
-  <div class="cat-badge">😾 404 Error</div>
+<div class="cat-wrap">
+  <img src="https://http.cat/images/404.jpg" alt="404 Angry Cat"
+    onerror="this.src='https://cataas.com/cat/angry?width=360&height=360';this.onerror=null">
+  <div class="cat-lbl">😾 404 Not Found</div>
 </div>
 
-<div class="err-num">404</div>
-<div class="err-ttl" id="errTtl">Trang Không Tồn Tại</div>
-<div class="err-sub" id="errSub">Trang bạn đang tìm kiếm không tồn tại, đã bị xóa hoặc URL sai.</div>
+<div class="num">404</div>
+<div class="ttl" id="ttl">Trang Không Tồn Tại</div>
+<div class="sub" id="sub">Trang bạn đang tìm kiếm không tồn tại, đã bị xóa hoặc URL sai.</div>
 
-<div class="url-bar"><i class="fa fa-times-circle"></i><span id="urlDisplay">NguyenHia.Dev/Home/test82837</span></div>
+<div class="url">
+  <i class="fa fa-times-circle"></i>
+  <span id="urlTxt">NguyenHia.Dev/Home/test82837</span>
+</div>
 
 <div class="acts">
-  <a href="index.html" class="btn-home"><i class="fa fa-home"></i><span id="homeBtn">Về Trang Chủ</span></a>
-  <a href="javascript:history.back()" class="btn-back"><i class="fa fa-arrow-left"></i><span id="backBtn">Quay Lại</span></a>
+  <a href="index.html" class="btn-h"><i class="fa fa-home"></i><span id="btnHome">Về Trang Chủ</span></a>
+  <a href="javascript:history.back()" class="btn-b"><i class="fa fa-arrow-left"></i><span id="btnBack">Quay Lại</span></a>
 </div>
 
 <script>
-// Theme
-const t=localStorage.getItem('nhvn_theme')||'system';
-if(t==='dark') document.body.setAttribute('data-theme','dark');
-else if(t==='system'&&window.matchMedia('(prefers-color-scheme: dark)').matches) document.body.setAttribute('data-theme','dark');
-
-// Language
-const vi=(localStorage.getItem('nhvn_lang')||'auto')==='auto'
-  ?(navigator.language||'vi').toLowerCase().startsWith('vi')
-  :localStorage.getItem('nhvn_lang')==='vi';
-
-if(!vi){
-  document.getElementById('errTtl').textContent='Page Not Found';
-  document.getElementById('errSub').textContent='The page you are looking for does not exist, was removed, or the URL is wrong.';
-  document.getElementById('homeBtn').textContent='Go Home';
-  document.getElementById('backBtn').textContent='Go Back';
+const th = localStorage.getItem('nhvn_theme') || 'vietnam';
+document.body.setAttribute('data-theme', th);
+const lang = (() => {
+  const s = localStorage.getItem('nhvn_lang') || 'auto';
+  if (s === 'auto') return (navigator.language || 'vi').toLowerCase().startsWith('vi') ? 'vi' : 'en';
+  return s;
+})();
+if (lang === 'en') {
+  document.getElementById('ttl').textContent = 'Page Not Found';
+  document.getElementById('sub').textContent = 'The page you are looking for does not exist, was removed, or the URL is wrong.';
+  document.getElementById('btnHome').textContent = 'Go Home';
+  document.getElementById('btnBack').textContent = 'Go Back';
 }
-
-// Show actual URL
-const path=window.location.pathname||'/Home/test82837';
-document.getElementById('urlDisplay').textContent='NguyenHia.Dev'+path;
+document.getElementById('urlTxt').textContent = 'NguyenHia.Dev' + (window.location.pathname || '/Home/test82837');
 </script>
 </body>
 </html>
